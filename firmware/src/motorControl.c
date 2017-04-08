@@ -186,10 +186,10 @@ void MOTORCONTROL_Tasks ( void )
                     enableRight();
                     break;
                 case MOTOR_CONTROL_FORWARD:
-                    enableForward();
+                    enableReverse();
                     break;
                 case MOTOR_CONTROL_REVERSE:
-                    enableReverse();
+                    enableForward();
                     break;
                 default: state = state;
             }

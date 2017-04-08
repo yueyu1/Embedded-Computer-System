@@ -4,6 +4,47 @@
 #include "utility.h"
 
 static COMMUNICATION_DATA appData;
+//
+//static uint16_t INTEGRATION_TIME = 0xF681;
+//static uint16_t GAIN = 0x008F;
+//static uint16_t SET_PON = 0x0180;
+//static uint16_t SET_AEN = 0x0380;
+//static uint16_t buffer;
+//
+//static uint8_t RED = 0x96;
+//static uint8_t GREEN = 0x98;
+//static uint8_t BLUE = 0x9A;
+//
+//void RGB_Init1() {
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &INTEGRATION_TIME, 2, NULL);
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &GAIN, 2, NULL);
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &SET_PON, 2, NULL);
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &SET_AEN, 2, NULL); 
+//}
+//void Read_RED1(void * buffer) {
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &RED, 2, NULL);
+//    DRV_I2C0_Receive(ADDRESS_READ, buffer, 2, NULL);
+//}
+//void Read_GREEN1(void * buffer) {
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &GREEN, 2, NULL);
+//    DRV_I2C0_Receive(ADDRESS_READ, buffer, 2, NULL);
+//}
+//void Read_BLUE1(void * buffer) {
+//    DRV_I2C0_Transmit(ADDRESS_WRITE, &BLUE, 2, NULL);
+//    DRV_I2C0_Receive(ADDRESS_READ, buffer, 2, NULL);
+//}
+
+void initVariable() {
+    startPosition.sx = 0;
+    startPosition.sy = 14;
+    goalPosition.gx = 20;
+    goalPosition.gy = 7;
+    
+    MIN_X = 0;
+    MIN_Y = 0;
+    MAX_X = 29;
+    MAX_Y = 29;
+}
 
 void COMMUNICATION_Initialize ( void )
 {   
@@ -13,9 +54,9 @@ void COMMUNICATION_Initialize ( void )
     
     // initialize "Team 6" message
     appData.teamString = "Team 6";
-
-    //strcpy(appData.sendToUARTString, "{\"To\": \"SERVER\", \"From\": \"FLAG\", \"Sequence\": \"420\", \"Payload\": \"Pathfinding\"}";
     
+    //strcpy(appData.sendToUARTString, "{\"To\": \"SERVER\", \"From\": \"FLAG\", \"Sequence\": \"420\", \"Payload\": \"Pathfinding\"}";
+
     // initialize time vars to be 0
     appData.elapsedTime = 0;
     appData.timeMsg = 0;
@@ -53,20 +94,33 @@ void COMMUNICATION_Tasks ( void )
     
     // The motor should stop initially
     sendTimerValtoPathMovement(STOP);
+    //sendTimerValtoPathMovement(MOVE_FORWARD);
+    
+//    initVariable();
+//    resetPathMovementGlobalVariables();
+//    message msg;
+//    strcpy(msg.to, "SENSOR");
+//    strcpy(msg.from, "FLAG");
+//    msg.sequence = 50;
+//    strcpy(msg.payload, "Path");
+//    explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
+//    constructPathJson(appData.sendToUARTString, msg);
+//    //makeMove();
+//    appData.sendReceive = false;
+    
 
     char rxChar;
     
     while(1){
-
         if(!appData.sendReceive){
                 appData.sendReceive = true;
                 emptyCharArray(incomingJson, JSON_MSG_MAX_SIZE);
                 dbgSendMsgServer(appData.sendToUARTString);
                 
-            }
+        }
         
         if(appData.commQ != 0) {
-            // receive message on the q.  blocks indefinitely.
+            // receive message on the q.  blocks indefinitely. 
 
             /*Debug: Output location*/
             //dbgOutputLoc(DLOC_STATE_MSG_Q_WAIT_BEFORE_RECEIVE_MSG);
@@ -178,6 +232,31 @@ void communicationSendToMsgQFromISR(char rxChar) {
     
     portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 }
+
+void sendTapeSensorData(int direction) {
+//    if(direction ==0){
+//        dbgSendMsgServer("Tape indicated from left");
+//    }
+//    if (direction == 1){
+//        dbgSendMsgServer("Tape indicated from right");
+//    }
+//    if (direction == 2){
+//        dbgSendMsgServer("Tape indicated from both direction");
+//    }
+}
+
+void sendColorSensorData(int appearVal) {
+    if (appearVal == 0) {
+        dbgSendMsgServer("1 Detected!");
+    }
+    if (appearVal == 1) {
+        dbgSendMsgServer("2 Detected!");
+    }
+    if (appearVal == 2) {
+        dbgSendMsgServer("Both Detected!");
+    }
+}
+
 
 /*******************************************************************************
  End of File

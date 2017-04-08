@@ -48,7 +48,7 @@ extern "C" {
 #define CMROVER "CM"
 
 #define JSON_VAL_MAX_SIZE 20
-#define MAP_VAL_MAX_SIZE 50
+#define MAP_VAL_MAX_SIZE 200
 
 #define JSON_startbrace '{'
 #define JSON_endbrace '}'
@@ -61,6 +61,9 @@ extern "C" {
 #define JSON_payload * "payload"
     
 #define ROVERSIGN_THIS FLAGROVER
+    
+//#define ADDRESS_WRITE 0x52
+//#define ADDRESS_READ 0x53
 
 typedef struct msg_t {
     char to[JSON_VAL_MAX_SIZE];
@@ -196,6 +199,8 @@ static int FINISHED;
     void doneReceiving(char rx);
     void processMessage(message exMsg);
     void sendMessage(char *to, char *from, int sequence, char* payload);
+    void sendTapeSensorData(int direction);
+    void sendColorSensorData(int appearVal);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus

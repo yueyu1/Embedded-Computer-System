@@ -99,6 +99,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+// <editor-fold defaultstate="collapsed" desc="DRV_I2C Initialization Data">
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_Timer Initialization Data">
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_USART Initialization Data">
@@ -170,6 +172,13 @@ void SYS_Initialize ( void* data )
     SYS_PORTS_Initialize();
 
     /* Initialize Drivers */
+    DRV_I2C0_Initialize();
+    DRV_I2C1_Initialize();
+
+
+    /* Initialize ADC */
+    DRV_ADC_Initialize();
+
     /*Initialize TMR0 */
     DRV_TMR0_Initialize();
     /*Initialize TMR1 */
@@ -192,6 +201,9 @@ void SYS_Initialize ( void* data )
     MOTORCONTROL_Initialize();
     COMMUNICATION_Initialize();
     PATHMOVEMENT_Initialize();
+    TAPESENSOR_Initialize();
+    CONTROLLER_Initialize();
+    COLORSENSOR_Initialize();
 }
 
 

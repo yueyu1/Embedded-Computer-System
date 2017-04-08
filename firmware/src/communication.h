@@ -76,7 +76,8 @@ extern "C" {
 
 // *****************************************************************************
 #define TEAM_SIX_STRING_LENGTH 6
-#define JSON_MSG_MAX_SIZE 300
+#define JSON_MSG_MAX_SIZE 500
+#define MOVEMENT_MAX_SIZE 10
 
 // *****************************************************************************
 /* Application Data
@@ -105,6 +106,7 @@ typedef struct
 static char incomingJson[JSON_MSG_MAX_SIZE];
 static char msgReceived[JSON_MSG_MAX_SIZE];
 static int jsonIndex;
+static char movement[MOVEMENT_MAX_SIZE];
 
 // *****************************************************************************
 // *****************************************************************************

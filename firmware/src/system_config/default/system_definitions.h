@@ -56,9 +56,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system/clk/sys_clk_static.h"
 #include "system/devcon/sys_devcon.h"
 #include "system/int/sys_int.h"
+#include "driver/adc/drv_adc_static.h"
+#include "peripheral/int/plib_int.h"
 #include "driver/tmr/drv_tmr_static.h"
 #include "peripheral/int/plib_int.h"
 #include "driver/usart/drv_usart_static.h"
+#include "driver/i2c/drv_i2c.h"
+#include "framework/driver/i2c/drv_i2c_static_buffer_model.h"
 #include "system/ports/sys_ports.h"
 
 
@@ -69,6 +73,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "motorcontrol.h"
 #include "communication.h"
 #include "pathmovement.h"
+#include "tapesensor.h"
+#include "controller.h"
+#include "colorsensor.h"
 
 
 // DOM-IGNORE-BEGIN

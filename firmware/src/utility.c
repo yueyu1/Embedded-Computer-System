@@ -314,12 +314,12 @@ void constructNextMovementJson(char *buf, message exMsg) {
     coordinate start;
     start.x = startPosition.sx;
     start.y = startPosition.sy;
-    char *nextMo = getNextMovement(start, c);
+    getNextMovement(start, c);
     
     strcat(str,"\", \"");
     strcat(str,"NextMovement");
     strcat(str,"\":\"");
-    strcat(str, nextMo);
+    strcat(str, movement);
     
     strcat(str,"\"}");
     strcpy(buf, str);
@@ -473,22 +473,21 @@ coordinate getNextPoint() {
     return co;
 }
 
-char* getNextMovement(coordinate orig, coordinate next) {
-    char* movement;
+void getNextMovement(coordinate orig, coordinate next) {
     if (next.x > orig.x) {
         if (ORIENTATION == 0) {
-            movement = "FORWARD";
+            strcpy(movement, "FORWARD");
             CURRPOINT.x = next.x;
         }
         else {
             if (ORIENTATION == 1) {
-                movement = "LEFT";
+                strcpy(movement, "LEFT");
             }
             if (ORIENTATION == 2) {
-                movement = "TURNAROUND";
+                strcpy(movement, "TURNAROUND");
             }
             if (ORIENTATION == 3) {
-                movement = "RIGHT";
+                strcpy(movement, "RIGHT");
             }
             ORIENTATION = 0;
         }       
@@ -496,18 +495,18 @@ char* getNextMovement(coordinate orig, coordinate next) {
     
     if (next.x < orig.x) {
         if (ORIENTATION == 2) {
-            movement = "FORWARD";
+            strcpy(movement, "FORWARD");
             CURRPOINT.x = next.x;
         }
         else {
             if (ORIENTATION == 0) {
-            movement = "TURNAROUND";
+            strcpy(movement, "TURNAROUND");
             }
             if (ORIENTATION == 1) {
-                movement = "RIGHT";
+                strcpy(movement, "RIGHT");
             }
             if (ORIENTATION == 3) {
-                movement = "LEFT";
+                strcpy(movement, "LEFT");
             }
             ORIENTATION = 2;
         }       
@@ -515,18 +514,18 @@ char* getNextMovement(coordinate orig, coordinate next) {
     
     if (next.y > orig.y) {
         if (ORIENTATION == 1) {
-            movement = "FORWARD";
+            strcpy(movement, "FORWARD");
             CURRPOINT.y = next.y;
         }
         else {
             if (ORIENTATION == 0) {
-            movement = "RIGHT";
+                strcpy(movement, "RIGHT");
             }
             if (ORIENTATION == 2) {
-                movement = "LEFT";
+                strcpy(movement, "LEFT");
             }
             if (ORIENTATION == 3) {
-                movement = "TURNAROUND";
+                strcpy(movement, "TURNAROUND");
             }
             ORIENTATION = 1;
         }
@@ -535,25 +534,24 @@ char* getNextMovement(coordinate orig, coordinate next) {
     
     if (next.y < orig.y) {
         if (ORIENTATION == 3) {
-            movement = "FORWARD";
+            strcpy(movement, "FORWARD");
             CURRPOINT.y = next.y;
         }
         else {
             if (ORIENTATION == 0) {
-            movement = "LEFT";
+           strcpy(movement, "LEFT");
             }
             if (ORIENTATION == 1) {
-                movement = "TURNAROUND";
+                strcpy(movement, "TURNAROUND");
             }
             if (ORIENTATION == 2) {
-                movement = "RIGHT";
+                strcpy(movement, "RIGHT");
             }
             ORIENTATION = 3;
         }
     }
     orig.x = next.x;
     orig.y = next.y;
-    return movement;
 }
 
 void moveRover(char* nextMovement) {
@@ -581,11 +579,13 @@ void makeMove() {
     g.y = goalPosition.gy;
     next = getNextPoint();
     while (!pointEqual(CURRPOINT, g)) {
-        char *move = getNextMovement(CURRPOINT, next);
-        moveRover(move);
-        if (strcmp(move, "FORWARD") == 0) {
+        getNextMovement(CURRPOINT, next);
+        moveRover(movement);
+        if (strcmp(movement, "FORWARD") == 0) {
             next = getNextPoint();
+            emptyCharArray(movement, 10);
         }
+        emptyCharArray(movement, 10);
     }
 }
 
@@ -597,3 +597,5 @@ void makeMove() {
 //    sendTimerValtoPathMovement(MOVE_FORWARD);
 //}
 /************** end of Movement functions*************/
+
+

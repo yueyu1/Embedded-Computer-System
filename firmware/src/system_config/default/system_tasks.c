@@ -58,6 +58,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "motorcontrol.h"
 #include "communication.h"
 #include "pathmovement.h"
+#include "tapesensor.h"
+#include "controller.h"
+#include "colorsensor.h"
 
 
 // *****************************************************************************
@@ -73,6 +76,9 @@ static void _APP_Tasks(void);
 static void _MOTORCONTROL_Tasks(void);
 static void _COMMUNICATION_Tasks(void);
 static void _PATHMOVEMENT_Tasks(void);
+static void _TAPESENSOR_Tasks(void);
+static void _CONTROLLER_Tasks(void);
+static void _COLORSENSOR_Tasks(void);
 
 
 // *****************************************************************************
@@ -114,6 +120,21 @@ void SYS_Tasks ( void )
     /* Create OS Thread for PATHMOVEMENT Tasks. */
     xTaskCreate((TaskFunction_t) _PATHMOVEMENT_Tasks,
                 "PATHMOVEMENT Tasks",
+                1024, NULL, 1, NULL);
+
+    /* Create OS Thread for TAPESENSOR Tasks. */
+    xTaskCreate((TaskFunction_t) _TAPESENSOR_Tasks,
+                "TAPESENSOR Tasks",
+                1024, NULL, 1, NULL);
+
+    /* Create OS Thread for CONTROLLER Tasks. */
+    xTaskCreate((TaskFunction_t) _CONTROLLER_Tasks,
+                "CONTROLLER Tasks",
+                1024, NULL, 1, NULL);
+
+    /* Create OS Thread for COLORSENSOR Tasks. */
+    xTaskCreate((TaskFunction_t) _COLORSENSOR_Tasks,
+                "COLORSENSOR Tasks",
                 1024, NULL, 1, NULL);
 
     /**************
@@ -210,6 +231,57 @@ static void _PATHMOVEMENT_Tasks(void)
     while(1)
     {
         PATHMOVEMENT_Tasks();
+    }
+}
+
+
+/*******************************************************************************
+  Function:
+    void _TAPESENSOR_Tasks ( void )
+
+  Summary:
+    Maintains state machine of TAPESENSOR.
+*/
+
+static void _TAPESENSOR_Tasks(void)
+{
+    while(1)
+    {
+        TAPESENSOR_Tasks();
+    }
+}
+
+
+/*******************************************************************************
+  Function:
+    void _CONTROLLER_Tasks ( void )
+
+  Summary:
+    Maintains state machine of CONTROLLER.
+*/
+
+static void _CONTROLLER_Tasks(void)
+{
+    while(1)
+    {
+        CONTROLLER_Tasks();
+    }
+}
+
+
+/*******************************************************************************
+  Function:
+    void _COLORSENSOR_Tasks ( void )
+
+  Summary:
+    Maintains state machine of COLORSENSOR.
+*/
+
+static void _COLORSENSOR_Tasks(void)
+{
+    while(1)
+    {
+        COLORSENSOR_Tasks();
     }
 }
 

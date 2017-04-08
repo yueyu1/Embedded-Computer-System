@@ -115,7 +115,7 @@ static PATHMOVEMENT_DATA pathmovementData;
 void PATHMOVEMENT_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
-    pathmovementData.moveQ = xQueueCreate(20, sizeof(char));
+    pathmovementData.moveQ = xQueueCreate(100, sizeof(char));
     if(pathmovementData.moveQ == NULL) {
         dbgSysHalt(DLOC_MSG_Q_SETUP_FAIL);
     }
@@ -147,8 +147,7 @@ void PATHMOVEMENT_Tasks ( void )
     int currentMove = 0;
     int done = 0;
 
-    while(1){
-        
+    while(1){        
         if(pathmovementData.moveQ != 0) {
             // receive message on the q.  blocks indefinitely.
             if(xQueueReceive(pathmovementData.moveQ, &(move), portMAX_DELAY)) {
@@ -230,7 +229,7 @@ void PATHMOVEMENT_Tasks ( void )
             }
             case PATHMOVEMENT_STATE_FORWARD:
             {
-                if(turnPeriods >= 6) {
+                if(turnPeriods >= 14) {
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }

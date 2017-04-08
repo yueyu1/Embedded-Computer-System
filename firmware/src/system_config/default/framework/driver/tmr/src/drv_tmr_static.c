@@ -316,17 +316,17 @@ void DRV_TMR1_Initialize(void)
     /* Disable Timer */
     PLIB_TMR_Stop(TMR_ID_4);
     /* Select clock source */
-    PLIB_TMR_ClockSourceSelect(TMR_ID_4, DRV_TMR_CLKSOURCE_EXTERNAL_SYNCHRONOUS);
+    PLIB_TMR_ClockSourceSelect(TMR_ID_4, DRV_TMR_CLKSOURCE_INTERNAL);
     /* Select prescalar value */
-    PLIB_TMR_PrescaleSelect(TMR_ID_4, TMR_PRESCALE_VALUE_1);
+    PLIB_TMR_PrescaleSelect(TMR_ID_4, TMR_PRESCALE_VALUE_8);
     /* Enable 16 bit mode */
     PLIB_TMR_Mode16BitEnable(TMR_ID_4);
     /* Clear counter */ 
     PLIB_TMR_Counter16BitClear(TMR_ID_4);
     /*Set period */ 
-    PLIB_TMR_Period16BitSet(TMR_ID_4, 255);
+    PLIB_TMR_Period16BitSet(TMR_ID_4, 12499);
     /* Setup Interrupt */   
-    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T4, INT_DISABLE_INTERRUPT);
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T4, INT_PRIORITY_LEVEL1);
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T4, INT_SUBPRIORITY_LEVEL0);          
 }
 
@@ -396,7 +396,11 @@ void DRV_TMR1_CounterClear(void)
 
 uint32_t DRV_TMR1_CounterFrequencyGet(void)
 {
-    return 0;
+    uint32_t prescale, tmrBaseFreq;
+    
+    tmrBaseFreq = SYS_CLK_PeripheralFrequencyGet ( CLK_BUS_FOR_TIMER_PERIPHERAL );
+    prescale = PLIB_TMR_PrescaleGet(TMR_ID_4);
+    return ( tmrBaseFreq / prescale );
 }
 
 TMR_PRESCALE DRV_TMR1_PrescalerGet(void)

@@ -250,7 +250,11 @@
       <Template>
         <Name>system_interrupt_a.S</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>28934989AE9EBEA1574B5FEAD3F56DFF</Checksum>
+        <Checksum>93B0FF34A6FA99EE122C301DCBBB388C</Checksum>
+      </Template>
+      <Template>
+        <Name>colorSensor.c</Name>
+        <Path>Source Files/app</Path>
       </Template>
       <Template>
         <Name>drv_tmr_static.h</Name>
@@ -258,9 +262,28 @@
         <Checksum>1C7228F02C03792BAB187C996AEBCD0E</Checksum>
       </Template>
       <Template>
+        <Name>drv_i2c_static_buffer_model.c</Name>
+        <Path>Source Files/app/system_config/default/framework/driver/i2c/src</Path>
+        <Checksum>7BCBC75DF1FC3AD93F89D693FAF1F7DB</Checksum>
+      </Template>
+      <Template>
         <Name>drv_tmr_mapping.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
         <Checksum>DBE26CBCA22A445A54836CB11F19BC62</Checksum>
+      </Template>
+      <Template>
+        <Name>tapeSensor.c</Name>
+        <Path>Source Files/app</Path>
+      </Template>
+      <Template>
+        <Name>drv_adc_static.h</Name>
+        <Path>Header Files/app/system_config/default/framework/driver/adc</Path>
+        <Checksum>7D6BD97F04B53FC7BF6F312BF9643248</Checksum>
+      </Template>
+      <Template>
+        <Name>drv_adc_static.c</Name>
+        <Path>Source Files/app/system_config/default/framework/driver/adc/src</Path>
+        <Checksum>3CF8053C807A32F09D42EF3303528412</Checksum>
       </Template>
       <Template>
         <Name>motorControl.c</Name>
@@ -272,6 +295,10 @@
         <Checksum>115DDE4372E58D4116BC77DC36FD97DC</Checksum>
       </Template>
       <Template>
+        <Name>controller.c</Name>
+        <Path>Source Files/app</Path>
+      </Template>
+      <Template>
         <Name>communication.c</Name>
         <Path>Source Files/app</Path>
       </Template>
@@ -280,9 +307,13 @@
         <Path>Source Files/app</Path>
       </Template>
       <Template>
+        <Name>tapeSensor.h</Name>
+        <Path>Header Files/app</Path>
+      </Template>
+      <Template>
         <Name>FreeRTOSConfig.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>D03F942C96B030A28AECE97E76E02C88</Checksum>
+        <Checksum>A13942A3AF2C138E5AA129737DB6E371</Checksum>
       </Template>
       <Template>
         <Name>drv_usart_static_byte_model.c</Name>
@@ -297,11 +328,15 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>45A2D6057CBC81FC10E7FF5F33A28E4F</Checksum>
+        <Checksum>8C72F11341D5B955E8B8DC29962D961F</Checksum>
         <ProjectFileChecksum>90F5C401E7DA062C64B1291DAC53CC8E</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>motorControl.h</Name>
+        <Path>Header Files/app</Path>
+      </Template>
+      <Template>
+        <Name>controller.h</Name>
         <Path>Header Files/app</Path>
       </Template>
       <Template>
@@ -317,11 +352,15 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>9F2C0447C811F9B093D15BBD6FF686FE</Checksum>
+        <Checksum>6EAA3B666EBFE5A7F25B3A1606AFFA64</Checksum>
       </Template>
       <Template>
         <Name>main.c</Name>
         <Path>Source Files/app</Path>
+      </Template>
+      <Template>
+        <Name>colorSensor.h</Name>
+        <Path>Header Files/app</Path>
       </Template>
       <Template>
         <Name>pathMovement.h</Name>
@@ -330,12 +369,17 @@
       <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>FE84DF2DB7B0B61BF19C5D06C6B8CA45</Checksum>
+        <Checksum>B26195FA98393CB719E3429903AAA925</Checksum>
       </Template>
       <Template>
         <Name>system_exceptions.c</Name>
         <Path>Source Files/app/system_config/default</Path>
         <Checksum>C111969CA43D6CEA1E9E33A6164E7AE0</Checksum>
+      </Template>
+      <Template>
+        <Name>drv_i2c_static_buffer_model.h</Name>
+        <Path>Header Files/app/system_config/default/framework/driver/i2c</Path>
+        <Checksum>1C02678D863490D3008B0E3372C5648A</Checksum>
       </Template>
       <Template>
         <Name>app.c</Name>
@@ -349,12 +393,12 @@
       <Template>
         <Name>system_tasks.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>B882A89F8F3702C0C2F0644CC3483FD0</Checksum>
+        <Checksum>8543180D8D991DFD3A7E58D86B97A91E</Checksum>
       </Template>
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>D6C5C59669FC228992789447C9445D83</Checksum>
+        <Checksum>D9EE3E2ABA09C1B2216B36127EA2E44B</Checksum>
       </Template>
       <Template>
         <Name>app.h</Name>
@@ -363,7 +407,12 @@
       <Template>
         <Name>drv_tmr_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
-        <Checksum>8B5B6442DED6CF3EC7E05D5BAB0D2566</Checksum>
+        <Checksum>3D25EFF95269B5F8AD534C4501163C41</Checksum>
+      </Template>
+      <Template>
+        <Name>drv_i2c_mapping.c</Name>
+        <Path>Source Files/app/system_config/default/framework/driver/i2c/src</Path>
+        <Checksum>6841FBB14B1E3A020D95F2777CDC8114</Checksum>
       </Template>
       <Template>
         <Name>rtos_hooks.c</Name>

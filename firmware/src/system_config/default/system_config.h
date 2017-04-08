@@ -141,10 +141,10 @@ extern "C" {
 #define DRV_TMR_INTERRUPT_SOURCE_IDX1       INT_SOURCE_TIMER_4
 #define DRV_TMR_INTERRUPT_VECTOR_IDX1       INT_VECTOR_T4
 #define DRV_TMR_ISR_VECTOR_IDX1             _TIMER_4_VECTOR
-#define DRV_TMR_INTERRUPT_PRIORITY_IDX1     INT_DISABLE_INTERRUPT
+#define DRV_TMR_INTERRUPT_PRIORITY_IDX1     INT_PRIORITY_LEVEL1
 #define DRV_TMR_INTERRUPT_SUB_PRIORITY_IDX1 INT_SUBPRIORITY_LEVEL0
-#define DRV_TMR_CLOCK_SOURCE_IDX1           DRV_TMR_CLKSOURCE_EXTERNAL_SYNCHRONOUS
-#define DRV_TMR_PRESCALE_IDX1               TMR_PRESCALE_VALUE_1
+#define DRV_TMR_CLOCK_SOURCE_IDX1           DRV_TMR_CLKSOURCE_INTERNAL
+#define DRV_TMR_PRESCALE_IDX1               TMR_PRESCALE_VALUE_8
 #define DRV_TMR_OPERATION_MODE_IDX1         DRV_TMR_OPERATION_MODE_16_BIT
 #define DRV_TMR_ASYNC_WRITE_ENABLE_IDX1     false
 #define DRV_TMR_POWER_STATE_IDX1            
@@ -160,6 +160,8 @@ extern "C" {
 #define DRV_USART_BUFFER_QUEUE_SUPPORT              false
 #define DRV_USART_SUPPORT_TRANSMIT_DMA              false
 #define DRV_USART_SUPPORT_RECEIVE_DMA               false
+#define DRV_I2C_INTERRUPT_MODE                    		true
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -187,6 +189,12 @@ extern "C" {
 /*** Application Instance 2 Configuration ***/
 
 /*** Application Instance 3 Configuration ***/
+
+/*** Application Instance 4 Configuration ***/
+
+/*** Application Instance 5 Configuration ***/
+
+/*** Application Instance 6 Configuration ***/
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

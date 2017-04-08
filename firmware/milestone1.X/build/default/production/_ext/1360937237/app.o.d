@@ -95,6 +95,36 @@ build/default/production/_ext/1360937237/app.o:  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/int/processor/../templates/int_VariableOffset_Unsupported.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/int/processor/../templates/int_SoftwareNMI_Unsupported.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/system/int/sys_int_mapping.h  \
+ ../src/system_config/default/framework/driver/adc/drv_adc_static.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/plib_adc.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/adc_processor.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/adc_p32xxxx.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/adc_p32mx795f512l.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_EnableControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_StopInIdle_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_CalibrationControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_MuxInputScanSelect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_MuxInputScanSelectExtended_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_VoltageReference_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_MuxChannel0PositiveInput_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_MuxChannel0NegativeInput_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_MuxInputScanControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_SamplingModeControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_SamplesPerInterruptSelect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_SamplingAutoStart_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_SamplingControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_SamplingAcquisitionTime_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_SamplingStatus_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ConversionControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ConversionClock_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ConversionClockSource_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ConversionTriggerSource_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ConversionStopSequenceControl_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ConversionStatus_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ResultFormat_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ResultBufferMode_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ResultBufferFillStatus_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/adc/processor/../templates/adc_ResultGetByIndex_Default.h  \
  ../src/system_config/default/framework/driver/tmr/drv_tmr_static.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/driver/tmr/drv_tmr.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/driver/driver_common.h  \
@@ -230,6 +260,54 @@ build/default/production/_ext/1360937237/app.o:  \
  ../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include/task.h  \
  ../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include/list.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/system/debug/sys_debug.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/driver/i2c/drv_i2c.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/plib_i2c.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/plib_i2c_helper_macros.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/i2c_processor.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/i2c_p32xxxx.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/i2c_p32mx795f512l.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ClockStretching_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_GeneralCall_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SMBus_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_HighFrequency_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ReservedAddressProtect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_StopInIdle_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_IPMI_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ModuleEnable_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_StartDetect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_StopDetect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ArbitrationLoss_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_BusIdle_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_BaudRate_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveAddress7Bit_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveAddress10Bit_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveAddressDetect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_GeneralCallAddressDetect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveMask_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveReadRequest_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveDataDetect_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveClockHold_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_MasterStart_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_MasterStartRepeat_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_MasterReceiverClock1Byte_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_MasterStop_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_TransmitterBusy_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteSend_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteComplete_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteAcknowledge_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_TransmitterOverflow_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteAvailable_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteGet_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteAcknowledge_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_ReceiverOverflow_Default.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveInterruptOnStop_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveInterruptOnStart_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveBufferOverwrite_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_DataLineHoldTime_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveBusCollisionDetect_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveAddressHoldEnable_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_SlaveDataHoldEnable_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/i2c/processor/../templates/i2c_AcksequenceIsInProgress_Unsupported.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/system/ports/sys_ports.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/ports/plib_ports.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/ports/processor/ports_processor.h  \
@@ -259,6 +337,11 @@ build/default/production/_ext/1360937237/app.o:  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/ports/processor/../templates/ports_ChannelChangeNoticeMethod_Unsupported.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h  \
  ../../../../../../../../microchip/harmony/v1_10/framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/driver/i2c/drv_i2c_compatibility.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/driver/i2c/drv_i2c_mapping.h  \
+ ../src/system_config/default/framework/driver/i2c/drv_i2c_static_buffer_model.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/driver/i2c/src/drv_i2c_local.h  \
+ ../../../../../../../../microchip/harmony/v1_10/framework/driver/i2c/src/drv_i2c_variant_mapping.h  \
  ../src/app.h  \
 ../src/motorcontrol.h  \
 ../src/motorControl_public.h  \
@@ -267,6 +350,9 @@ build/default/production/_ext/1360937237/app.o:  \
 ../src/app_public.h  \
 ../src/jsmn.h  \
  ../src/pathmovement.h  \
+../src/tapesensor.h  \
 ../src/communication_public.h  \
-../src/astar.h  \
- ../src/pathMovement.h 
+ ../src/astar.h  \
+../src/pathMovement.h  \
+../src/controller.h  \
+ ../src/colorsensor.h 

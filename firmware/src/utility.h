@@ -46,7 +46,7 @@ void transformMapData();
 
 /* Movement functions */
 coordinate getNextPoint();
-char* getNextMovement(coordinate orig, coordinate next);
+void getNextMovement(coordinate orig, coordinate next);
 void moveRover(char* nextMovement);
 void makeMove();
 
