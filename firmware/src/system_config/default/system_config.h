@@ -106,6 +106,10 @@ extern "C" {
 #define SYS_PORT_D_LAT          0x0
 #define SYS_PORT_D_ODC          0x0
 
+#define SYS_PORT_E_TRIS         0x1ff
+#define SYS_PORT_E_LAT          0x0
+#define SYS_PORT_E_ODC          0x0
+
 #define SYS_PORT_F_TRIS         0x10d
 #define SYS_PORT_F_LAT          0x0
 #define SYS_PORT_F_ODC          0x0
@@ -144,7 +148,7 @@ extern "C" {
 #define DRV_TMR_INTERRUPT_PRIORITY_IDX1     INT_PRIORITY_LEVEL1
 #define DRV_TMR_INTERRUPT_SUB_PRIORITY_IDX1 INT_SUBPRIORITY_LEVEL0
 #define DRV_TMR_CLOCK_SOURCE_IDX1           DRV_TMR_CLKSOURCE_INTERNAL
-#define DRV_TMR_PRESCALE_IDX1               TMR_PRESCALE_VALUE_8
+#define DRV_TMR_PRESCALE_IDX1               TMR_PRESCALE_VALUE_4
 #define DRV_TMR_OPERATION_MODE_IDX1         DRV_TMR_OPERATION_MODE_16_BIT
 #define DRV_TMR_ASYNC_WRITE_ENABLE_IDX1     false
 #define DRV_TMR_POWER_STATE_IDX1            
@@ -195,6 +199,8 @@ extern "C" {
 /*** Application Instance 5 Configuration ***/
 
 /*** Application Instance 6 Configuration ***/
+
+/*** Application Instance 7 Configuration ***/
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

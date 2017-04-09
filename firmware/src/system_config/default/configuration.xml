@@ -245,7 +245,7 @@
       <Template>
         <Name>sys_ports_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/system/ports/src</Path>
-        <Checksum>A0D35755E9D5EAF8AF6D18035E8756CF</Checksum>
+        <Checksum>780F3665BAEC719426A30A3572CD2157</Checksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>
@@ -260,6 +260,7 @@
         <Name>drv_tmr_static.h</Name>
         <Path>Header Files/app/system_config/default/framework/driver/tmr</Path>
         <Checksum>1C7228F02C03792BAB187C996AEBCD0E</Checksum>
+        <ProjectFileChecksum>76591BFEA3A6DF45CBC37873764182BB</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>drv_i2c_static_buffer_model.c</Name>
@@ -270,6 +271,7 @@
         <Name>drv_tmr_mapping.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
         <Checksum>DBE26CBCA22A445A54836CB11F19BC62</Checksum>
+        <ProjectFileChecksum>ED2D7D8DD4AA81BDCE37E90A29F1CBDF</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>tapeSensor.c</Name>
@@ -328,8 +330,8 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>8C72F11341D5B955E8B8DC29962D961F</Checksum>
-        <ProjectFileChecksum>90F5C401E7DA062C64B1291DAC53CC8E</ProjectFileChecksum>
+        <Checksum>F95AE84795B3DDEA08E96072C900651F</Checksum>
+        <ProjectFileChecksum>4548372BED3B090701A7E83631E2A815</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>motorControl.h</Name>
@@ -352,7 +354,11 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>6EAA3B666EBFE5A7F25B3A1606AFFA64</Checksum>
+        <Checksum>46C7BF1788C203E113BC69B83881D924</Checksum>
+      </Template>
+      <Template>
+        <Name>servoArm.c</Name>
+        <Path>Source Files/app</Path>
       </Template>
       <Template>
         <Name>main.c</Name>
@@ -369,12 +375,16 @@
       <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>B26195FA98393CB719E3429903AAA925</Checksum>
+        <Checksum>33BD3B262BC3AAA8F73A37AA284A84E3</Checksum>
       </Template>
       <Template>
         <Name>system_exceptions.c</Name>
         <Path>Source Files/app/system_config/default</Path>
         <Checksum>C111969CA43D6CEA1E9E33A6164E7AE0</Checksum>
+      </Template>
+      <Template>
+        <Name>servoArm.h</Name>
+        <Path>Header Files/app</Path>
       </Template>
       <Template>
         <Name>drv_i2c_static_buffer_model.h</Name>
@@ -393,12 +403,12 @@
       <Template>
         <Name>system_tasks.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>8543180D8D991DFD3A7E58D86B97A91E</Checksum>
+        <Checksum>3BCBADE7223D3BF6CA4E7DE8DC153696</Checksum>
       </Template>
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>D9EE3E2ABA09C1B2216B36127EA2E44B</Checksum>
+        <Checksum>52487941532C41706EF5E3694F24B4CD</Checksum>
       </Template>
       <Template>
         <Name>app.h</Name>
@@ -407,7 +417,8 @@
       <Template>
         <Name>drv_tmr_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
-        <Checksum>3D25EFF95269B5F8AD534C4501163C41</Checksum>
+        <Checksum>7571F0C342446E541F08FD197F79DAAA</Checksum>
+        <ProjectFileChecksum>4593E411C9D8EBC6FF078B2A81450B2F</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>drv_i2c_mapping.c</Name>
@@ -436,11 +447,11 @@
         <Include value="../src/system_config/default"/>
       </C32-AS>
       <C32>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src"/>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src\system_config\default"/>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src\default"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src\system_config\default"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src\default"/>
         <Include value="C:\microchip\harmony\v1_10\framework"/>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src\system_config\default\framework"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src\system_config\default\framework"/>
         <Include value="../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX"/>
         <Include value="../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include"/>
         <Include value="../src/system_config/default"/>

@@ -61,6 +61,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "tapesensor.h"
 #include "controller.h"
 #include "colorsensor.h"
+#include "servoarm.h"
 
 
 // *****************************************************************************
@@ -79,6 +80,7 @@ static void _PATHMOVEMENT_Tasks(void);
 static void _TAPESENSOR_Tasks(void);
 static void _CONTROLLER_Tasks(void);
 static void _COLORSENSOR_Tasks(void);
+static void _SERVOARM_Tasks(void);
 
 
 // *****************************************************************************
@@ -135,6 +137,11 @@ void SYS_Tasks ( void )
     /* Create OS Thread for COLORSENSOR Tasks. */
     xTaskCreate((TaskFunction_t) _COLORSENSOR_Tasks,
                 "COLORSENSOR Tasks",
+                1024, NULL, 1, NULL);
+
+    /* Create OS Thread for SERVOARM Tasks. */
+    xTaskCreate((TaskFunction_t) _SERVOARM_Tasks,
+                "SERVOARM Tasks",
                 1024, NULL, 1, NULL);
 
     /**************
@@ -282,6 +289,23 @@ static void _COLORSENSOR_Tasks(void)
     while(1)
     {
         COLORSENSOR_Tasks();
+    }
+}
+
+
+/*******************************************************************************
+  Function:
+    void _SERVOARM_Tasks ( void )
+
+  Summary:
+    Maintains state machine of SERVOARM.
+*/
+
+static void _SERVOARM_Tasks(void)
+{
+    while(1)
+    {
+        SERVOARM_Tasks();
     }
 }
 

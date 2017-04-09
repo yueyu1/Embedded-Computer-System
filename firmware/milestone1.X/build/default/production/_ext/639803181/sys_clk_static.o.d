@@ -355,4 +355,5 @@ build/default/production/_ext/639803181/sys_clk_static.o:  \
 ../src/astar.h  \
  ../src/pathMovement.h  \
 ../src/controller.h  \
-../src/colorsensor.h 
+../src/colorsensor.h  \
+ ../src/servoarm.h 

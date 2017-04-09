@@ -204,6 +204,7 @@ void SYS_Initialize ( void* data )
     TAPESENSOR_Initialize();
     CONTROLLER_Initialize();
     COLORSENSOR_Initialize();
+    SERVOARM_Initialize();
 }
 
 

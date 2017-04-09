@@ -76,6 +76,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "tapesensor.h"
 #include "controller.h"
 #include "colorsensor.h"
+#include "servoarm.h"
 
 
 // DOM-IGNORE-BEGIN

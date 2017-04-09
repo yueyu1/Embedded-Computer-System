@@ -217,15 +217,15 @@ void sendTapeSensorData(int direction) {
 }
 
 void sendColorSensorData(int appearVal) {
-    if (appearVal == 0) {
-        dbgSendMsgServer("1 Detected!");
-    }
-    if (appearVal == 1) {
-        dbgSendMsgServer("2 Detected!");
-    }
-    if (appearVal == 2) {
-        dbgSendMsgServer("Both Detected!");
-    }
+//    if (appearVal == 0) {
+//        dbgSendMsgServer("1 Detected!");
+//    }
+//    if (appearVal == 1) {
+//        dbgSendMsgServer("2 Detected!");
+//    }
+//    if (appearVal == 2) {
+//        dbgSendMsgServer("Both Detected!");
+//    }
 }
 
 

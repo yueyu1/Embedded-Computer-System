@@ -98,6 +98,7 @@ void IntHandlerDrvTmrInstance0(void)
         sendTimerValtoPathMovement(TIMER_VAL);
         sendTapeSensorQ(1);
         sendColorSensorQ(1);
+        
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);
 }
@@ -105,6 +106,7 @@ void IntHandlerDrvTmrInstance0(void)
 void IntHandlerDrvTmrInstance1(void)
 {
     if(SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_4)) {
+        sendServoArmQ(1);
         //sendTimerValtoPathMovement(TIMER_VAL);
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_4);
@@ -113,13 +115,10 @@ void IntHandlerDrvTmrInstance1(void)
 {
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_RECEIVE))
     {
-        if(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-            char x = dbgRcvUARTVal();
-            communicationSendToMsgQFromISR(x);
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_OUTPUT_COMPARE_2);
         }
-    } 
+     
     
-    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
     
     DRV_USART_TasksTransmit(sysObj.drvUsart0);
     DRV_USART_TasksReceive(sysObj.drvUsart0);

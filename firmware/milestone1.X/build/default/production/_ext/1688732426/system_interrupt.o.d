@@ -357,6 +357,7 @@ build/default/production/_ext/1688732426/system_interrupt.o:  \
 ../src/pathMovement.h  \
 ../src/controller.h  \
  ../src/colorsensor.h  \
+../src/servoarm.h  \
 ../src/communication_public.h  \
  ../src/motorControl_public.h  \
 ../src/debug.h  \
