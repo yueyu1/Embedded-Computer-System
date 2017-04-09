@@ -77,7 +77,8 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-
+#define FORWARD 2
+#define BACKWARD 3
 // *****************************************************************************
 /* Application states
 
@@ -92,10 +93,11 @@ extern "C" {
 typedef enum
 {
 	/* Application's state machine's initial state. */
-	SERVOARM_STATE_INIT=0,
-	SERVOARM_STATE_FORWARD,
-            SERVOARM_STATE_REVERSE,
-            SERVOARM_STATE_HALT
+	SERVOARM_STATE_INIT = 0,
+        SERVOARM_STATE_FORWARD,
+        SERVOARM_STATE_REVERSE,
+        SERVOARM_STATE_HALT,
+        SERVOARM_STATE_WAIT
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -120,6 +122,11 @@ typedef struct
     /* The application's current state */
     SERVOARM_STATES state;
     QueueHandle_t servoarmQ;
+    int nextMoves[10];
+    int moveIndex;
+    int curMove;
+    int pulseCtr;
+    int stateCtr;
     /* TODO: Define any additional data used by the application. */
 
 } SERVOARM_DATA;
@@ -212,6 +219,8 @@ void sendServoArmQ(unsigned int servoVal);
 void moveArmForward();
 
 void moveArmBackward();
+
+void turnUp();
 
 
 #endif /* _SERVOARM_H */

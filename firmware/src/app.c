@@ -56,6 +56,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app.h"
 #include "motorControl_public.h"
 #include "communication_public.h"
+#include "pathMovement.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -161,8 +162,17 @@ void APP_Tasks ( void )
     
     // Debug: Output Location
     dbgOutputLoc(0x00);
+    
+    int cmdctr=0;
 
-    while(1){
+    while(1) {
+//        if(cmdctr==0)sendTimerValtoPathMovement(MOVE_FORWARD);
+//        else if(cmdctr==1)sendTimerValtoPathMovement(MOVE_FORWARD);
+//        //    sendTimerValtoPathMovement(MOVE_RIGHT);
+//        //    sendTimerValtoPathMovement(MOVE_LEFT);
+//        else if(cmdctr==2)sendServoArmQ(BACKWARD);
+//        else if(cmdctr==3)sendTimerValtoPathMovement(MOVE_FORWARD);
+//        cmdctr++;
         if(appData.encMsgQ != 0) {
             // receive message on the q.  blocks indefinitely.
 

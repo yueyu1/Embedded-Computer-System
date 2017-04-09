@@ -64,7 +64,7 @@ void COMMUNICATION_Tasks ( void )
     appData.delimitCounter = 0;
     
     // The motor should stop initially
-    sendTimerValtoPathMovement(STOP);
+//    sendTimerValtoPathMovement(STOP);
     //sendTimerValtoPathMovement(MOVE_FORWARD);
     
 //    initVariable();

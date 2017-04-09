@@ -95,7 +95,6 @@ void IntHandlerDrvTmrInstance0(void)
 {
     if(SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_2)) {
         appSendEncValToQ(DRV_TMR1_CounterValueGet());
-        sendTimerValtoPathMovement(TIMER_VAL);
         sendTapeSensorQ(1);
         sendColorSensorQ(1);
         
@@ -106,7 +105,9 @@ void IntHandlerDrvTmrInstance0(void)
 void IntHandlerDrvTmrInstance1(void)
 {
     if(SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_4)) {
-        sendServoArmQ(1);
+        sendTimerValtoPathMovement(TIMER_VAL);
+//        sendServoArmQ(1);
+        turnUp();
         //sendTimerValtoPathMovement(TIMER_VAL);
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_4);

@@ -260,7 +260,6 @@
         <Name>drv_tmr_static.h</Name>
         <Path>Header Files/app/system_config/default/framework/driver/tmr</Path>
         <Checksum>1C7228F02C03792BAB187C996AEBCD0E</Checksum>
-        <ProjectFileChecksum>76591BFEA3A6DF45CBC37873764182BB</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>drv_i2c_static_buffer_model.c</Name>
@@ -271,7 +270,6 @@
         <Name>drv_tmr_mapping.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
         <Checksum>DBE26CBCA22A445A54836CB11F19BC62</Checksum>
-        <ProjectFileChecksum>ED2D7D8DD4AA81BDCE37E90A29F1CBDF</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>tapeSensor.c</Name>
@@ -418,7 +416,6 @@
         <Name>drv_tmr_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
         <Checksum>7571F0C342446E541F08FD197F79DAAA</Checksum>
-        <ProjectFileChecksum>4593E411C9D8EBC6FF078B2A81450B2F</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>drv_i2c_mapping.c</Name>

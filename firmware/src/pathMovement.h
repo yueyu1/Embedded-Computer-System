@@ -84,6 +84,7 @@ extern "C" {
 #define MOVE_RIGHT 4
 
 #define STOP 5
+#define COMPLETE_STOP 6
 // *****************************************************************************
 /* Application states
 
@@ -98,12 +99,13 @@ extern "C" {
 typedef enum
 {
 	/* Application's state machine's initial state. */
-	PATHMOVEMENT_STATE_INIT=0,
-	PATHMOVEMENT_STATE_RIGHT,
-    PATHMOVEMENT_STATE_LEFT,
-    PATHMOVEMENT_STATE_FORWARD,
-    PATHMOVEMENT_STATE_REVERSE,
-    PATHMOVEMENT_STATE_STOP,
+	PATHMOVEMENT_STATE_INIT = 0,
+        PATHMOVEMENT_STATE_RIGHT,
+        PATHMOVEMENT_STATE_LEFT,
+        PATHMOVEMENT_STATE_FORWARD,
+        PATHMOVEMENT_STATE_REVERSE,
+        PATHMOVEMENT_STATE_STOP,
+        PATHMOVEMENT_STATE_COMPLETE_STOP,
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -128,6 +130,8 @@ typedef struct
     /* The application's current state */
     PATHMOVEMENT_STATES state;
     QueueHandle_t moveQ;
+    DRV_HANDLE handle;
+    DRV_TMR_CALLBACK sendTimerVal;
     /* TODO: Define any additional data used by the application. */
 
 } PATHMOVEMENT_DATA;
@@ -213,6 +217,7 @@ void PATHMOVEMENT_Initialize ( void );
 
 void PATHMOVEMENT_Tasks( void );
 void sendTimerValtoPathMovement(char timerVal);
+
 
 
 #endif /* _PATHMOVEMENT_H */

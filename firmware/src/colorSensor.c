@@ -279,6 +279,10 @@ void COLORSENSOR_Tasks ( void )
     unsigned int recvVal;
     unsigned int secondCtr = 0;
     
+    motorControlSendValToMsgQ(MOTOR_CONTROL_FORWARD);
+    sendTimerValtoPathMovement(COMPLETE_STOP);
+    sendTimerValtoPathMovement(MOVE_REVERSE);
+    
     while (1) {
         if (colorsensorData.colorsensorQ != 0) {
             // receive message on the q.  blocks indefinitely.

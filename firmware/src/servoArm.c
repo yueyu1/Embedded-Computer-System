@@ -120,7 +120,12 @@ void SERVOARM_Initialize ( void )
     if(servoarmData.servoarmQ == NULL) {
         dbgSysHalt(DLOC_MSG_Q_SETUP_FAIL);
     }
+    servoarmData.moveIndex = 0;
+    servoarmData.curMove = 0;
     
+    servoarmData.pulseCtr = 0;
+    servoarmData.stateCtr = 0;
+     
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
@@ -137,13 +142,14 @@ void SERVOARM_Initialize ( void )
 
 void SERVOARM_Tasks ( void )
 {
+
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_4);
     DRV_TMR1_Start();
+
     
-    int recvTapeVal;
+    int recvServoVal;
     int ctr = 0;
-    int pulseCtr = 0;
     moveArm(0);
-    int stateCtr = 0;
     
     while (1) {
 
@@ -153,10 +159,19 @@ void SERVOARM_Tasks ( void )
 
             /*Debug: Output location*/
 //            dbgOutputLoc(DLOC_STATE_MSG_Q_WAIT_BEFORE_RECEIVE_MSG);
-            if(xQueueReceive(servoarmData.servoarmQ, &(recvTapeVal), portMAX_DELAY)) {
-//                moveArm(1);
-                pulseCtr++;
-
+            if(xQueueReceive(servoarmData.servoarmQ, &(recvServoVal), portMAX_DELAY)) {
+                if(recvServoVal == FORWARD){
+//                    moveArm(0);
+                    servoarmData.state = SERVOARM_STATE_FORWARD;
+                }
+                else if(recvServoVal == BACKWARD){
+//                    moveArm(0);
+                    servoarmData.state = SERVOARM_STATE_REVERSE;
+                }
+                else {
+                    servoarmData.pulseCtr++;
+                }
+                
             }
             else {
                 dbgSysHalt(DLOC_MSG_Q_RX_FAIL);
@@ -179,42 +194,48 @@ void SERVOARM_Tasks ( void )
                 if (appInitialized) {
                     servoarmData.state = SERVOARM_STATE_HALT;
                 }
+                
+                break;
+            }
+            case SERVOARM_STATE_WAIT:
+            {
+                moveArm(0);
                 break;
             }
             case SERVOARM_STATE_FORWARD:
             {
 
-                if (pulseCtr == 299) { // 1 ms
+                if (servoarmData.pulseCtr == 299) { // 1 ms
                     moveArm(1);
 
                 }
-                if (pulseCtr >= 300) { //20 ms
-                    pulseCtr = 0;
+                if (servoarmData.pulseCtr >= 300) { //20 ms
+                    servoarmData.pulseCtr = 0;
                     moveArm(0);
-                    stateCtr++;
+                    servoarmData.stateCtr++;
                 }
 
-                if (stateCtr == 200) {
-                    stateCtr = 0;
-                    servoarmData.state = SERVOARM_STATE_REVERSE;
+                if (servoarmData.stateCtr == 100) {
+                    servoarmData.stateCtr = 0;
+                    servoarmData.state = SERVOARM_STATE_HALT;
                 }
                 break;
             }
             case SERVOARM_STATE_REVERSE:
             {
 
-                if (pulseCtr == 275) { // 1 ms
+                if (servoarmData.pulseCtr == 275) { // 1 ms
                     moveArm(1);
 
                 }
-                if (pulseCtr >= 300) { //20 ms
-                    pulseCtr = 0;
+                if (servoarmData.pulseCtr >= 300) { //20 ms
+                    servoarmData.pulseCtr = 0;
                     moveArm(0);
-                    stateCtr++;
+                    servoarmData.stateCtr++;
                 }
 
-                if (stateCtr == 200) {
-                    stateCtr = 0;
+                if (servoarmData.stateCtr == 100) {
+                    servoarmData.stateCtr = 0;
                     servoarmData.state = SERVOARM_STATE_HALT;
                 }
                 break;
@@ -223,20 +244,31 @@ void SERVOARM_Tasks ( void )
             case SERVOARM_STATE_HALT:
             {
 
-                if (pulseCtr == 285) { //1.5 ms
+                if (servoarmData.pulseCtr == 285) { //1.5 ms
                     moveArm(1);
+//                    servoarmData.stateCtr++;
                     
                 }
-                if (pulseCtr >= 300) { //20 ms
-                    pulseCtr = 0;
+                if (servoarmData.pulseCtr >= 300) { //20 ms
+                    servoarmData.pulseCtr = 0;
                     moveArm(0);
-                    stateCtr++;
+//                    servoarmData.stateCtr=0;
+//                    if(servoarmData.moveIndex > servoarmData.curMove){
+//                        if(servoarmData.nextMoves[servoarmData.curMove] == FORWARD){
+//                            servoarmData.state = SERVOARM_STATE_FORWARD;
+//                        }
+//                        if(servoarmData.nextMoves[servoarmData.curMove] == BACKWARD){
+//                            servoarmData.state = SERVOARM_STATE_REVERSE;
+//                        }
+//                        servoarmData.curMove++;
+//                    }
+//                    servoarmData.stateCtr++;
                 }
                 
-                if(stateCtr == 100){
-                    stateCtr = 0;
-                    servoarmData.state = SERVOARM_STATE_FORWARD;
-                }
+//                if(servoarmData.stateCtr == 100){
+//                    servoarmData.stateCtr = 0;
+//                    servoarmData.state = SERVOARM_STATE_FORWARD;
+//                }
                 break;
             }
 
@@ -282,13 +314,20 @@ void sendServoArmQ(unsigned int servoVal) {
     portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 }
 
-void moveArmForward(){
-    servoarmData.state = SERVOARM_STATE_FORWARD;
+void turnUp(){
+//    servoarmData.pulseCtr++;
+    sendServoArmQ(1);
 }
 
-void moveArmBackward(){
-    servoarmData.state = SERVOARM_STATE_REVERSE;
-}
+//void moveArmForward(){
+////    servoarmData.state = SERVOARM_STATE_FORWARD;
+//    servoarmData.nextMoves[servoarmData.moveIndex] = FORWARD;
+//    servoarmData.moveIndex++;
+//}
+//
+//void moveArmBackward(){
+//    servoarmData.state = SERVOARM_STATE_REVERSE;
+//}
  
 
 /*******************************************************************************
