@@ -4,35 +4,6 @@
 #include "utility.h"
 
 static COMMUNICATION_DATA appData;
-//
-//static uint16_t INTEGRATION_TIME = 0xF681;
-//static uint16_t GAIN = 0x008F;
-//static uint16_t SET_PON = 0x0180;
-//static uint16_t SET_AEN = 0x0380;
-//static uint16_t buffer;
-//
-//static uint8_t RED = 0x96;
-//static uint8_t GREEN = 0x98;
-//static uint8_t BLUE = 0x9A;
-//
-//void RGB_Init1() {
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &INTEGRATION_TIME, 2, NULL);
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &GAIN, 2, NULL);
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &SET_PON, 2, NULL);
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &SET_AEN, 2, NULL); 
-//}
-//void Read_RED1(void * buffer) {
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &RED, 2, NULL);
-//    DRV_I2C0_Receive(ADDRESS_READ, buffer, 2, NULL);
-//}
-//void Read_GREEN1(void * buffer) {
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &GREEN, 2, NULL);
-//    DRV_I2C0_Receive(ADDRESS_READ, buffer, 2, NULL);
-//}
-//void Read_BLUE1(void * buffer) {
-//    DRV_I2C0_Transmit(ADDRESS_WRITE, &BLUE, 2, NULL);
-//    DRV_I2C0_Receive(ADDRESS_READ, buffer, 2, NULL);
-//}
 
 void initVariable() {
     startPosition.sx = 0;
