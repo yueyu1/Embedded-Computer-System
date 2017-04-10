@@ -229,7 +229,7 @@ void PATHMOVEMENT_Tasks ( void )
             }
             case PATHMOVEMENT_STATE_FORWARD:
             {
-                if(turnPeriods >= 14) {
+                if(turnPeriods >= 6) {
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }

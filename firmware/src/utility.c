@@ -513,41 +513,41 @@ void getNextMovement(coordinate orig, coordinate next) {
     }
     
     if (next.y > orig.y) {
-        if (ORIENTATION == 1) {
-            strcpy(movement, "FORWARD");
-            CURRPOINT.y = next.y;
-        }
-        else {
-            if (ORIENTATION == 0) {
-                strcpy(movement, "RIGHT");
-            }
-            if (ORIENTATION == 2) {
-                strcpy(movement, "LEFT");
-            }
-            if (ORIENTATION == 3) {
-                strcpy(movement, "TURNAROUND");
-            }
-            ORIENTATION = 1;
-        }
-        
-    }
-    
-    if (next.y < orig.y) {
         if (ORIENTATION == 3) {
             strcpy(movement, "FORWARD");
             CURRPOINT.y = next.y;
         }
         else {
             if (ORIENTATION == 0) {
-           strcpy(movement, "LEFT");
-            }
-            if (ORIENTATION == 1) {
-                strcpy(movement, "TURNAROUND");
+                strcpy(movement, "LEFT");
             }
             if (ORIENTATION == 2) {
                 strcpy(movement, "RIGHT");
             }
+            if (ORIENTATION == 1) {
+                strcpy(movement, "TURNAROUND");
+            }
             ORIENTATION = 3;
+        }
+        
+    }
+    
+    if (next.y < orig.y) {
+        if (ORIENTATION == 1) {
+            strcpy(movement, "FORWARD");
+            CURRPOINT.y = next.y;
+        }
+        else {
+            if (ORIENTATION == 0) {
+           strcpy(movement, "RIGHT");
+            }
+            if (ORIENTATION == 3) {
+                strcpy(movement, "TURNAROUND");
+            }
+            if (ORIENTATION == 2) {
+                strcpy(movement, "LEFT");
+            }
+            ORIENTATION = 1;
         }
     }
     orig.x = next.x;

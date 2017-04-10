@@ -200,17 +200,17 @@ bool rgbRead2(){
 }
 
 void sendSensorStatus() {
-    if (blueAppears1 && !blueAppears2) {
-        sendColorSensorData(0);
-    }
-    
-    if (blueAppears2 && !blueAppears1) {
-        sendColorSensorData(1);
-    }
-    
-    if (blueAppears1 && blueAppears2) {
-        sendColorSensorData(2);
-    }
+//    if (blueAppears1 && !blueAppears2) {
+//        sendColorSensorData(0);
+//    }
+//    
+//    if (blueAppears2 && !blueAppears1) {
+//        sendColorSensorData(1);
+//    }
+//    
+//    if (blueAppears1 && blueAppears2) {
+//        sendColorSensorData(2);
+//    }
 }
 
 //void sendSensorStatus() {
