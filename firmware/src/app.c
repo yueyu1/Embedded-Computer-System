@@ -169,7 +169,7 @@ void APP_Tasks ( void )
             /*Debug: Output location*/
 //            dbgOutputLoc(DLOC_STATE_MSG_Q_WAIT_BEFORE_RECEIVE_MSG);
             if(xQueueReceive(appData.encMsgQ, &(recvVal), portMAX_DELAY)) {
-                DRV_TMR1_CounterClear();
+//                DRV_TMR1_CounterClear();
             }
             else {
                 dbgSysHalt(DLOC_MSG_Q_RX_FAIL);

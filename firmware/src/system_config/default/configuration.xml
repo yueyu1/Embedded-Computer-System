@@ -329,7 +329,7 @@
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
         <Checksum>8C72F11341D5B955E8B8DC29962D961F</Checksum>
-        <ProjectFileChecksum>90F5C401E7DA062C64B1291DAC53CC8E</ProjectFileChecksum>
+        <ProjectFileChecksum>4548372BED3B090701A7E83631E2A815</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>motorControl.h</Name>
@@ -398,7 +398,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>D9EE3E2ABA09C1B2216B36127EA2E44B</Checksum>
+        <Checksum>52B920AA88CBEE10308CC1F53CCCF318</Checksum>
       </Template>
       <Template>
         <Name>app.h</Name>
@@ -407,7 +407,7 @@
       <Template>
         <Name>drv_tmr_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/tmr/src</Path>
-        <Checksum>3D25EFF95269B5F8AD534C4501163C41</Checksum>
+        <Checksum>7571F0C342446E541F08FD197F79DAAA</Checksum>
       </Template>
       <Template>
         <Name>drv_i2c_mapping.c</Name>
@@ -436,11 +436,11 @@
         <Include value="../src/system_config/default"/>
       </C32-AS>
       <C32>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src"/>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src\system_config\default"/>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src\default"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src\system_config\default"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src\default"/>
         <Include value="C:\microchip\harmony\v1_10\framework"/>
-        <Include value="C:\Users\Yue\Documents\GitHub\milestone1\firmware\src\system_config\default\framework"/>
+        <Include value="C:\Users\Apoorva\Documents\GitHub\ece4534\firmware\src\system_config\default\framework"/>
         <Include value="../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX"/>
         <Include value="../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include"/>
         <Include value="../src/system_config/default"/>
