@@ -309,7 +309,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../../../../../microchip/harmony/v1_09/framework;../../../../../../../microchip/harmony/v1_09/framework;../../../../../../../../../microchip/harmony/v1_09/framework;../../../../../../../../microchip/harmony/v1_10/framework;../src;../src/default;../src/system_config/default/framework;../src/system_config/default;../../../../../../../microchip/harmony/v1_10/framework;../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX;../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include"/>
+                  value="../../../../../../microchip/harmony/v1_09/framework;../../../../../../../microchip/harmony/v1_09/framework;../../../../../../../../../microchip/harmony/v1_09/framework;../../../../../../../../microchip/harmony/v1_10/framework;../src;../src/system_config/default;../src/default;../../../../../../../microchip/harmony/v1_10/framework;../src/system_config/default/framework;../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX;../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -329,7 +329,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="extra-include-directories-for-assembler" value=";"/>
+        <property key="extra-include-directories-for-assembler" value=""/>
         <property key="extra-include-directories-for-preprocessor"
                   value=";../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX;../../../../../../../microchip/harmony/v1_10/third_party/rtos/FreeRTOS/Source/include;../src/system_config/default;"/>
         <property key="generate-micro-compressed-code" value="false"/>

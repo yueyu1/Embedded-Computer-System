@@ -245,7 +245,8 @@
       <Template>
         <Name>sys_ports_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/system/ports/src</Path>
-        <Checksum>A0D35755E9D5EAF8AF6D18035E8756CF</Checksum>
+        <Checksum>780F3665BAEC719426A30A3572CD2157</Checksum>
+        <ProjectFileChecksum>BCA36E9A44A31AAC57209D9A945E69F1</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>
@@ -398,7 +399,8 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>52B920AA88CBEE10308CC1F53CCCF318</Checksum>
+        <Checksum>8BB8489FBA52A4328836BF5EC881729F</Checksum>
+        <ProjectFileChecksum>06BFF00555EEEE3D5DE6E8061B7903DB</ProjectFileChecksum>
       </Template>
       <Template>
         <Name>app.h</Name>

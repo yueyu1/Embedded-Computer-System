@@ -124,6 +124,8 @@ void PATHMOVEMENT_Initialize ( void )
     
     PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_4);
     DRV_TMR1_Start();
+    
+    armControl(0);
 
     
     /* TODO: Initialize your application's state machine and other
@@ -149,6 +151,8 @@ void PATHMOVEMENT_Tasks ( void )
     int moveIndex = 0;
     int currentMove = 0;
     int done = 0;
+    int pulseCtr = 0;
+    int armValue = ARM_UP;
 
     while(1){        
         if(pathmovementData.moveQ != 0) {
@@ -156,6 +160,9 @@ void PATHMOVEMENT_Tasks ( void )
             if(xQueueReceive(pathmovementData.moveQ, &(move), portMAX_DELAY)) {
                 if(move == TIMER_VAL){
                     turnPeriods++;
+                    pulseCtr++;
+                    
+                    
                 }
                 else if(move == MOVE_RIGHT){
                     moves[moveIndex] = MOVE_RIGHT;
@@ -173,10 +180,31 @@ void PATHMOVEMENT_Tasks ( void )
                     moves[moveIndex] = MOVE_REVERSE;
                     moveIndex++;
                 }
+                else if(move == ARM_FORWARD){
+                    moves[moveIndex] = ARM_FORWARD;
+                    moveIndex++;
+                }
+                else if(move == ARM_REVERSE){
+                    moves[moveIndex] = ARM_REVERSE;
+                    moveIndex++;
+                }
+                else if(move == COMPLETE_STOP){
+                    pathmovementData.state = PATHMOVEMENT_STATE_COMPLETE_STOP;
+                }
+                
             }
             else {
                 dbgSysHalt(DLOC_MSG_Q_RX_FAIL);
             }
+        }
+        
+        if (pulseCtr == armValue) { // 1 ms
+            armControl(1);
+
+        }
+        if (pulseCtr >= 300) { //20 ms
+            pulseCtr = 0;
+            armControl(0);
         }
         
         switch (pathmovementData.state) {
@@ -210,6 +238,12 @@ void PATHMOVEMENT_Tasks ( void )
                         else if (moves[currentMove] == MOVE_REVERSE) {
                             pathmovementData.state = PATHMOVEMENT_STATE_REVERSE;
                         }
+                        else if (moves[currentMove] == ARM_FORWARD) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_ARM_FORWARD;
+                        }
+                        else if (moves[currentMove] == ARM_REVERSE) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_ARM_REVERSE;
+                        }
                         currentMove++;
                     }
                 }
@@ -242,6 +276,7 @@ void PATHMOVEMENT_Tasks ( void )
                 motorControlSendValToMsgQ(MOTOR_CONTROL_FORWARD);
                 break;
             }
+            
             case PATHMOVEMENT_STATE_REVERSE:
             {
                 if(turnPeriods >= 6800) {
@@ -249,6 +284,40 @@ void PATHMOVEMENT_Tasks ( void )
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
                 motorControlSendValToMsgQ(MOTOR_CONTROL_REVERSE);
+                break;
+            }
+            
+             case PATHMOVEMENT_STATE_COMPLETE_STOP:
+            {
+                
+                motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+                turnPeriods = 0;
+                moveIndex = 0;
+                currentMove = 0;
+                pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                break;
+            }
+             
+            case PATHMOVEMENT_STATE_ARM_FORWARD:
+            {
+                
+                armValue = ARM_DOWN;
+                if(turnPeriods >= 30000) {
+                    turnPeriods = 0;
+                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                }
+                
+                break;
+            }
+            
+            case PATHMOVEMENT_STATE_ARM_REVERSE:
+            {
+                armValue = ARM_UP;
+                if(turnPeriods >= 20000) {
+                    turnPeriods = 0;
+                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                }
+                
                 break;
             }
 
