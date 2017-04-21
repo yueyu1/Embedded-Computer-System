@@ -84,6 +84,12 @@ extern "C" {
 #define MOVE_RIGHT 4
 
 #define STOP 5
+#define COMPLETE_STOP 6
+#define ARM_FORWARD 7
+#define ARM_REVERSE 8
+#define ARM_DOWN 298
+#define ARM_UP 275
+#define ARM_NEUTRAL 285
 // *****************************************************************************
 /* Application states
 
@@ -98,12 +104,15 @@ extern "C" {
 typedef enum
 {
 	/* Application's state machine's initial state. */
-	PATHMOVEMENT_STATE_INIT=0,
-	PATHMOVEMENT_STATE_RIGHT,
-    PATHMOVEMENT_STATE_LEFT,
-    PATHMOVEMENT_STATE_FORWARD,
-    PATHMOVEMENT_STATE_REVERSE,
-    PATHMOVEMENT_STATE_STOP,
+	PATHMOVEMENT_STATE_INIT = 0,
+        PATHMOVEMENT_STATE_RIGHT,
+        PATHMOVEMENT_STATE_LEFT,
+        PATHMOVEMENT_STATE_FORWARD,
+        PATHMOVEMENT_STATE_REVERSE,
+        PATHMOVEMENT_STATE_STOP,
+        PATHMOVEMENT_STATE_COMPLETE_STOP,
+        PATHMOVEMENT_STATE_ARM_FORWARD,
+        PATHMOVEMENT_STATE_ARM_REVERSE
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -213,7 +222,7 @@ void PATHMOVEMENT_Initialize ( void );
 
 void PATHMOVEMENT_Tasks( void );
 void sendTimerValtoPathMovement(char timerVal);
-
+void armControl(int dir);
 
 #endif /* _PATHMOVEMENT_H */
 

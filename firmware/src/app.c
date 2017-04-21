@@ -157,7 +157,7 @@ void APP_Tasks ( void )
     DRV_TMR0_Start();    
     
     // start Timer 4 (enc counter)
-    DRV_TMR1_Start();
+//    DRV_TMR1_Start();
     
     // Debug: Output Location
     dbgOutputLoc(0x00);

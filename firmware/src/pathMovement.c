@@ -115,12 +115,15 @@ static PATHMOVEMENT_DATA pathmovementData;
 void PATHMOVEMENT_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
-    pathmovementData.moveQ = xQueueCreate(100, sizeof(char));
+    pathmovementData.moveQ = xQueueCreate(10000, sizeof(char));
     if(pathmovementData.moveQ == NULL) {
         dbgSysHalt(DLOC_MSG_Q_SETUP_FAIL);
     }
 
     pathmovementData.state = PATHMOVEMENT_STATE_INIT;
+    
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_4);
+    DRV_TMR1_Start();
 
     
     /* TODO: Initialize your application's state machine and other
@@ -189,29 +192,32 @@ void PATHMOVEMENT_Tasks ( void )
 
             case PATHMOVEMENT_STATE_STOP:
             {
-                turnPeriods = 0;
+//                turnPeriods = 0;
                 motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
-                if(moveIndex > currentMove){
-                    
-                    if(moves[currentMove] == MOVE_LEFT){
-                        pathmovementData.state = PATHMOVEMENT_STATE_LEFT;
+                if (turnPeriods >= 500) {
+                    turnPeriods = 0;
+                    if (moveIndex > currentMove) {
+
+                        if (moves[currentMove] == MOVE_LEFT) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_LEFT;
+                        } 
+                        else if (moves[currentMove] == MOVE_RIGHT) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_RIGHT;
+                        } 
+                        else if (moves[currentMove] == MOVE_FORWARD) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_FORWARD;
+                        } 
+                        else if (moves[currentMove] == MOVE_REVERSE) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_REVERSE;
+                        }
+                        currentMove++;
                     }
-                    else if(moves[currentMove] == MOVE_RIGHT){
-                        pathmovementData.state = PATHMOVEMENT_STATE_RIGHT;
-                    }
-                    else if(moves[currentMove] == MOVE_FORWARD){
-                        pathmovementData.state = PATHMOVEMENT_STATE_FORWARD;
-                    }
-                    else if(moves[currentMove] == MOVE_REVERSE){
-                        pathmovementData.state = PATHMOVEMENT_STATE_REVERSE;
-                    }
-                    currentMove++;
                 }
                 break;
             }
             case PATHMOVEMENT_STATE_RIGHT:
             {
-                if(turnPeriods >= 13){
+                if(turnPeriods >= 14000){
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
@@ -220,7 +226,7 @@ void PATHMOVEMENT_Tasks ( void )
             }
             case PATHMOVEMENT_STATE_LEFT:
             {
-                if(turnPeriods >= 13) {
+                if(turnPeriods >= 13800) {
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
@@ -229,7 +235,7 @@ void PATHMOVEMENT_Tasks ( void )
             }
             case PATHMOVEMENT_STATE_FORWARD:
             {
-                if(turnPeriods >= 6) {
+                if(turnPeriods >= 7300) {
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
@@ -238,7 +244,7 @@ void PATHMOVEMENT_Tasks ( void )
             }
             case PATHMOVEMENT_STATE_REVERSE:
             {
-                if(turnPeriods >= 6) {
+                if(turnPeriods >= 6800) {
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
@@ -257,6 +263,19 @@ void PATHMOVEMENT_Tasks ( void )
     }
     /* Check the application's current state. */
 //    
+}
+
+void armControl(int dir){
+    
+    if(dir==0){
+        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_9, 0);
+//        dbgSendMsgServer("ARM 0");
+    }
+    else {
+        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_9, 1);
+//        dbgSendMsgServer("ARM 1");
+    }
+ 
 }
 
 void sendTimerValtoPathMovement(char timerVal) {
