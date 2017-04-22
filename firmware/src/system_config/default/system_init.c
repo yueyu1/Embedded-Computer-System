@@ -175,10 +175,6 @@ void SYS_Initialize ( void* data )
     DRV_I2C0_Initialize();
     DRV_I2C1_Initialize();
 
-
-    /* Initialize ADC */
-    DRV_ADC_Initialize();
-
     /*Initialize TMR0 */
     DRV_TMR0_Initialize();
     /*Initialize TMR1 */

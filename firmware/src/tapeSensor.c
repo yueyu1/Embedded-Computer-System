@@ -112,21 +112,11 @@ static TAPESENSOR_DATA tapesensorData;
     See prototype in tapesensor.h.
  */
 
-bool tape1Detected(){
-    return (tapesensorData.background_IR_value - tapesensorData.IRValue_01 >= TAPE_INDICATOR_VALUE);
-}
-
-bool tape2Detected(){
-    return (tapesensorData.background_IR_value - tapesensorData.IRValue_02 >= TAPE_INDICATOR_VALUE);
-}
-
 void TAPESENSOR_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
     tapesensorData.state = TAPESENSOR_STATE_INIT;
-    tapesensorData.dataReady = false;
-    tapesensorData.background_IR_value_set = false;
-    tapesensorData.previous_IR_value = 0;
+
     tapesensorData.tapesensorQ = xQueueCreate(5, sizeof(unsigned int));
     if(tapesensorData.tapesensorQ == NULL) {
         dbgSysHalt(DLOC_MSG_Q_SETUP_FAIL);
@@ -153,8 +143,6 @@ void TAPESENSOR_Tasks ( void )
     unsigned int recvTapeVal = 0;
     int secondCtr = 0;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
-    
-    DRV_ADC_Open();
     /* Check the application's current state. */
     while (1){
         
@@ -165,6 +153,10 @@ void TAPESENSOR_Tasks ( void )
 //            dbgOutputLoc(DLOC_STATE_MSG_Q_WAIT_BEFORE_RECEIVE_MSG);
             if(xQueueReceive(tapesensorData.tapesensorQ, &(recvTapeVal), portMAX_DELAY)) {
                 secondCtr++;
+                tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
+//                makeMove();
+//                resetMapDataGlobalVariables();
+//                resetAStartGlobalVariables();
             }
             else {
                 dbgSysHalt(DLOC_MSG_Q_RX_FAIL);
@@ -172,83 +164,39 @@ void TAPESENSOR_Tasks ( void )
             /*Debug: Output location*/
 //            dbgOutputLoc(DLOC_STATE_MSG_Q_WAIT_AFTER_RECEIVE_MSG);
         }
+        
+        switch (tapesensorData.state) {
+        /* Application's initial state. */
+            case TAPESENSOR_STATE_INIT:
+            {                        
+                bool appInitialized = true;
 
-        if(tapesensorData.dataReady){
-                sendTapeStatus();
-                tapesensorData.dataReady = false;
+                if (appInitialized) {
+
+                  //  tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
+                }
+                break;
             }
+
+            case TAPESENSOR_STATE_SERVICE_TASKS:
+            {
+                makeMove();
+                resetMapDataGlobalVariables();
+                resetAStartGlobalVariables();
+                break;
+            }
+            
+            default:
+            {
+                tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
+                break;
+            }
+            
+        }
     }
 
 }
 
-void sendTapeStatus(){
-    
-    char valStr_01[20];
-    char output[100];
-    sprintf(valStr_01, "%d", tapesensorData.IRValue_01);
-    strcpy(output, valStr_01);
-//    dbgSendMsgServer(output);
-    
-    if(tape1Detected()){
-        //tapesensorData.tapeSeenCounter++;
-        sendTapeSensorData(0);
-    }
-    if(tape2Detected()){
-        sendTapeSensorData(1);
-    }
-    if (tape1Detected() && tape2Detected()){
-        sendTapeSensorData(2);
-    }
-    
-    tapesensorData.previous_IR_value = tapesensorData.IRValue_01;
-
-}
-
-void ADC_Average ()
-{
-    int i;
- 
-    int j = 0;
- 
-    tapesensorData.IRValue_01 = 0;
-    tapesensorData.IRValue_02 = 0;
-
-    /* Must read results before clearing persistent interrupt flag. */
-    for (i=0; i < 16; i++)
-    {
-        if((i%2) == 0){
-            tapesensorData.IRValue_01 += PLIB_ADC_ResultGetByIndex(ADC_ID_1, i);
-        }
-        else {
-            tapesensorData.IRValue_02 += PLIB_ADC_ResultGetByIndex(ADC_ID_1, i);
-        }
-    }
- 
-    tapesensorData.IRValue_01 = tapesensorData.IRValue_01 / 8 ;
-    tapesensorData.IRValue_02 = tapesensorData.IRValue_02 / 8 ;
-    
-    if(tapesensorData.previous_IR_value == 0){
-        tapesensorData.previous_IR_value = tapesensorData.IRValue_01;
-    }
-    /* If the "Stop Conversion on the First ADC Interrupt?" box in MHC is checked,
-       the Hardware will disable auto-sampling when the interrupt condition
-       occurs (after obtaining the 16th result). Auto-sampling needs to be
-       re-enabled every ADC interrupt. */
-    tapesensorData.dataReady = true;
-    
-    if(!tapesensorData.background_IR_value_set){
-        if(tapesensorData.IRValue_01 > tapesensorData.IRValue_02){
-            tapesensorData.background_IR_value = tapesensorData.IRValue_01;
-        }
-        else {
-            tapesensorData.background_IR_value = tapesensorData.IRValue_02;
-        }
-        tapesensorData.background_IR_value_set = true;
-    }
-   // dbgSendMsgServer("ADC_AVERAGE called");
-    PLIB_ADC_SampleAutoStartEnable(ADC_ID_1); 
-    
-}
 
 void sendTapeSensorQ(unsigned int tapeVal) {
     

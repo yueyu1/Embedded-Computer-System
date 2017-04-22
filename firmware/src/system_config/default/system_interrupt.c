@@ -74,12 +74,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-void IntHandlerDrvAdc(void)
-{
-    /* Clear ADC Interrupt Flag */
-    ADC_Average();
-    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_1);
-}
 
 void IntHandlerDrvI2CInstance0(void)
 {
@@ -96,7 +90,7 @@ void IntHandlerDrvTmrInstance0(void)
     if(SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_2)) {
         appSendEncValToQ(DRV_TMR1_CounterValueGet());
 //        sendTimerValtoPathMovement(TIMER_VAL);
-        sendTapeSensorQ(1);
+ //       sendTapeSensorQ(1);
         sendColorSensorQ(1);
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);

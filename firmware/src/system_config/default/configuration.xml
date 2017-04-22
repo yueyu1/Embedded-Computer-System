@@ -245,13 +245,12 @@
       <Template>
         <Name>sys_ports_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/system/ports/src</Path>
-        <Checksum>780F3665BAEC719426A30A3572CD2157</Checksum>
-        <ProjectFileChecksum>BCA36E9A44A31AAC57209D9A945E69F1</ProjectFileChecksum>
+        <Checksum>A0D35755E9D5EAF8AF6D18035E8756CF</Checksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>93B0FF34A6FA99EE122C301DCBBB388C</Checksum>
+        <Checksum>830B680DF280FD7B1BE7726297025AFA</Checksum>
       </Template>
       <Template>
         <Name>colorSensor.c</Name>
@@ -275,16 +274,6 @@
       <Template>
         <Name>tapeSensor.c</Name>
         <Path>Source Files/app</Path>
-      </Template>
-      <Template>
-        <Name>drv_adc_static.h</Name>
-        <Path>Header Files/app/system_config/default/framework/driver/adc</Path>
-        <Checksum>7D6BD97F04B53FC7BF6F312BF9643248</Checksum>
-      </Template>
-      <Template>
-        <Name>drv_adc_static.c</Name>
-        <Path>Source Files/app/system_config/default/framework/driver/adc/src</Path>
-        <Checksum>3CF8053C807A32F09D42EF3303528412</Checksum>
       </Template>
       <Template>
         <Name>motorControl.c</Name>
@@ -329,7 +318,7 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>8C72F11341D5B955E8B8DC29962D961F</Checksum>
+        <Checksum>F356EA50C3FE67E8E774BFAFA33ABA44</Checksum>
         <ProjectFileChecksum>4548372BED3B090701A7E83631E2A815</ProjectFileChecksum>
       </Template>
       <Template>
@@ -353,7 +342,7 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>6EAA3B666EBFE5A7F25B3A1606AFFA64</Checksum>
+        <Checksum>ECB430EBC6F9E56B757DEB62C6064E7F</Checksum>
       </Template>
       <Template>
         <Name>main.c</Name>
@@ -370,7 +359,7 @@
       <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>B26195FA98393CB719E3429903AAA925</Checksum>
+        <Checksum>DE3D33480E8455501545B8E8C278CBD6</Checksum>
       </Template>
       <Template>
         <Name>system_exceptions.c</Name>
@@ -399,8 +388,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>8BB8489FBA52A4328836BF5EC881729F</Checksum>
-        <ProjectFileChecksum>06BFF00555EEEE3D5DE6E8061B7903DB</ProjectFileChecksum>
+        <Checksum>52B920AA88CBEE10308CC1F53CCCF318</Checksum>
       </Template>
       <Template>
         <Name>app.h</Name>
