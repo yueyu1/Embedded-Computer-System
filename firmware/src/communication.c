@@ -203,7 +203,7 @@ void processMessage(message exMsg){
         explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
         resetPathMovementGlobalVariables();
         constructPathJson(appData.sendToUARTString, exMsg);
-        sendTapeSensorQ(1);
+        sendTapeSensorQ(MAP_DATA);
         //constructNextMovementJson(appData.sendToUARTString, exMsg);
 //        makeMove();
 //        resetMapDataGlobalVariables();

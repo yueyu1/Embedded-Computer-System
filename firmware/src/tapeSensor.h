@@ -79,6 +79,12 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+    
+#define MAP_DATA 1
+//#define MOVE_FORWARD 1
+//#define MOVE_REVERSE 2
+//#define MOVE_LEFT 3
+//#define MOVE_RIGHT 4
 // *****************************************************************************
 /* Application states
 
@@ -95,6 +101,7 @@ typedef enum
 	/* Application's state machine's initial state. */
 	TAPESENSOR_STATE_INIT=0,
 	TAPESENSOR_STATE_SERVICE_TASKS,
+            TAPESENSOR_STATE_FOLLOW_PATH,
 
 	/* TODO: Define states used by the application state machine. */
 

@@ -153,7 +153,9 @@ void TAPESENSOR_Tasks ( void )
 //            dbgOutputLoc(DLOC_STATE_MSG_Q_WAIT_BEFORE_RECEIVE_MSG);
             if(xQueueReceive(tapesensorData.tapesensorQ, &(recvTapeVal), portMAX_DELAY)) {
                 secondCtr++;
-                tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
+                if (recvTapeVal == MAP_DATA) {
+                    tapesensorData.state = TAPESENSOR_STATE_FOLLOW_PATH;
+                }
 //                makeMove();
 //                resetMapDataGlobalVariables();
 //                resetAStartGlobalVariables();
@@ -172,13 +174,20 @@ void TAPESENSOR_Tasks ( void )
                 bool appInitialized = true;
 
                 if (appInitialized) {
-
-                  //  tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
+                    tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
                 }
                 break;
             }
 
             case TAPESENSOR_STATE_SERVICE_TASKS:
+            {
+//                makeMove();
+//                resetMapDataGlobalVariables();
+//                resetAStartGlobalVariables();
+                break;
+            }
+            
+            case TAPESENSOR_STATE_FOLLOW_PATH:
             {
                 makeMove();
                 resetMapDataGlobalVariables();
