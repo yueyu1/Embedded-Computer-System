@@ -170,7 +170,6 @@ void doneReceiving(char rx){
 //            processMessage(newMsg);
 //        }
         message newMsg = parseJsonMsg(incomingJson);
-        transformMapData();
         processMessage(newMsg);
     }
 }
@@ -196,18 +195,19 @@ void processMessage(message exMsg){
             strcpy(exMsg.payload, valStr);
         }
         // Other request
-        else {
+        else if (strcmp(exMsg.payload, "Map") == 0) {
+            transformMapData();
             strcpy(exMsg.payload, "RespondPath");
         }
-        
+        else if (strcmp(exMsg.payload, "Boundary") == 0) {
+            transformBoundaryData();
+            strcpy(exMsg.payload, "RespondBoundary");
+        }
+//        transformMapData();
         explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
 //        resetPathMovementGlobalVariables();
         constructPathJson(appData.sendToUARTString, exMsg);
         sendTapeSensorQ(MAP_DATA);
-        //constructNextMovementJson(appData.sendToUARTString, exMsg);
-//        makeMove();
-//        resetMapDataGlobalVariables();
-//        resetAStartGlobalVariables();
         appData.sendReceive = false;
     }
     else {

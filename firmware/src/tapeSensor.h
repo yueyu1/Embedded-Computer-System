@@ -102,7 +102,7 @@ typedef enum
 	TAPESENSOR_STATE_INIT=0,
 	TAPESENSOR_STATE_SERVICE_TASKS,
             TAPESENSOR_STATE_FOLLOW_PATH,
-            TAPESENSOR_STATE_INIT_ORIENTATION
+            TAPESENSOR_STATE_INIT_ORIENTATION,
 
 	/* TODO: Define states used by the application state machine. */
 

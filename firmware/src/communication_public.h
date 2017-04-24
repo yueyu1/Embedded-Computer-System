@@ -82,6 +82,7 @@ typedef struct map_t {
 
 message ex_msg;
 map ex_map;
+map cur_map;
 
 bool receiveBytes;
 
@@ -90,6 +91,11 @@ static o_length;
 static flag_length;
 static boundary_length;
 static startPos_length;
+
+static cur_o_length;
+static cur_flag_length;
+static cur_boundary_length;
+static cur_startPos_length;
 
 /* 0: East
  * 1: South

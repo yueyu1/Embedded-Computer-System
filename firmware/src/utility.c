@@ -149,6 +149,12 @@ message parseJsonMsg(char *jsonStr) {
             parseArrayPayload(jsonStr, "Start");
             parseArrayPayload(jsonStr, "Goal");
         }
+        else if (strcmp(newMsg.payload, "Boundary") == 0){
+            parseArrayPayload(jsonStr, "Obstacle");
+            parseArrayPayload(jsonStr, "Boundary");
+            parseArrayPayload(jsonStr, "Start");
+            parseArrayPayload(jsonStr, "Goal");
+        }
         return newMsg;
 }
 
@@ -421,6 +427,28 @@ void transformMapData() {
 }
 /************** end of Map functions*************/
 
+void transformBoundaryData() {
+    int i;
+    i = 0;
+    MIN_X = ex_map.boundary[i];
+    i++;
+    MIN_Y = ex_map.boundary[i];
+    i++;
+    MAX_X = ex_map.boundary[i];
+    i++;
+    MAX_Y = ex_map.boundary[i];
+    
+    i = 0;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    i++;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    i++;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    i++;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    
+    cur_boundary_length+=4;
+}
 
 
 

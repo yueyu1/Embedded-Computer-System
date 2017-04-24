@@ -143,6 +143,7 @@ void TAPESENSOR_Tasks ( void )
     unsigned int recvTapeVal = 0;
     int secondCtr = 0;
     bool mapReady = false;
+    bool firstMap = true;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
     /* Check the application's current state. */
     while (1){
@@ -202,12 +203,20 @@ void TAPESENSOR_Tasks ( void )
             case TAPESENSOR_STATE_FOLLOW_PATH:
             {
                 if (mapReady) {
-                    sendTimerValtoPathMovement(ORIENT_DONE);
-                    resetPathMovementGlobalVariables();
-                    makeMove();
-                    resetMapDataGlobalVariables();
-                    resetAStartGlobalVariables();
-                    mapReady = false;
+                    if (firstMap) {
+                        sendTimerValtoPathMovement(ORIENT_DONE);
+                        resetPathMovementGlobalVariables();
+                        makeMove();
+                        resetMapDataGlobalVariables();
+                        transformMapData();
+                        resetAStartGlobalVariables();
+                        mapReady = false;
+                        firstMap = false;
+                    }
+                    else {
+                        sendTimerValtoPathMovement(COMPLETE_STOP);
+                        mapReady = false;
+                    }
                 }
                 break;
             }
