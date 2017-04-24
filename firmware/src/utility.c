@@ -550,6 +550,7 @@ void getNextMovement(coordinate orig, coordinate next) {
             ORIENTATION = 1;
         }
     }
+    moveRover(movement);
     orig.x = next.x;
     orig.y = next.y;
 }
@@ -580,7 +581,7 @@ void makeMove() {
     next = getNextPoint();
     while (!pointEqual(CURRPOINT, g)) {
         getNextMovement(CURRPOINT, next);
-        moveRover(movement);
+//        moveRover(movement);
         if (strcmp(movement, "FORWARD") == 0) {
             next = getNextPoint();
             emptyCharArray(movement, 10);

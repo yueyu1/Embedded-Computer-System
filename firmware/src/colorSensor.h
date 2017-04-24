@@ -95,11 +95,24 @@ typedef enum
 	/* Application's state machine's initial state. */
 	COLORSENSOR_STATE_INIT=0,
 	COLORSENSOR_STATE_SERVICE_TASKS,
+    COLORSENSOR_STATE_LEFT_HIT,
+    COLORSENSOR_STATE_RIGHT_HIT,
+    COLORSENSOR_STATE_BOTH_HIT,
+    COLORSENSOR_STATE_BOTH_NOT_HIT,
 
 	/* TODO: Define states used by the application state machine. */
 
 } COLORSENSOR_STATES;
 
+typedef enum
+{
+	REVERSE,
+	FORWARD,
+    LEFT,
+    RIGHT,
+} orientation_state;
+
+orientation_state oristate;
 
 // *****************************************************************************
 /* Application Data
@@ -209,6 +222,7 @@ void sendColorSensorQ(unsigned int val);
 void sendSensorStatus();
 void readData();
 bool blueColorDetected();
+void sendSensorStatus();
 
 
 #endif /* _COLORSENSOR_H */
@@ -222,4 +236,3 @@ bool blueColorDetected();
 /*******************************************************************************
  End of File
  */
-

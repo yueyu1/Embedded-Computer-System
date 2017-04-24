@@ -131,6 +131,11 @@ static uint16_t buffer_red2;
 static uint16_t buffer_green2;
 static uint16_t buffer_blue2;
 
+static unsigned int counter;
+static bool finishedCounting;
+static unsigned int bothHitCount;
+static bool finishedOrientation;
+
 void RGB_Init1() {
     DRV_I2C0_Transmit(ADDRESS_WRITE, &INTEGRATION_TIME, 2, NULL);
     DRV_I2C0_Transmit(ADDRESS_WRITE, &GAIN, 2, NULL);
@@ -200,40 +205,26 @@ bool rgbRead2(){
 }
 
 void sendSensorStatus() {
-//    if (blueAppears1 && !blueAppears2) {
-//        sendColorSensorData(0);
-//    }
-//    
-//    if (blueAppears2 && !blueAppears1) {
-//        sendColorSensorData(1);
-//    }
-//    
-//    if (blueAppears1 && blueAppears2) {
-//        sendColorSensorData(2);
-//    }
+    char result[20];
+    char b[5], r[5], g[5];
+    sprintf(b, "%d", buffer_blue1);
+    sprintf(r, "%d", buffer_red1);
+    sprintf(g, "%d", buffer_green1);
+    strcat(result, "blue:");
+    strcat(result, b);
+    strcat(result, ", ");
+    strcat(result, "red:");
+    strcat(result, r);
+    strcat(result, ", ");
+    strcat(result, "green:");
+    strcat(result, g);
+    dbgSendMsgServer(result);
+    char ratio[50];
+    double ra;
+    ra = (double)buffer_blue1 / (buffer_red1 + buffer_green1);
+    snprintf(ratio, 10, "%f", r);
+    dbgSendMsgServer(ratio);
 }
-
-//void sendSensorStatus() {
-////    char result[20];
-////    char b[5], r[5], g[5];
-////    sprintf(b, "%d", buffer_blue);
-////    sprintf(r, "%d", buffer_red);
-////    sprintf(g, "%d", buffer_green);
-////    strcat(result, "blue:");
-////    strcat(result, b);
-////    strcat(result, ", ");
-////    strcat(result, "red:");
-////    strcat(result, r);
-////    strcat(result, ", ");
-////    strcat(result, "green:");
-////    strcat(result, g);
-////    dbgSendMsgServer(result);
-////    char ratio[50];
-////    double r;
-////    r = (double)buffer_blue / (buffer_red + buffer_green);
-////    snprintf(ratio, 10, "%f", r);
-////    dbgSendMsgServer(ratio);
-//}
 
 void readData() {
     // Read data and determine if blue appears
@@ -261,6 +252,10 @@ void COLORSENSOR_Initialize ( void )
      */
     colorsensorData.dataReady = false;
     colorsensorData.colorsensorQ = xQueueCreate(5, sizeof(unsigned int));
+    counter = 0;
+    bothHitCount = 0;
+    finishedCounting = false;
+    finishedOrientation = false;
 }
 
 
@@ -290,14 +285,98 @@ void COLORSENSOR_Tasks ( void )
             }
         }
         
-        if (secondCtr >= 1) {
+        if (secondCtr > 0) {
             secondCtr = 0;
             readData();
         }
+        
+        
+        if (bothHitCount >= 10) {
+            motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+            finishedOrientation = true;
+            sendTapeSensorQ(FINISHED_ORIENTATION);
+        }
+        
+        /* Check the application's current state. */
+        switch (colorsensorData.state) {
+        /* Application's initial state. */
+            case COLORSENSOR_STATE_INIT:
+            {
+                motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+                        
+                bool appInitialized = true;
 
-        if (colorsensorData.dataReady) {
-            sendSensorStatus();
-            colorsensorData.dataReady = false;
+                if (appInitialized) {
+
+                    colorsensorData.state = COLORSENSOR_STATE_SERVICE_TASKS;
+                }
+                break;
+            }
+
+            case COLORSENSOR_STATE_SERVICE_TASKS:
+            {
+                if (colorsensorData.dataReady) {
+                    colorsensorData.dataReady = false;
+                    
+                    //sendSensorStatus();
+
+                    if (counter > 2) {
+                        finishedCounting = true;
+                        
+                        if (!finishedOrientation) {
+                            if (!blueAppears1 && !blueAppears2) {
+                                colorsensorData.state = COLORSENSOR_STATE_BOTH_NOT_HIT;
+                            }
+
+                            if (blueAppears1 && !blueAppears2) {
+                                colorsensorData.state = COLORSENSOR_STATE_LEFT_HIT;
+                            }
+
+                            if (blueAppears2 && !blueAppears1) {
+                                colorsensorData.state = COLORSENSOR_STATE_RIGHT_HIT;
+                            }
+
+                            if (blueAppears1 && blueAppears2) {
+                                colorsensorData.state = COLORSENSOR_STATE_BOTH_HIT;
+                            }
+                        }
+                    }
+
+                    if (!finishedCounting) {
+                        counter++;
+                    }  
+                }
+                break;
+            }
+            
+            case COLORSENSOR_STATE_LEFT_HIT:
+            {
+                motorControlSendValToMsgQ(MOTOR_CONTROL_LEFT);
+                colorsensorData.state = COLORSENSOR_STATE_SERVICE_TASKS;
+                break;
+            }
+            
+            case COLORSENSOR_STATE_RIGHT_HIT:
+            {
+                motorControlSendValToMsgQ(MOTOR_CONTROL_RIGHT);
+                colorsensorData.state = COLORSENSOR_STATE_SERVICE_TASKS;
+                break;
+            }
+            
+            case COLORSENSOR_STATE_BOTH_HIT:
+            {
+                bothHitCount++;
+                motorControlSendValToMsgQ(MOTOR_CONTROL_REVERSE);              
+                colorsensorData.state = COLORSENSOR_STATE_SERVICE_TASKS;
+                break;
+            }
+            
+            case COLORSENSOR_STATE_BOTH_NOT_HIT:
+            {
+                motorControlSendValToMsgQ(MOTOR_CONTROL_FORWARD);
+                colorsensorData.state = COLORSENSOR_STATE_SERVICE_TASKS;
+                break;
+            }
         }
     }
 }

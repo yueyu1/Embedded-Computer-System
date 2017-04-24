@@ -142,6 +142,7 @@ void TAPESENSOR_Tasks ( void )
 
     unsigned int recvTapeVal = 0;
     int secondCtr = 0;
+    bool mapReady = false;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
     /* Check the application's current state. */
     while (1){
@@ -154,6 +155,9 @@ void TAPESENSOR_Tasks ( void )
             if(xQueueReceive(tapesensorData.tapesensorQ, &(recvTapeVal), portMAX_DELAY)) {
                 secondCtr++;
                 if (recvTapeVal == MAP_DATA) {
+                    mapReady = true;
+                }
+                else if (recvTapeVal == FINISHED_ORIENTATION) {
                     tapesensorData.state = TAPESENSOR_STATE_FOLLOW_PATH;
                 }
 //                makeMove();
@@ -174,8 +178,16 @@ void TAPESENSOR_Tasks ( void )
                 bool appInitialized = true;
 
                 if (appInitialized) {
-                    tapesensorData.state = TAPESENSOR_STATE_SERVICE_TASKS;
+                    tapesensorData.state = TAPESENSOR_STATE_INIT_ORIENTATION;
                 }
+                break;
+            }
+            
+            case TAPESENSOR_STATE_INIT_ORIENTATION:
+            {
+//                makeMove();
+//                resetMapDataGlobalVariables();
+//                resetAStartGlobalVariables();
                 break;
             }
 
@@ -189,9 +201,14 @@ void TAPESENSOR_Tasks ( void )
             
             case TAPESENSOR_STATE_FOLLOW_PATH:
             {
-                makeMove();
-                resetMapDataGlobalVariables();
-                resetAStartGlobalVariables();
+                if (mapReady) {
+                    sendTimerValtoPathMovement(ORIENT_DONE);
+                    resetPathMovementGlobalVariables();
+                    makeMove();
+                    resetMapDataGlobalVariables();
+                    resetAStartGlobalVariables();
+                    mapReady = false;
+                }
                 break;
             }
             

@@ -191,6 +191,10 @@ void PATHMOVEMENT_Tasks ( void )
                 else if(move == COMPLETE_STOP){
                     pathmovementData.state = PATHMOVEMENT_STATE_COMPLETE_STOP;
                 }
+                else if(move == ORIENT_DONE) {
+                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                }
+                
                 
             }
             else {
@@ -213,7 +217,7 @@ void PATHMOVEMENT_Tasks ( void )
             {
                 bool appInitialized = true;
                 if (appInitialized) {
-                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                    pathmovementData.state = PATHMOVEMENT_STATE_ORIENTATION;
                 }
                 break;
             }
@@ -249,6 +253,13 @@ void PATHMOVEMENT_Tasks ( void )
                 }
                 break;
             }
+            
+            case PATHMOVEMENT_STATE_ORIENTATION:
+            {
+                // wait here until orientation is done
+                break;
+            }
+            
             case PATHMOVEMENT_STATE_RIGHT:
             {
                 if(turnPeriods >= 14000){
