@@ -58,6 +58,11 @@ DRV_HANDLE DRV_I2C_Open ( const SYS_MODULE_INDEX index, const DRV_IO_INTENT ioIn
             return (DRV_HANDLE)DRV_I2C_INDEX_1;
             break;
         }
+        case DRV_I2C_INDEX_2:
+        {
+            return (DRV_HANDLE)DRV_I2C_INDEX_2;
+            break;
+        }
         default:
         {
             break;
@@ -79,6 +84,11 @@ void DRV_I2C_Close ( DRV_HANDLE drvhandle )
         case DRV_I2C_INDEX_1:
         {
             DRV_I2C1_DeInitialize();
+            break;
+        }
+        case DRV_I2C_INDEX_2:
+        {
+            DRV_I2C2_DeInitialize();
             break;
         }
         default:
@@ -103,6 +113,11 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C_Transmit( DRV_HANDLE drvhandle, uint16_t deviceadd
         case DRV_I2C_INDEX_1:
         {
             return ( DRV_I2C1_Transmit (deviceaddress, txBuffer, size, context) );
+            break;
+        }
+        case DRV_I2C_INDEX_2:
+        {
+            return ( DRV_I2C2_Transmit (deviceaddress, txBuffer, size, context) );
             break;
         }
         default:
@@ -130,6 +145,11 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C_TransmitForced( DRV_HANDLE drvhandle, uint16_t dev
             return ( DRV_I2C1_TransmitForced (deviceaddress, txBuffer, size, eventFlag, context) );
             break;
         }
+        case DRV_I2C_INDEX_2:
+        {
+            return ( DRV_I2C2_TransmitForced (deviceaddress, txBuffer, size, eventFlag, context) );
+            break;
+        }
         default:
         {
             return (DRV_I2C_BUFFER_HANDLE) NULL;
@@ -153,6 +173,11 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C_Receive ( DRV_HANDLE drvhandle, uint16_t deviceadd
         case DRV_I2C_INDEX_1:
         {
             return ( DRV_I2C1_Receive(deviceaddress, rxBuffer, size, context) );
+            break;
+        }
+        case DRV_I2C_INDEX_2:
+        {
+            return ( DRV_I2C2_Receive(deviceaddress, rxBuffer, size, context) );
             break;
         }
         default:
@@ -180,6 +205,11 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C_TransmitThenReceive ( DRV_HANDLE drvhandle, uint16
             return ( DRV_I2C1_TransmitThenReceive(deviceaddress, txBuffer, wsize, rxBuffer, rsize, context) );
             break;
         }
+        case DRV_I2C_INDEX_2:
+        {
+            return ( DRV_I2C2_TransmitThenReceive(deviceaddress, txBuffer, wsize, rxBuffer, rsize, context) );
+            break;
+        }
         default:
         {
             return (DRV_I2C_BUFFER_HANDLE) NULL;
@@ -201,6 +231,11 @@ DRV_I2C_BUFFER_EVENT DRV_I2C_TransferStatusGet (  DRV_HANDLE drvhandle, DRV_I2C_
         case DRV_I2C_INDEX_1:
         {
             return ( DRV_I2C1_TransferStatusGet(bufferHandle) );
+            break;
+        }
+        case DRV_I2C_INDEX_2:
+        {
+            return ( DRV_I2C2_TransferStatusGet(bufferHandle) );
             break;
         }
         default:
@@ -227,6 +262,11 @@ uint32_t DRV_I2C_BytesTransferred (  DRV_HANDLE drvhandle,  DRV_I2C_BUFFER_HANDL
             return (DRV_I2C1_BytesTransferred(bufferHandle) );
             break;
         }
+        case DRV_I2C_INDEX_2:
+        {
+            return ( DRV_I2C2_BytesTransferred(bufferHandle) );
+            break;
+        }
         default:
         {
             return 0;
@@ -250,6 +290,11 @@ void DRV_I2C_BufferEventHandlerSet ( const DRV_HANDLE drvhandle,
         case DRV_I2C_INDEX_1:
         {
             DRV_I2C1_BufferEventHandlerSet (eventHandler,context);
+            break;
+        }
+        case DRV_I2C_INDEX_2:
+        {
+            DRV_I2C2_BufferEventHandlerSet (eventHandler,context);
             break;
         }
         default:

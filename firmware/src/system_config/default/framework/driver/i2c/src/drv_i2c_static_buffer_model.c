@@ -221,11 +221,11 @@ void _DRV_I2C_Advance_Queue_0(void)
 void DRV_I2C0_Initialize(void)
 {
     /* Initialize I2C0 */
-    PLIB_I2C_BaudRateSet(I2C_ID_1, SYS_CLK_PeripheralFrequencyGet(CLK_BUS_PERIPHERAL_1), 100000);
-    PLIB_I2C_StopInIdleDisable(I2C_ID_1);
+    PLIB_I2C_BaudRateSet(I2C_ID_5, SYS_CLK_PeripheralFrequencyGet(CLK_BUS_PERIPHERAL_1), 100000);
+    PLIB_I2C_StopInIdleDisable(I2C_ID_5);
 
     /* Low frequency is enabled (**NOTE** PLIB function logic reverted) */
-    PLIB_I2C_HighFrequencyEnable(I2C_ID_1);
+    PLIB_I2C_HighFrequencyEnable(I2C_ID_5);
     i2c0Obj.i2cMode         = DRV_I2C_MODE_MASTER;
     i2c0Obj.transfersize    = 0;
     i2c0State               = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
@@ -233,16 +233,16 @@ void DRV_I2C0_Initialize(void)
     QueueInitialize_0();
 
     /* Initialize interrupts */
-    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_MASTER);
-    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_I2C_1_MASTER);
-    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_ERROR);
-    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_I2C_1_ERROR);
-    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_I2C1, INT_PRIORITY_LEVEL1);
-    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_I2C1, INT_SUBPRIORITY_LEVEL0);
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_5_MASTER);
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_I2C_5_MASTER);
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_5_ERROR);
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_I2C_5_ERROR);
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_I2C5, INT_PRIORITY_LEVEL1);
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_I2C5, INT_SUBPRIORITY_LEVEL0);
 
 
     /* Enable I2C0 */
-    PLIB_I2C_Enable(I2C_ID_1);
+    PLIB_I2C_Enable(I2C_ID_5);
     
 
 }
@@ -250,7 +250,7 @@ void DRV_I2C0_Initialize(void)
 void DRV_I2C0_DeInitialize(void)
 {
     /* Disable I2C0 */
-    PLIB_I2C_Disable(I2C_ID_1);
+    PLIB_I2C_Disable(I2C_ID_5);
 }
 
 // *****************************************************************************
@@ -292,12 +292,12 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C0_Receive (uint16_t deviceaddress,
             first time OR if STOP was detected, then it assumed the 
             transaction on the bus is complete */
 
-            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_5))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_5)))) || (PLIB_I2C_StopWasDetected(I2C_ID_5)) )
             {
-                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_5)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_5_MASTER))) )
                 {
                         i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
-                        PLIB_I2C_MasterStart(I2C_ID_1);
+                        PLIB_I2C_MasterStart(I2C_ID_5);
                 }
             }
         }
@@ -344,12 +344,12 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C0_Transmit (uint16_t deviceaddress,
             first time OR if STOP was detected, then it assumed the 
             transaction on the bus is complete */
 
-            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_5))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_5)))) || (PLIB_I2C_StopWasDetected(I2C_ID_5)) )
             {
-                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )                        
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_5)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_5_MASTER))) )                        
                 {
                         i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
-                        PLIB_I2C_MasterStart(I2C_ID_1);
+                        PLIB_I2C_MasterStart(I2C_ID_5);
                 }
             }
         }
@@ -393,12 +393,12 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C0_TransmitForced (uint16_t deviceaddress,
             first time OR if STOP was detected, then it assumed the 
             transaction on the bus is complete */
 
-            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_5))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_5)))) || (PLIB_I2C_StopWasDetected(I2C_ID_5)) )
             {
-                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )                        
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_5)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_5_MASTER))) )                        
                 {
                         i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
-                        PLIB_I2C_MasterStart(I2C_ID_1);
+                        PLIB_I2C_MasterStart(I2C_ID_5);
                 }
             }
         }
@@ -447,12 +447,12 @@ DRV_I2C_BUFFER_HANDLE DRV_I2C0_TransmitThenReceive ( uint16_t deviceaddress,
             first time OR if STOP was detected, then it assumed the 
             transaction on the bus is complete */
 
-            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_5))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_5)))) || (PLIB_I2C_StopWasDetected(I2C_ID_5)) )
             {
-                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_5)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_5_MASTER))) )
                 {
                     i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
-                    PLIB_I2C_MasterStart(I2C_ID_1);
+                    PLIB_I2C_MasterStart(I2C_ID_5);
                 }
             }
         }
@@ -474,7 +474,7 @@ void DRV_I2C0_Tasks(void)
             {
                 lBufferObj0 = _DRV_I2C_QueuePop_0();
 
-                if (PLIB_I2C_StartWasDetected(I2C_ID_1))
+                if (PLIB_I2C_StartWasDetected(I2C_ID_5))
                 {
                     if ( (lBufferObj0->i2coperation == DRV_I2C_OP_WRITE) || (lBufferObj0->i2coperation == DRV_I2C_OP_WRITE_READ) )
                     {
@@ -488,13 +488,13 @@ void DRV_I2C0_Tasks(void)
                             i2c0State = DRV_I2C_TASK_PROCESS_WRITE_ONLY;
                         }
 
-                        PLIB_I2C_TransmitterByteSend( I2C_ID_1, lBufferObj0->slaveaddresshighbyte );
+                        PLIB_I2C_TransmitterByteSend( I2C_ID_5, lBufferObj0->slaveaddresshighbyte );
                     }
                     else
                     {
                         lBufferObj0->bufferstatus    = DRV_I2C_BUFFER_SLAVE_READ_REQUESTED;
                         i2c0State = DRV_I2C_TASK_SET_RCEN_ONLY;
-                        PLIB_I2C_TransmitterByteSend(I2C_ID_1, lBufferObj0->slaveaddresshighbyte | DRV_I2C_OP_READ );
+                        PLIB_I2C_TransmitterByteSend(I2C_ID_5, lBufferObj0->slaveaddresshighbyte | DRV_I2C_OP_READ );
                     }
                 }
             }
@@ -502,22 +502,22 @@ void DRV_I2C0_Tasks(void)
             {
                 i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
                 /* Slave is accepting data from Master */
-                if ( (!PLIB_I2C_SlaveReadIsRequested(I2C_ID_1)) && (PLIB_I2C_SlaveAddressIsDetected(I2C_ID_1)) )
+                if ( (!PLIB_I2C_SlaveReadIsRequested(I2C_ID_5)) && (PLIB_I2C_SlaveAddressIsDetected(I2C_ID_5)) )
                 {
                     i2c0Obj.operationStarting(DRV_I2C_BUFFER_SLAVE_READ_REQUESTED,0x00);
 
                     lBufferObj0 = _DRV_I2C_QueuePop_0();
 
                     /* do a dummy read so that I2CxRCV is cleared and not clobbered with data */
-                    PLIB_I2C_ReceivedByteGet (I2C_ID_1);
-                    PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                    PLIB_I2C_ReceivedByteGet (I2C_ID_5);
+                    PLIB_I2C_SlaveClockRelease (I2C_ID_5);
                 }
                 /*  Slave is sending data back to the Master    */
-                else if ( (PLIB_I2C_SlaveReadIsRequested(I2C_ID_1)) && (PLIB_I2C_SlaveAddressIsDetected(I2C_ID_1)) )
+                else if ( (PLIB_I2C_SlaveReadIsRequested(I2C_ID_5)) && (PLIB_I2C_SlaveAddressIsDetected(I2C_ID_5)) )
                 {
 
-                    PLIB_I2C_ReceivedByteGet (I2C_ID_1);
-                    PLIB_I2C_SlaveClockHold (I2C_ID_1);
+                    PLIB_I2C_ReceivedByteGet (I2C_ID_5);
+                    PLIB_I2C_SlaveClockHold (I2C_ID_5);
                     
                     i2c0Obj.operationStarting(DRV_I2C_BUFFER_SLAVE_WRITE_REQUESTED,0x00);
 
@@ -526,18 +526,18 @@ void DRV_I2C0_Tasks(void)
                     lBufferObj0->transfersize = 0;
 
                     // transmit first byte
-                    PLIB_I2C_TransmitterByteSend(I2C_ID_1, *lBufferObj0->txBuffer++);
+                    PLIB_I2C_TransmitterByteSend(I2C_ID_5, *lBufferObj0->txBuffer++);
                     lBufferObj0->transfersize++;
-                    PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                    PLIB_I2C_SlaveClockRelease (I2C_ID_5);
                 }
-                else if ( (!PLIB_I2C_SlaveReadIsRequested(I2C_ID_1)) && PLIB_I2C_SlaveDataIsDetected(I2C_ID_1))
+                else if ( (!PLIB_I2C_SlaveReadIsRequested(I2C_ID_5)) && PLIB_I2C_SlaveDataIsDetected(I2C_ID_5))
                 {
                     /*        Master sends data to the slave        */ 
-                    PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                    PLIB_I2C_SlaveClockRelease (I2C_ID_5);
 
                     if (lBufferObj0->transfersize < 255)
                     {
-                        *lBufferObj0->rxBuffer++ = PLIB_I2C_ReceivedByteGet(I2C_ID_1);
+                        *lBufferObj0->rxBuffer++ = PLIB_I2C_ReceivedByteGet(I2C_ID_5);
                         lBufferObj0->transfersize++;
                         lBufferObj0->bufferstatus = DRV_I2C_BUFFER_SLAVE_READ_BYTE;
                         if ( i2c0ClientObj.callback != NULL )
@@ -550,7 +550,7 @@ void DRV_I2C0_Tasks(void)
                     else
                     {
                         lBufferObj0->bufferstatus = DRV_I2C_BUFFER_EVENT_ERROR;                                 
-                        PLIB_I2C_ReceivedByteGet(I2C_ID_1);
+                        PLIB_I2C_ReceivedByteGet(I2C_ID_5);
                         if ( i2c0ClientObj.callback != NULL )
                         {
                             /* Give an indication to the higher layer upon when error happens */
@@ -559,16 +559,16 @@ void DRV_I2C0_Tasks(void)
                         }  
                     }
                 }
-                else if (PLIB_I2C_SlaveReadIsRequested(I2C_ID_1) && PLIB_I2C_SlaveDataIsDetected(I2C_ID_1))
+                else if (PLIB_I2C_SlaveReadIsRequested(I2C_ID_5) && PLIB_I2C_SlaveDataIsDetected(I2C_ID_5))
                 {
-                    PLIB_I2C_SlaveClockHold (I2C_ID_1);
+                    PLIB_I2C_SlaveClockHold (I2C_ID_5);
 
-                    if ( PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_1) )
+                    if ( PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_5) )
                     {
                         if ( lBufferObj0->transfersize < 255 )
                         {
-                            PLIB_I2C_SlaveClockRelease(I2C_ID_1);
-                            PLIB_I2C_TransmitterByteSend (I2C_ID_1, *lBufferObj0->txBuffer++ );
+                            PLIB_I2C_SlaveClockRelease(I2C_ID_5);
+                            PLIB_I2C_TransmitterByteSend (I2C_ID_5, *lBufferObj0->txBuffer++ );
                             lBufferObj0->transfersize++;
                             lBufferObj0->bufferstatus = DRV_I2C_BUFFER_SLAVE_WRITE_BYTE;
                             if ( i2c0ClientObj.callback != NULL )
@@ -581,7 +581,7 @@ void DRV_I2C0_Tasks(void)
                         else
                         {
                             lBufferObj0->bufferstatus = DRV_I2C_BUFFER_EVENT_ERROR;
-                            PLIB_I2C_TransmitterByteSend(I2C_ID_1, 0);
+                            PLIB_I2C_TransmitterByteSend(I2C_ID_5, 0);
                             if ( i2c0ClientObj.callback != NULL )
                             {
                                 /* Give an indication to the higher layer upon when error happens */
@@ -590,9 +590,9 @@ void DRV_I2C0_Tasks(void)
                             }  
                         }
                     }
-                    else if ( !PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_1) )
+                    else if ( !PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_5) )
                     {
-                        PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                        PLIB_I2C_SlaveClockRelease (I2C_ID_5);
                         //TODO callback implementation
                         lBufferObj0->bufferstatus = DRV_I2C_BUFFER_EVENT_COMPLETE; 
                     }
@@ -605,12 +605,12 @@ void DRV_I2C0_Tasks(void)
         {
             if ( lBufferObj0->i2coperation == DRV_I2C_OP_READ )
             {
-                PLIB_I2C_TransmitterByteSend(I2C_ID_1,lBufferObj0->slaveaddresslowbyte>>1) ;
+                PLIB_I2C_TransmitterByteSend(I2C_ID_5,lBufferObj0->slaveaddresslowbyte>>1) ;
                 i2c0State = DRV_I2C_TASK_SET_RCEN_ONLY;
             }
             else
             {                         
-                PLIB_I2C_TransmitterByteSend (I2C_ID_1, lBufferObj0->slaveaddresslowbyte>>1) ;
+                PLIB_I2C_TransmitterByteSend (I2C_ID_5, lBufferObj0->slaveaddresslowbyte>>1) ;
                 i2c0State = DRV_I2C_TASK_PROCESS_WRITE_ONLY;
             }
             break;
@@ -620,7 +620,7 @@ void DRV_I2C0_Tasks(void)
         {
             tempDeviceAddress = (lBufferObj0->slaveaddresshighbyte);
             tempDeviceAddress |= 0x01;
-            PLIB_I2C_TransmitterByteSend( I2C_ID_1,tempDeviceAddress );
+            PLIB_I2C_TransmitterByteSend( I2C_ID_5,tempDeviceAddress );
             i2c0State = DRV_I2C_TASK_SET_RCEN_ONLY;
             break;
         }
@@ -630,18 +630,18 @@ void DRV_I2C0_Tasks(void)
             /* Read I2CxRCV register for received data */
             if (lBufferObj0->transfersize)
             {
-                if ( PLIB_I2C_ReceivedByteIsAvailable (I2C_ID_1) )
+                if ( PLIB_I2C_ReceivedByteIsAvailable (I2C_ID_5) )
                 {
                     /* If all but one reception is complete */
                     if ( lBufferObj0->transfersize > 1 )
                     {
-                        *lBufferObj0->rxBuffer++ = PLIB_I2C_ReceivedByteGet (I2C_ID_1);
+                        *lBufferObj0->rxBuffer++ = PLIB_I2C_ReceivedByteGet (I2C_ID_5);
                         lBufferObj0->transfersize--;
                         lBufferObj0->actualtransfersize++;
                         i2c0State  = DRV_I2C_TASK_SET_RCEN_ONLY;
-                        if (PLIB_I2C_MasterReceiverReadyToAcknowledge(I2C_ID_1))
+                        if (PLIB_I2C_MasterReceiverReadyToAcknowledge(I2C_ID_5))
                         {
-                            PLIB_I2C_ReceivedByteAcknowledge (I2C_ID_1, true);
+                            PLIB_I2C_ReceivedByteAcknowledge (I2C_ID_5, true);
                         }
                     }
                     else
@@ -649,10 +649,10 @@ void DRV_I2C0_Tasks(void)
                         lBufferObj0->transfersize--;
                         lBufferObj0->actualtransfersize++;
 
-                        *lBufferObj0->rxBuffer++ = PLIB_I2C_ReceivedByteGet (I2C_ID_1);
-                        if (PLIB_I2C_MasterReceiverReadyToAcknowledge(I2C_ID_1))
+                        *lBufferObj0->rxBuffer++ = PLIB_I2C_ReceivedByteGet (I2C_ID_5);
+                        if (PLIB_I2C_MasterReceiverReadyToAcknowledge(I2C_ID_5))
                         {
-                            PLIB_I2C_ReceivedByteAcknowledge ( I2C_ID_1, false  );
+                            PLIB_I2C_ReceivedByteAcknowledge ( I2C_ID_5, false  );
                         }
 
                         i2c0State = DRV_I2C_BUS_SILENT;
@@ -671,23 +671,23 @@ void DRV_I2C0_Tasks(void)
         {
             if (lBufferObj0->transfersize)
             {
-                if ( PLIB_I2C_TransmitterByteHasCompleted (I2C_ID_1) )
+                if ( PLIB_I2C_TransmitterByteHasCompleted (I2C_ID_5) )
                 {
-                    if ( PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_1) ||
+                    if ( PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_5) ||
                         (lBufferObj0->transmitForced)  )
                     {
                         if (lBufferObj0->transfersize > 1)
                             i2c0State = DRV_I2C_TASK_PROCESS_WRITE_ONLY;
                         else
                             i2c0State = DRV_I2C_BUS_SILENT;
-                        PLIB_I2C_TransmitterByteSend ( I2C_ID_1, *lBufferObj0->txBuffer++ );
+                        PLIB_I2C_TransmitterByteSend ( I2C_ID_5, *lBufferObj0->txBuffer++ );
                         lBufferObj0->transfersize--;
                         lBufferObj0->actualtransfersize++;
                     }
                     else
                     {
                         i2c0State = DRV_I2C_TASK_PROCESS_STOP;
-                        PLIB_I2C_MasterStop (I2C_ID_1);
+                        PLIB_I2C_MasterStop (I2C_ID_5);
                     }
                 }
                 else
@@ -699,7 +699,7 @@ void DRV_I2C0_Tasks(void)
             else
             {
                 i2c0State = DRV_I2C_TASK_PROCESS_STOP;
-                PLIB_I2C_MasterStop (I2C_ID_1);
+                PLIB_I2C_MasterStop (I2C_ID_5);
             }
             break;
         }
@@ -712,21 +712,21 @@ void DRV_I2C0_Tasks(void)
             ACK received OR (transmit complete & NACKed)
             */
 
-            if ( (PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_1)) ||
-                    ( PLIB_I2C_TransmitterByteHasCompleted (I2C_ID_1)  &&
-                        (!PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_1)) ) )
+            if ( (PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_5)) ||
+                    ( PLIB_I2C_TransmitterByteHasCompleted (I2C_ID_5)  &&
+                        (!PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_5)) ) )
             {
                 if (lBufferObj0->i2coperation == DRV_I2C_OP_WRITE_READ)
                 {
                     lBufferObj0->transfersize   = lBufferObj0->readtransfersize;
                     i2c0State                   = DRV_I2C_SEND_RANDOM_READ_DEVICE_ADDRESS;
                     lBufferObj0->i2coperation   = DRV_I2C_OP_READ;
-                    PLIB_I2C_MasterStartRepeat (I2C_ID_1);
+                    PLIB_I2C_MasterStartRepeat (I2C_ID_5);
                 }
                 else
                 {
                     i2c0State = DRV_I2C_TASK_PROCESS_STOP;
-                    PLIB_I2C_MasterStop (I2C_ID_1);
+                    PLIB_I2C_MasterStop (I2C_ID_5);
                 }
             }
             break;
@@ -734,21 +734,21 @@ void DRV_I2C0_Tasks(void)
 
         case DRV_I2C_TASK_SET_RCEN_ONLY:
 		{
-            if ( PLIB_I2C_TransmitterByteHasCompleted(I2C_ID_1) )
+            if ( PLIB_I2C_TransmitterByteHasCompleted(I2C_ID_5) )
             {
-                if ( PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_1) )
+                if ( PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_5) )
                 {
                     /* if I2CxSTAT.ACKEN bit is 0, the Acknowledge sequence has been completed */
-                    if (PLIB_I2C_ReceiverByteAcknowledgeHasCompleted(I2C_ID_1))
+                    if (PLIB_I2C_ReceiverByteAcknowledgeHasCompleted(I2C_ID_5))
                     {
-                        PLIB_I2C_MasterReceiverClock1Byte (I2C_ID_1);
+                        PLIB_I2C_MasterReceiverClock1Byte (I2C_ID_5);
                         i2c0State = DRV_I2C_TASK_PROCESS_READ_ONLY;
                     }
                 }
                 else
                 {
                     i2c0State = DRV_I2C_TASK_PROCESS_STOP;
-                    PLIB_I2C_MasterStop (I2C_ID_1);
+                    PLIB_I2C_MasterStop (I2C_ID_5);
                 }
             }
             break;
@@ -756,7 +756,7 @@ void DRV_I2C0_Tasks(void)
 
         case    DRV_I2C_TASK_PROCESS_STOP:
         {
-            if (PLIB_I2C_StopWasDetected(I2C_ID_1))
+            if (PLIB_I2C_StopWasDetected(I2C_ID_5))
             {
                 i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
                 if (lBufferObj0->transfersize)
@@ -787,8 +787,8 @@ void DRV_I2C0_Tasks(void)
     }
 
     /* Clear pending interrupt */
-    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_MASTER);    
-    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_ERROR);
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_5_MASTER);    
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_5_ERROR);
 
     if (i2c0Obj.i2cMode == DRV_I2C_MODE_MASTER)
     {
@@ -798,7 +798,7 @@ void DRV_I2C0_Tasks(void)
             if (IsQueueEmpty_0() == false)
             {
                 i2c0State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
-                PLIB_I2C_MasterStart(I2C_ID_1);
+                PLIB_I2C_MasterStart(I2C_ID_5);
                 Nop();
             }
         }
@@ -1580,6 +1580,750 @@ void DRV_I2C1_BufferEventHandlerSet (const DRV_I2C_BUFFER_EVENT_HANDLER eventHan
 // *****************************************************************************
 
 DRV_I2C_BUFFER_EVENT DRV_I2C1_TransferStatusGet ( DRV_I2C_BUFFER_HANDLE bufferHandle )
+{
+    /* return status of Buffer Transfer */    
+    return ((DRV_STATIC_I2C_OBJECT*)bufferHandle)->bufferstatus;
+} /* DRV_I2C_TransferStatus */
+
+
+
+
+
+/* Master Object variables*/
+DRV_I2C_DATA_OBJECT_TASK                    i2c2State;
+DRV_STATIC_I2C_OBJECT                       i2c2Obj;
+DRV_STATIC_I2C_CLIENT_OBJ                   i2c2ClientObj;
+
+/* Variables to maintain Queue State */
+volatile uint16_t QueueIn_2     = 0;
+volatile uint16_t QueueOut_2    = 0;
+volatile uint16_t QueueDelta_2  = 0;
+
+static DRV_STATIC_I2C_OBJECT sDrvI2CBufferObj_2[DRV_I2C_NUM_OF_BUFFER_OBJECTS];
+
+DRV_STATIC_I2C_OBJECT* lBufferObj2;
+
+// *****************************************************************************
+// Section: Queue 2 Initialize Queue index variables
+// *****************************************************************************
+void QueueInitialize_2(void)
+{
+    QueueIn_0 =  0;
+    QueueOut_0 = 0;
+}
+
+// *****************************************************************************
+// Section: Queue 2 Find a slot in queue
+// *****************************************************************************
+
+DRV_STATIC_I2C_OBJECT*  _DRV_I2C_QueueSlotGet_2(void)
+{
+    
+    uint8_t numberOfSlotsAvailable;
+    
+    DRV_STATIC_I2C_OBJECT*   lQueueObj;
+    
+    
+    if (QueueIn_2 >= QueueOut_2)
+    {
+        numberOfSlotsAvailable = (DRV_I2C_NUM_OF_BUFFER_OBJECTS-(QueueIn_2 - QueueOut_2) -1);
+    }
+    else 
+    {
+        numberOfSlotsAvailable = ((QueueOut_2 - QueueIn_2) -1);      
+    }
+    
+    if (numberOfSlotsAvailable > 0)
+    {
+        lQueueObj = &sDrvI2CBufferObj_2[QueueIn_2];
+        
+        QueueIn_2++;
+        
+        if (QueueIn_2 >= (DRV_I2C_NUM_OF_BUFFER_OBJECTS))
+        {
+            QueueIn_2 = 0;
+        }
+
+        return lQueueObj;
+    }
+    
+    return (DRV_STATIC_I2C_OBJECT*)NULL;
+    
+}
+
+// *****************************************************************************
+/* Checks if Queue is empty, returns true if Queue is empty else returns false*/
+// *****************************************************************************
+
+bool IsQueueEmpty_2(void)
+{
+    if ( (QueueOut_2 == QueueIn_2) )
+        return true;
+    
+    return false;
+}
+
+// **************************************************
+/* returns the next item from the queue             */
+// **************************************************
+
+DRV_STATIC_I2C_OBJECT* _DRV_I2C_QueuePop_2(void)
+{
+    uint8_t temp;
+    
+    DRV_STATIC_I2C_OBJECT* lQueuePop;
+    
+    lQueuePop = NULL;
+    
+    /* if queue is empty then return NULL */
+    if (IsQueueEmpty_2())
+    {
+        Nop();
+        return (DRV_STATIC_I2C_OBJECT*)NULL;
+    }
+    
+    temp = QueueOut_2;
+    
+    lQueuePop = &sDrvI2CBufferObj_2[temp]; 
+    
+    
+    return lQueuePop;
+    
+}
+
+void _DRV_I2C_Advance_Queue_2(void)
+{
+    
+    if ( QueueOut_2 >= (DRV_I2C_NUM_OF_BUFFER_OBJECTS-1) )
+        QueueOut_2 = 0;
+    else
+        QueueOut_2++;  
+    
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Instance 2 static driver functions
+// *****************************************************************************
+// *****************************************************************************
+void DRV_I2C2_Initialize(void)
+{
+    /* Initialize I2C2 */
+    PLIB_I2C_BaudRateSet(I2C_ID_1, SYS_CLK_PeripheralFrequencyGet(CLK_BUS_PERIPHERAL_1), 100000);
+    PLIB_I2C_StopInIdleDisable(I2C_ID_1);
+
+    /* Low frequency is enabled (**NOTE** PLIB function logic reverted) */
+    PLIB_I2C_HighFrequencyEnable(I2C_ID_1);
+    i2c2Obj.i2cMode         = DRV_I2C_MODE_MASTER;
+    i2c2Obj.transfersize    = 0;
+    i2c2State               = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+
+    QueueInitialize_2();
+
+    /* Initialize interrupts */
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_MASTER);
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_I2C_1_MASTER);
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_ERROR);
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_I2C_1_ERROR);
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_I2C1, INT_PRIORITY_LEVEL1);
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_I2C1, INT_SUBPRIORITY_LEVEL0);
+
+
+    /* Enable I2C2 */
+    PLIB_I2C_Enable(I2C_ID_1);
+    
+
+}
+
+void DRV_I2C2_DeInitialize(void)
+{
+    /* Disable I2C2 */
+    PLIB_I2C_Disable(I2C_ID_1);
+}
+
+// *****************************************************************************
+// Section: I2C Instance 2 Function to read a buffer (Master/Slave)
+// *****************************************************************************
+
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_Receive (uint16_t deviceaddress,
+                                    void *rxBuffer,
+                                    size_t size,
+                                    void * context)
+{ 
+       DRV_STATIC_I2C_OBJECT* i2cBufferData;
+       
+    i2cBufferData = _DRV_I2C_QueueSlotGet_2();
+
+
+    if (i2cBufferData != NULL)
+    {
+        i2cBufferData->i2cMode          = DRV_I2C_MODE_MASTER;
+        if (deviceaddress > ADDRESS_7BIT_UPPER_LIMIT )
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)((deviceaddress & 0xFF00)>>8);
+            i2cBufferData->slaveaddresslowbyte  = (uint8_t)(deviceaddress & 0x00FF);
+        }
+        else
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)(deviceaddress & 0x00FF);
+            i2cBufferData->slaveaddresslowbyte  = 0;
+        }
+        i2cBufferData->transfersize     = size;
+        i2cBufferData->i2coperation     = DRV_I2C_OP_READ;
+        i2cBufferData->rxBuffer         = rxBuffer;
+        i2cBufferData->bufferstatus     = DRV_I2C_BUFFER_EVENT_PENDING;
+        i2cBufferData->transmitForced   = false;
+        i2c2State         = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+        if (i2cBufferData->i2cMode == DRV_I2C_MODE_MASTER)
+        {
+            /*  if either START and STOP were not detected which is true the 
+            first time OR if STOP was detected, then it assumed the 
+            transaction on the bus is complete */
+
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            {
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )
+                {
+                        i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                        PLIB_I2C_MasterStart(I2C_ID_1);
+                }
+            }
+        }
+    }
+
+    return (DRV_I2C_BUFFER_HANDLE)i2cBufferData;
+}
+
+// *****************************************************************************
+// Section: I2C Instance 2 Function to write a buffer (Master/Slave)
+// *****************************************************************************
+
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_Transmit (uint16_t deviceaddress,
+                                    void *txBuffer,
+                                    size_t size,
+                                    void * context)
+{
+    DRV_STATIC_I2C_OBJECT* i2cBufferData;
+       
+    i2cBufferData = _DRV_I2C_QueueSlotGet_2();
+
+    if (i2cBufferData != NULL)
+    {
+        i2cBufferData->i2cMode          = DRV_I2C_MODE_MASTER;
+        if (deviceaddress > ADDRESS_7BIT_UPPER_LIMIT )
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)((deviceaddress & 0xFF00)>>8);
+            i2cBufferData->slaveaddresslowbyte  = (uint8_t)(deviceaddress & 0x00FF);
+        }
+        else
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)(deviceaddress & 0x00FF);
+            i2cBufferData->slaveaddresslowbyte  = 0;
+        }
+        i2cBufferData->i2coperation     = DRV_I2C_OP_WRITE;
+        i2cBufferData->transfersize     = size;
+        i2cBufferData->txBuffer         = txBuffer;
+        i2cBufferData->bufferstatus     = DRV_I2C_BUFFER_EVENT_PENDING;
+        i2cBufferData->transmitForced   = false;
+        i2c2State         = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+        if (i2cBufferData->i2cMode == DRV_I2C_MODE_MASTER)
+        {
+            /*  if either START and STOP were not detected which is true the 
+            first time OR if STOP was detected, then it assumed the 
+            transaction on the bus is complete */
+
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            {
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )                        
+                {
+                        i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                        PLIB_I2C_MasterStart(I2C_ID_1);
+                }
+            }
+        }
+    }
+    return (DRV_I2C_BUFFER_HANDLE)i2cBufferData;
+}
+
+
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_TransmitForced (uint16_t deviceaddress,
+                                                             void *txBuffer,
+                                                             size_t size,
+                                                             void * context)
+{
+    DRV_STATIC_I2C_OBJECT* i2cBufferData;
+       
+    i2cBufferData = _DRV_I2C_QueueSlotGet_2();
+
+    if (i2cBufferData != NULL)
+    {
+        i2cBufferData->i2cMode          = DRV_I2C_MODE_MASTER;
+        if (deviceaddress > ADDRESS_7BIT_UPPER_LIMIT )
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)((deviceaddress & 0xFF00)>>8);
+            i2cBufferData->slaveaddresslowbyte  = (uint8_t)(deviceaddress & 0x00FF);
+        }
+        else
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)(deviceaddress & 0x00FF);
+            i2cBufferData->slaveaddresslowbyte  = 0;
+        }
+        i2cBufferData->i2coperation     = DRV_I2C_OP_WRITE;
+        i2cBufferData->transfersize     = size;
+        i2cBufferData->txBuffer         = txBuffer;
+        i2cBufferData->bufferstatus     = DRV_I2C_BUFFER_EVENT_PENDING;
+        i2cBufferData->errorEvent       = DRV_I2C_HALT_ON_ERROR;
+        i2cBufferData->transmitForced   = true;
+        i2c2State         = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+        if (i2cBufferData->i2cMode == DRV_I2C_MODE_MASTER)
+        {
+            /*  if either START and STOP were not detected which is true the 
+            first time OR if STOP was detected, then it assumed the 
+            transaction on the bus is complete */
+
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            {
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )                        
+                {
+                        i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                        PLIB_I2C_MasterStart(I2C_ID_1);
+                }
+            }
+        }
+    }
+    return (DRV_I2C_BUFFER_HANDLE)i2cBufferData;
+}
+
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_TransmitThenReceive ( uint16_t deviceaddress,
+                                    void *txBuffer,
+                                    size_t wsize,
+                                    void *rxBuffer,
+                                    size_t rsize,
+                                    void * context)
+{
+    DRV_STATIC_I2C_OBJECT* i2cBufferData;
+
+    i2cBufferData = _DRV_I2C_QueueSlotGet_2();
+
+    if (i2cBufferData != NULL)
+    {
+        i2cBufferData->i2cMode             = DRV_I2C_MODE_MASTER;
+        if (deviceaddress > ADDRESS_7BIT_UPPER_LIMIT )
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)((deviceaddress & 0xFF00)>>8);
+            i2cBufferData->slaveaddresslowbyte  = (uint8_t)(deviceaddress & 0x00FF);
+        }
+        else
+        {
+            i2cBufferData->slaveaddresshighbyte = (uint8_t)(deviceaddress & 0x00FF);
+            i2cBufferData->slaveaddresslowbyte  = 0;
+        }
+        i2cBufferData->i2coperation        = DRV_I2C_OP_WRITE_READ;
+        i2cBufferData->txBuffer            = txBuffer;
+        i2cBufferData->transfersize        = wsize;
+        i2cBufferData->rxBuffer            = rxBuffer;
+        i2cBufferData->readtransfersize    = rsize;
+        i2cBufferData->actualtransfersize  = 0;
+        i2cBufferData->transmitForced      = false;
+        i2cBufferData->bufferstatus        = DRV_I2C_BUFFER_EVENT_PENDING;
+        i2c2State                   = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+
+
+        if (i2c2Obj.i2cMode == DRV_I2C_MODE_MASTER)
+        {
+            /*  if either START and STOP were not detected which is true the 
+            first time OR if STOP was detected, then it assumed the 
+            transaction on the bus is complete */
+
+            if ( ((!(PLIB_I2C_StartWasDetected(I2C_ID_1))) && (!(PLIB_I2C_StopWasDetected(I2C_ID_1)))) || (PLIB_I2C_StopWasDetected(I2C_ID_1)) )
+            {
+                if ( (PLIB_I2C_BusIsIdle(I2C_ID_1)) && (!(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_I2C_1_MASTER))) )
+                {
+                    i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                    PLIB_I2C_MasterStart(I2C_ID_1);
+                }
+            }
+        }
+    }
+
+    return (DRV_I2C_BUFFER_HANDLE)i2cBufferData;
+
+} /* DRV_I2C_BufferAddWriteRead */
+
+void DRV_I2C2_Tasks(void)
+{
+    uint8_t tempDeviceAddress;
+
+    switch (i2c2State)
+    {
+        case DRV_I2C_TASK_SEND_DEVICE_ADDRESS:
+        {
+            if (i2c2Obj.i2cMode == DRV_I2C_MODE_MASTER)
+            {
+                lBufferObj2 = _DRV_I2C_QueuePop_2();
+
+                if (PLIB_I2C_StartWasDetected(I2C_ID_1))
+                {
+                    if ( (lBufferObj2->i2coperation == DRV_I2C_OP_WRITE) || (lBufferObj2->i2coperation == DRV_I2C_OP_WRITE_READ) )
+                    {
+                        if (lBufferObj2->slaveaddresslowbyte)
+                        {
+                            i2c2State = DRV_I2C_SEND_DEVICE_ADDRESS_BYTE_2;
+                        }
+                        else
+                        {
+                            lBufferObj2->bufferstatus    = DRV_I2C_BUFFER_SLAVE_WRITE_REQUESTED;
+                            i2c2State = DRV_I2C_TASK_PROCESS_WRITE_ONLY;
+                        }
+
+                        PLIB_I2C_TransmitterByteSend( I2C_ID_1, lBufferObj2->slaveaddresshighbyte );
+                    }
+                    else
+                    {
+                        lBufferObj2->bufferstatus    = DRV_I2C_BUFFER_SLAVE_READ_REQUESTED;
+                        i2c2State = DRV_I2C_TASK_SET_RCEN_ONLY;
+                        PLIB_I2C_TransmitterByteSend(I2C_ID_1, lBufferObj2->slaveaddresshighbyte | DRV_I2C_OP_READ );
+                    }
+                }
+            }
+            else if (i2c2Obj.i2cMode == DRV_I2C_MODE_SLAVE)
+            {
+                i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                /* Slave is accepting data from Master */
+                if ( (!PLIB_I2C_SlaveReadIsRequested(I2C_ID_1)) && (PLIB_I2C_SlaveAddressIsDetected(I2C_ID_1)) )
+                {
+                    i2c2Obj.operationStarting(DRV_I2C_BUFFER_SLAVE_READ_REQUESTED,0x00);
+
+                    lBufferObj2 = _DRV_I2C_QueuePop_2();
+
+                    /* do a dummy read so that I2CxRCV is cleared and not clobbered with data */
+                    PLIB_I2C_ReceivedByteGet (I2C_ID_1);
+                    PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                }
+                /*  Slave is sending data back to the Master    */
+                else if ( (PLIB_I2C_SlaveReadIsRequested(I2C_ID_1)) && (PLIB_I2C_SlaveAddressIsDetected(I2C_ID_1)) )
+                {
+
+                    PLIB_I2C_ReceivedByteGet (I2C_ID_1);
+                    PLIB_I2C_SlaveClockHold (I2C_ID_1);
+                    
+                    i2c2Obj.operationStarting(DRV_I2C_BUFFER_SLAVE_WRITE_REQUESTED,0x00);
+
+                    lBufferObj2 = _DRV_I2C_QueuePop_2();
+
+                    lBufferObj2->transfersize = 0;
+
+                    // transmit first byte
+                    PLIB_I2C_TransmitterByteSend(I2C_ID_1, *lBufferObj2->txBuffer++);
+                    lBufferObj2->transfersize++;
+                    PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                }
+                else if ( (!PLIB_I2C_SlaveReadIsRequested(I2C_ID_1)) && PLIB_I2C_SlaveDataIsDetected(I2C_ID_1))
+                {
+                    /*        Master sends data to the slave        */ 
+                    PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+
+                    if (lBufferObj2->transfersize < 255)
+                    {
+                        *lBufferObj2->rxBuffer++ = PLIB_I2C_ReceivedByteGet(I2C_ID_1);
+                        lBufferObj2->transfersize++;
+                        lBufferObj2->bufferstatus = DRV_I2C_BUFFER_SLAVE_READ_BYTE;
+                        if ( i2c2ClientObj.callback != NULL )
+                        {
+                            /* Give an indication to the higher layer upon successful operation */
+                            i2c2ClientObj.callback(DRV_I2C_BUFFER_SLAVE_READ_BYTE, 
+                                        (DRV_I2C_BUFFER_HANDLE) lBufferObj2, 0x00);
+                        }                       
+                    }
+                    else
+                    {
+                        lBufferObj2->bufferstatus = DRV_I2C_BUFFER_EVENT_ERROR;                                 
+                        PLIB_I2C_ReceivedByteGet(I2C_ID_1);
+                        if ( i2c2ClientObj.callback != NULL )
+                        {
+                            /* Give an indication to the higher layer upon when error happens */
+                            i2c2ClientObj.callback(DRV_I2C_BUFFER_EVENT_ERROR, 
+                                        (DRV_I2C_BUFFER_HANDLE) lBufferObj2, 0x00);
+                        }  
+                    }
+                }
+                else if (PLIB_I2C_SlaveReadIsRequested(I2C_ID_1) && PLIB_I2C_SlaveDataIsDetected(I2C_ID_1))
+                {
+                    PLIB_I2C_SlaveClockHold (I2C_ID_1);
+
+                    if ( PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_1) )
+                    {
+                        if ( lBufferObj2->transfersize < 255 )
+                        {
+                            PLIB_I2C_SlaveClockRelease(I2C_ID_1);
+                            PLIB_I2C_TransmitterByteSend (I2C_ID_1, *lBufferObj2->txBuffer++ );
+                            lBufferObj2->transfersize++;
+                            lBufferObj2->bufferstatus = DRV_I2C_BUFFER_SLAVE_WRITE_BYTE;
+                            if ( i2c2ClientObj.callback != NULL )
+                            {
+                                /* Give an indication to the higher layer upon successful transmission */
+                                i2c2ClientObj.callback(DRV_I2C_BUFFER_SLAVE_WRITE_BYTE, 
+                                            (DRV_I2C_BUFFER_HANDLE) lBufferObj2, 0x00);
+                    }
+                        }
+                        else
+                        {
+                            lBufferObj2->bufferstatus = DRV_I2C_BUFFER_EVENT_ERROR;
+                            PLIB_I2C_TransmitterByteSend(I2C_ID_1, 0);
+                            if ( i2c2ClientObj.callback != NULL )
+                            {
+                                /* Give an indication to the higher layer upon when error happens */
+                                i2c2ClientObj.callback(DRV_I2C_BUFFER_EVENT_ERROR, 
+                                        (DRV_I2C_BUFFER_HANDLE) lBufferObj2, 0x00);
+                            }  
+                        }
+                    }
+                    else if ( !PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_1) )
+                    {
+                        PLIB_I2C_SlaveClockRelease (I2C_ID_1);
+                        //TODO callback implementation
+                        lBufferObj2->bufferstatus = DRV_I2C_BUFFER_EVENT_COMPLETE; 
+                    }
+                }
+            }
+            break;
+        }
+
+        case DRV_I2C_SEND_DEVICE_ADDRESS_BYTE_2:
+        {
+            if ( lBufferObj2->i2coperation == DRV_I2C_OP_READ )
+            {
+                PLIB_I2C_TransmitterByteSend(I2C_ID_1,lBufferObj2->slaveaddresslowbyte>>1) ;
+                i2c2State = DRV_I2C_TASK_SET_RCEN_ONLY;
+            }
+            else
+            {                         
+                PLIB_I2C_TransmitterByteSend (I2C_ID_1, lBufferObj2->slaveaddresslowbyte>>1) ;
+                i2c2State = DRV_I2C_TASK_PROCESS_WRITE_ONLY;
+            }
+            break;
+        }
+
+        case DRV_I2C_SEND_RANDOM_READ_DEVICE_ADDRESS:
+        {
+            tempDeviceAddress = (lBufferObj2->slaveaddresshighbyte);
+            tempDeviceAddress |= 0x01;
+            PLIB_I2C_TransmitterByteSend( I2C_ID_1,tempDeviceAddress );
+            i2c0State = DRV_I2C_TASK_SET_RCEN_ONLY;
+            break;
+        }
+
+        case DRV_I2C_TASK_PROCESS_READ_ONLY:
+        {
+            /* Read I2CxRCV register for received data */
+            if (lBufferObj2->transfersize)
+            {
+                if ( PLIB_I2C_ReceivedByteIsAvailable (I2C_ID_1) )
+                {
+                    /* If all but one reception is complete */
+                    if ( lBufferObj2->transfersize > 1 )
+                    {
+                        *lBufferObj2->rxBuffer++ = PLIB_I2C_ReceivedByteGet (I2C_ID_1);
+                        lBufferObj2->transfersize--;
+                        lBufferObj2->actualtransfersize++;
+                        i2c2State  = DRV_I2C_TASK_SET_RCEN_ONLY;
+                        if (PLIB_I2C_MasterReceiverReadyToAcknowledge(I2C_ID_1))
+                        {
+                            PLIB_I2C_ReceivedByteAcknowledge (I2C_ID_1, true);
+                        }
+                    }
+                    else
+                    {
+                        lBufferObj2->transfersize--;
+                        lBufferObj2->actualtransfersize++;
+
+                        *lBufferObj2->rxBuffer++ = PLIB_I2C_ReceivedByteGet (I2C_ID_1);
+                        if (PLIB_I2C_MasterReceiverReadyToAcknowledge(I2C_ID_1))
+                        {
+                            PLIB_I2C_ReceivedByteAcknowledge ( I2C_ID_1, false  );
+                        }
+
+                        i2c2State = DRV_I2C_BUS_SILENT;
+                    }
+                }
+                else
+                {
+                    // Do not block in any case
+                    break;
+                }
+            }
+            break;
+        }
+
+        case    DRV_I2C_TASK_PROCESS_WRITE_ONLY:
+        {
+            if (lBufferObj2->transfersize)
+            {
+                if ( PLIB_I2C_TransmitterByteHasCompleted (I2C_ID_1) )
+                {
+                    if ( PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_1) ||
+                        (lBufferObj2->transmitForced)  )
+                    {
+                        if (lBufferObj2->transfersize > 1)
+                            i2c2State = DRV_I2C_TASK_PROCESS_WRITE_ONLY;
+                        else
+                            i2c2State = DRV_I2C_BUS_SILENT;
+                        PLIB_I2C_TransmitterByteSend ( I2C_ID_1, *lBufferObj2->txBuffer++ );
+                        lBufferObj2->transfersize--;
+                        lBufferObj2->actualtransfersize++;
+                    }
+                    else
+                    {
+                        i2c2State = DRV_I2C_TASK_PROCESS_STOP;
+                        PLIB_I2C_MasterStop (I2C_ID_1);
+                    }
+                }
+                else
+                {
+                    /* do not block but exit*/
+                    break;
+                }
+            }
+            else
+            {
+                i2c2State = DRV_I2C_TASK_PROCESS_STOP;
+                PLIB_I2C_MasterStop (I2C_ID_1);
+            }
+            break;
+        }
+
+        case    DRV_I2C_BUS_SILENT:
+        {
+            /* The bus is silent/idle when when the last byte is either ACKed  OR
+            in the event of slave unexpectedly aborting operation, check
+            if transmission is complete and NACK is received
+            ACK received OR (transmit complete & NACKed)
+            */
+
+            if ( (PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_1)) ||
+                    ( PLIB_I2C_TransmitterByteHasCompleted (I2C_ID_1)  &&
+                        (!PLIB_I2C_TransmitterByteWasAcknowledged (I2C_ID_1)) ) )
+            {
+                if (lBufferObj2->i2coperation == DRV_I2C_OP_WRITE_READ)
+                {
+                    lBufferObj2->transfersize   = lBufferObj2->readtransfersize;
+                    i2c2State                   = DRV_I2C_SEND_RANDOM_READ_DEVICE_ADDRESS;
+                    lBufferObj2->i2coperation   = DRV_I2C_OP_READ;
+                    PLIB_I2C_MasterStartRepeat (I2C_ID_1);
+                }
+                else
+                {
+                    i2c2State = DRV_I2C_TASK_PROCESS_STOP;
+                    PLIB_I2C_MasterStop (I2C_ID_1);
+                }
+            }
+            break;
+        }
+
+        case DRV_I2C_TASK_SET_RCEN_ONLY:
+		{
+            if ( PLIB_I2C_TransmitterByteHasCompleted(I2C_ID_1) )
+            {
+                if ( PLIB_I2C_TransmitterByteWasAcknowledged(I2C_ID_1) )
+                {
+                    /* if I2CxSTAT.ACKEN bit is 0, the Acknowledge sequence has been completed */
+                    if (PLIB_I2C_ReceiverByteAcknowledgeHasCompleted(I2C_ID_1))
+                    {
+                        PLIB_I2C_MasterReceiverClock1Byte (I2C_ID_1);
+                        i2c2State = DRV_I2C_TASK_PROCESS_READ_ONLY;
+                    }
+                }
+                else
+                {
+                    i2c2State = DRV_I2C_TASK_PROCESS_STOP;
+                    PLIB_I2C_MasterStop (I2C_ID_1);
+                }
+            }
+            break;
+        }
+
+        case    DRV_I2C_TASK_PROCESS_STOP:
+        {
+            if (PLIB_I2C_StopWasDetected(I2C_ID_1))
+            {
+                i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                if (lBufferObj2->transfersize)
+                {
+                    lBufferObj2->bufferstatus    = DRV_I2C_BUFFER_EVENT_ERROR;
+                }
+                else
+                {
+                    lBufferObj2->bufferstatus    = DRV_I2C_BUFFER_EVENT_COMPLETE;
+                }
+                /* Have a check here because DRV_I2C_BufferEvent_Handler function call is optional */
+                if ( i2c2ClientObj.callback != NULL )
+                {
+                    /* Give an indication to the higher layer upon successful transmission */
+                    i2c2ClientObj.callback(lBufferObj2->bufferstatus, 
+                                                        (DRV_I2C_BUFFER_HANDLE) lBufferObj2, 0x00);
+                }
+            }
+            else
+            {
+                i2c2State = DRV_I2C_TASK_PROCESS_STOP;
+            }
+            break;
+        }
+
+        default:
+            break;
+    }
+
+    /* Clear pending interrupt */
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_MASTER);    
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_I2C_1_ERROR);
+
+    if (i2c2Obj.i2cMode == DRV_I2C_MODE_MASTER)
+    {
+        if ( (lBufferObj2->bufferstatus == DRV_I2C_BUFFER_EVENT_COMPLETE) || (lBufferObj2->bufferstatus == DRV_I2C_BUFFER_EVENT_ERROR) )
+        {
+            _DRV_I2C_Advance_Queue_2();
+            if (IsQueueEmpty_2() == false)
+            {
+                i2c2State = DRV_I2C_TASK_SEND_DEVICE_ADDRESS;
+                PLIB_I2C_MasterStart(I2C_ID_1);
+                Nop();
+            }
+        }
+    }
+}
+
+
+// *****************************************************************************
+// Section: Instance 2 Byte Transfer Functions (Master/Slave)
+// *****************************************************************************
+
+uint32_t DRV_I2C2_BytesTransferred ( DRV_I2C_BUFFER_HANDLE bufferHandle )
+{
+    /* returns the number of bytes transferred in an I2C transaction */
+    return ((DRV_STATIC_I2C_OBJECT*)bufferHandle)->actualtransfersize;
+}
+
+// *****************************************************************************
+// Section: Function that will initiate a callback to the main
+//          application on status of buffer operation
+// *****************************************************************************
+
+void DRV_I2C2_BufferEventHandlerSet (const DRV_I2C_BUFFER_EVENT_HANDLER eventHandler,
+                                                   const uintptr_t context )
+{
+    i2c2ClientObj.callback = eventHandler;
+
+    i2c2ClientObj.context = context;
+}   /* DRV_I2C_BufferEventHandlerSet */
+
+
+// *****************************************************************************
+// Section: Instance 2 Function to check status of a buffer 
+//          transfer operation
+// *****************************************************************************
+
+DRV_I2C_BUFFER_EVENT DRV_I2C2_TransferStatusGet ( DRV_I2C_BUFFER_HANDLE bufferHandle )
 {
     /* return status of Buffer Transfer */    
     return ((DRV_STATIC_I2C_OBJECT*)bufferHandle)->bufferstatus;

@@ -84,7 +84,11 @@ void IntHandlerDrvI2CInstance1(void)
 {
     DRV_I2C1_Tasks();
 }
-    
+
+void IntHandlerDrvI2CInstance2(void) 
+{
+    DRV_I2C2_Tasks();
+}
 void IntHandlerDrvTmrInstance0(void)
 {
     if(SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_2)) {

@@ -174,6 +174,7 @@ void SYS_Initialize ( void* data )
     /* Initialize Drivers */
     DRV_I2C0_Initialize();
     DRV_I2C1_Initialize();
+    DRV_I2C2_Initialize();
 
     /*Initialize TMR0 */
     DRV_TMR0_Initialize();

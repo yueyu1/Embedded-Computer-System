@@ -245,12 +245,12 @@
       <Template>
         <Name>sys_ports_static.c</Name>
         <Path>Source Files/app/system_config/default/framework/system/ports/src</Path>
-        <Checksum>A0D35755E9D5EAF8AF6D18035E8756CF</Checksum>
+        <Checksum>780F3665BAEC719426A30A3572CD2157</Checksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>830B680DF280FD7B1BE7726297025AFA</Checksum>
+        <Checksum>6FEC84D8BAD18286B258E6518F5AA88E</Checksum>
       </Template>
       <Template>
         <Name>colorSensor.c</Name>
@@ -264,7 +264,7 @@
       <Template>
         <Name>drv_i2c_static_buffer_model.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/i2c/src</Path>
-        <Checksum>7BCBC75DF1FC3AD93F89D693FAF1F7DB</Checksum>
+        <Checksum>47074571E48DE6DFC2A1D3009BBF85C3</Checksum>
       </Template>
       <Template>
         <Name>drv_tmr_mapping.c</Name>
@@ -318,7 +318,7 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>F356EA50C3FE67E8E774BFAFA33ABA44</Checksum>
+        <Checksum>73D7798D472438B1985349DA46A3FF0B</Checksum>
         <ProjectFileChecksum>4548372BED3B090701A7E83631E2A815</ProjectFileChecksum>
       </Template>
       <Template>
@@ -342,7 +342,7 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>ECB430EBC6F9E56B757DEB62C6064E7F</Checksum>
+        <Checksum>9FEC92F92F8420136615865903552441</Checksum>
       </Template>
       <Template>
         <Name>main.c</Name>
@@ -369,7 +369,7 @@
       <Template>
         <Name>drv_i2c_static_buffer_model.h</Name>
         <Path>Header Files/app/system_config/default/framework/driver/i2c</Path>
-        <Checksum>1C02678D863490D3008B0E3372C5648A</Checksum>
+        <Checksum>778F3D7CD8FA0F157B2873E898C26717</Checksum>
       </Template>
       <Template>
         <Name>app.c</Name>
@@ -388,7 +388,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>52B920AA88CBEE10308CC1F53CCCF318</Checksum>
+        <Checksum>AE409D10C7B7713C282CC60DBD377A46</Checksum>
       </Template>
       <Template>
         <Name>app.h</Name>
@@ -402,7 +402,7 @@
       <Template>
         <Name>drv_i2c_mapping.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/i2c/src</Path>
-        <Checksum>6841FBB14B1E3A020D95F2777CDC8114</Checksum>
+        <Checksum>0AEF1F04BE90527BE7AF425A22ACBDF8</Checksum>
       </Template>
       <Template>
         <Name>rtos_hooks.c</Name>

@@ -121,6 +121,12 @@ void dbgReceiveMsgServer(){
    //return msg;
 }
 
+void controlLED(int switchON){
+    if (switchON) 
+        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_8, 1);
+    else
+        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_8, 0);
+}
 /** 
   @Function
     void dbgSysHalt ( unsigned char outVal ) 

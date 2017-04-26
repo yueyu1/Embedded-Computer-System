@@ -158,9 +158,9 @@ _IntHandlerDrvUsartInstance0:
 
    .extern  IntHandlerDrvI2CInstance0
 
-   .section	.vector_25,code, keep
-   .equ     __vector_dispatch_25, IntVectorDrvI2CInstance0
-   .global  __vector_dispatch_25
+   .section	.vector_32,code, keep
+   .equ     __vector_dispatch_32, IntVectorDrvI2CInstance0
+   .global  __vector_dispatch_32
    .set     nomicromips
    .set     noreorder
    .set     nomips16
@@ -223,6 +223,42 @@ _IntHandlerDrvI2CInstance1:
     nop
     portRESTORE_CONTEXT
     .end	_IntHandlerDrvI2CInstance1
+
+
+
+/* I2C Instance 2 Interrupt */
+
+   .extern  IntHandlerDrvI2CInstance2
+
+   .section	.vector_25,code, keep
+   .equ     __vector_dispatch_25, IntVectorDrvI2CInstance2
+   .global  __vector_dispatch_25
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorDrvI2CInstance2
+
+IntVectorDrvI2CInstance2:
+    la    $26,  _IntHandlerDrvI2CInstance2         
+    jr    $26
+    nop
+	.end	IntVectorDrvI2CInstance2
+
+   .section	.DrvI2CInstance2_vector_text, code, keep
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  _IntHandlerDrvI2CInstance2
+
+_IntHandlerDrvI2CInstance2:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerDrvI2CInstance2
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	_IntHandlerDrvI2CInstance2
 
 
 /*******************************************************************************

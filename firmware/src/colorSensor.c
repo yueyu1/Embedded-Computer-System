@@ -131,6 +131,11 @@ static uint16_t buffer_red2;
 static uint16_t buffer_green2;
 static uint16_t buffer_blue2;
 
+static bool redAppears3;
+static uint16_t buffer_red3;
+static uint16_t buffer_green3;
+static uint16_t buffer_blue3;
+
 static unsigned int counter;
 static bool finishedCounting;
 static unsigned int bothHitCount;
@@ -148,6 +153,13 @@ void RGB_Init2() {
     DRV_I2C1_Transmit(ADDRESS_WRITE, &GAIN, 2, NULL);
     DRV_I2C1_Transmit(ADDRESS_WRITE, &SET_PON, 2, NULL);
     DRV_I2C1_Transmit(ADDRESS_WRITE, &SET_AEN, 2, NULL); 
+}
+
+void RGB_Init3() {
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &INTEGRATION_TIME, 2, NULL);
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &GAIN, 2, NULL);
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &SET_PON, 2, NULL);
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &SET_AEN, 2, NULL); 
 }
 
 void Read_RED1(void * buffer) {
@@ -180,9 +192,24 @@ void Read_BLUE2(void * buffer) {
     DRV_I2C1_Receive(ADDRESS_READ, buffer, 2, NULL);
 }
 
+void Read_RED3(void * buffer) {
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &RED, 2, NULL);
+    DRV_I2C2_Receive(ADDRESS_READ, buffer, 2, NULL);
+}
+
+void Read_GREEN3(void * buffer) {
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &GREEN, 2, NULL);
+    DRV_I2C2_Receive(ADDRESS_READ, buffer, 2, NULL);
+}
+
+void Read_BLUE3(void * buffer) {
+    DRV_I2C2_Transmit(ADDRESS_WRITE, &BLUE, 2, NULL);
+    DRV_I2C2_Receive(ADDRESS_READ, buffer, 2, NULL);
+}
+
 bool rgbRead1(){
     Read_RED1(&buffer_red1);
-    Read_GREEN1(&buffer_red1);
+    Read_GREEN1(&buffer_green1);
     Read_BLUE1(&buffer_blue1);
 	if((double)buffer_blue1 / (buffer_red1 + buffer_green1) > 0.7){
 		return true;
@@ -194,9 +221,21 @@ bool rgbRead1(){
 
 bool rgbRead2(){
     Read_RED2(&buffer_red2);
-    Read_GREEN2(&buffer_red2);
+    Read_GREEN2(&buffer_green2);
     Read_BLUE2(&buffer_blue2);
 	if((double)buffer_blue2 / (buffer_red2 + buffer_green2) > 0.7){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool rgbRead3(){
+    Read_RED3(&buffer_red3);
+    Read_GREEN3(&buffer_green3);
+    Read_BLUE3(&buffer_blue3);
+	if((double)buffer_red3 / (buffer_blue3 + buffer_green3) > 0.7){
 		return true;
 	}
 	else {
@@ -207,9 +246,9 @@ bool rgbRead2(){
 void sendSensorStatus() {
     char result[20];
     char b[5], r[5], g[5];
-    sprintf(b, "%d", buffer_blue1);
-    sprintf(r, "%d", buffer_red1);
-    sprintf(g, "%d", buffer_green1);
+    sprintf(b, "%d", buffer_blue3);
+    sprintf(r, "%d", buffer_red3);
+    sprintf(g, "%d", buffer_green3);
     strcat(result, "blue:");
     strcat(result, b);
     strcat(result, ", ");
@@ -221,7 +260,7 @@ void sendSensorStatus() {
     dbgSendMsgServer(result);
     char ratio[50];
     double ra;
-    ra = (double)buffer_blue1 / (buffer_red1 + buffer_green1);
+    ra = (double)buffer_red3 / (buffer_blue3 + buffer_green3);
     snprintf(ratio, 10, "%f", r);
     dbgSendMsgServer(ratio);
 }
@@ -230,6 +269,7 @@ void readData() {
     // Read data and determine if blue appears
     blueAppears1 = rgbRead1();
     blueAppears2 = rgbRead2();
+    redAppears3 = rgbRead3();
     // Make data ready
     colorsensorData.dataReady = true;
 }
@@ -271,8 +311,10 @@ void COLORSENSOR_Tasks ( void )
 {
     RGB_Init1();
     RGB_Init2();
+    RGB_Init3();
     unsigned int recvVal;
     unsigned int secondCtr = 0;
+    controlLED(0);
     
     while (1) {
         if (colorsensorData.colorsensorQ != 0) {
@@ -344,7 +386,17 @@ void COLORSENSOR_Tasks ( void )
 
                     if (!finishedCounting) {
                         counter++;
-                    }  
+                    }
+                    
+                    if(finishedOrientation) {
+                        if(redAppears3) {
+                            controlLED(1);
+//                            sendSensorStatus();
+                        }
+                        else {
+                            controlLED(0);
+                        }
+                    }
                 }
                 break;
             }

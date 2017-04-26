@@ -189,6 +189,68 @@ uint32_t DRV_I2C1_BytesTransferred ( DRV_I2C_BUFFER_HANDLE bufferHandle );
 void DRV_I2C1_BufferEventHandlerSet (const DRV_I2C_BUFFER_EVENT_HANDLER eventHandler,
                     const uintptr_t context );
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface Headers for Instance 2 for the static driver
+// *****************************************************************************
+// *****************************************************************************
+
+void DRV_I2C2_Initialize(void);
+
+void DRV_I2C2_DeInitialize(void);
+
+void DRV_I2C2_Tasks(void);
+
+
+// *****************************************************************************
+// Section: Instance 2 Buffer Transfer function (Master/Slave)
+// *****************************************************************************
+
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_Transmit ( uint16_t deviceaddress,
+                                                        void *txBuffer,
+                                                        size_t size,
+                                                        void * context);
+
+
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_Receive (  uint16_t deviceaddress,
+                                                        void *rxBuffer,
+                                                        size_t size,
+                                                        void * context); 
+                                    
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_TransmitThenReceive (  uint16_t deviceaddress,
+                                                                    void *txBuffer,
+                                                                    size_t wsize,
+                                                                    void *rxBuffer,
+                                                                    size_t size,
+                                                                    void * context); 
+                                                                   
+DRV_I2C_BUFFER_HANDLE DRV_I2C2_TransmitForced (   uint16_t deviceaddress,
+                                                                void *txBuffer,
+                                                                size_t size,
+                                                                DRV_I2C_BUS_ERROR_EVENT eventFlag,
+                                                                void * context);
+
+// *****************************************************************************
+// Section: Instance 2 Buffer status function
+// *****************************************************************************
+
+DRV_I2C_BUFFER_EVENT DRV_I2C2_TransferStatusGet ( DRV_I2C_BUFFER_HANDLE bufferHandle );
+
+
+// *****************************************************************************
+// Section: Instance 2 Number of Bytes transferred
+// *****************************************************************************
+
+uint32_t DRV_I2C2_BytesTransferred ( DRV_I2C_BUFFER_HANDLE bufferHandle );
+
+
+// *****************************************************************************
+// Section: Buffer Event Callback function 
+// *****************************************************************************
+
+void DRV_I2C2_BufferEventHandlerSet (const DRV_I2C_BUFFER_EVENT_HANDLER eventHandler,
+                    const uintptr_t context );
+
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus

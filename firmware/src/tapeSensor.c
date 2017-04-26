@@ -189,6 +189,7 @@ void TAPESENSOR_Tasks ( void )
 //                makeMove();
 //                resetMapDataGlobalVariables();
 //                resetAStartGlobalVariables();
+                
                 break;
             }
 
@@ -211,7 +212,7 @@ void TAPESENSOR_Tasks ( void )
                         transformMapData();
                         resetAStartGlobalVariables();
                         mapReady = false;
-                        firstMap = false;
+//                        firstMap = false;
                     }
                     else {
                         sendTimerValtoPathMovement(COMPLETE_STOP);
