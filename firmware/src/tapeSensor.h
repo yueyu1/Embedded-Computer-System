@@ -82,6 +82,8 @@ extern "C" {
     
 #define MAP_DATA 1
 #define FINISHED_ORIENTATION 2
+#define FLAG_ZONE 3
+#define ARM_DONE 4
 //#define MOVE_REVERSE 2
 //#define MOVE_LEFT 3
 //#define MOVE_RIGHT 4
@@ -103,6 +105,7 @@ typedef enum
 	TAPESENSOR_STATE_SERVICE_TASKS,
             TAPESENSOR_STATE_FOLLOW_PATH,
             TAPESENSOR_STATE_INIT_ORIENTATION,
+            TAPESENSOR_STATE_FLAG_ZONE,
 
 	/* TODO: Define states used by the application state machine. */
 

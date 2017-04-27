@@ -51,6 +51,7 @@ void COMMUNICATION_Initialize ( void )
     // Initialize global variables
     resetAStartGlobalVariables();
     resetMapDataGlobalVariables();
+    resetCurMapDataGlobalVariables();
     
     // initialize "Team 6" message
     appData.teamString = "Team 6";
@@ -196,12 +197,18 @@ void processMessage(message exMsg){
         }
         // Other request
         else if (strcmp(exMsg.payload, "Map") == 0) {
-            transformMapData();
+            updateMap();
+            transformNewMapData();
+//            transformMapData();
             strcpy(exMsg.payload, "RespondPath");
         }
         else if (strcmp(exMsg.payload, "Boundary") == 0) {
             transformBoundaryData();
             strcpy(exMsg.payload, "RespondBoundary");
+        }
+        else if(strcmp(exMsg.payload, "Flag") == 0) {
+            strcpy(exMsg.payload, "RespondFlag");
+            sendTapeSensorQ(FLAG_ZONE);
         }
 //        transformMapData();
         explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);

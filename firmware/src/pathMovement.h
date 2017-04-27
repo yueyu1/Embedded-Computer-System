@@ -89,9 +89,10 @@ extern "C" {
 #define ARM_REVERSE 8
 #define INITIAL_ORIENT 9
 #define ORIENT_DONE 10
+#define WAIT 11
     
-#define ARM_DOWN 298
-#define ARM_UP 275
+#define ARM_DOWN 296
+#define ARM_UP 283
 #define ARM_NEUTRAL 285
 // *****************************************************************************
 /* Application states
@@ -116,7 +117,8 @@ typedef enum
         PATHMOVEMENT_STATE_COMPLETE_STOP,
         PATHMOVEMENT_STATE_ARM_FORWARD,
         PATHMOVEMENT_STATE_ARM_REVERSE,
-        PATHMOVEMENT_STATE_ORIENTATION
+        PATHMOVEMENT_STATE_ORIENTATION,
+        PATHMOVEMENT_STATE_WAIT,
 
 	/* TODO: Define states used by the application state machine. */
 

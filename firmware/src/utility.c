@@ -148,6 +148,8 @@ message parseJsonMsg(char *jsonStr) {
             parseArrayPayload(jsonStr, "Boundary");
             parseArrayPayload(jsonStr, "Start");
             parseArrayPayload(jsonStr, "Goal");
+            parseArrayPayload(jsonStr, "Defense");
+            parseArrayPayload(jsonStr, "Center");
         }
         else if (strcmp(newMsg.payload, "Boundary") == 0){
             parseArrayPayload(jsonStr, "Obstacle");
@@ -395,6 +397,14 @@ void storeMapData(char* field, int n) {
         ex_map.flagpos[flag_length] = n;
         flag_length++;
     }
+    
+    if(strcmp(field, "Defense") == 0) {
+        ex_map.defenseSize = n;
+    }
+    
+    if(strcmp(field, "Center") == 0) {
+        ex_map.centerSize = n;
+    }
 }
 
 void transformMapData() {
@@ -424,6 +434,71 @@ void transformMapData() {
     goalPosition.gx = ex_map.flagpos[i];
     i++;
     goalPosition.gy = ex_map.flagpos[i];
+}
+
+void updateMap() {
+    int i;
+    int j;
+    int z;
+    
+    bool same_obstacle;
+    coordinate new_obstacle;
+    for (i = 0; i < o_length; i++) {
+        new_obstacle.x = ex_map.obstacle[i];
+        i++;
+        new_obstacle.y = ex_map.obstacle[i];
+        
+        same_obstacle = false;
+        for (j = 0; j < cur_o_length; j++) { //check each new obstacle against list of old obstacles
+            coordinate old_obstacle;
+            old_obstacle.x = cur_map.obstacle[j];
+            j++;
+            old_obstacle.y = cur_map.obstacle[j];
+            
+            if(pointEqual(new_obstacle, old_obstacle)) {
+                same_obstacle = true;
+            }
+        }
+        
+        if(!same_obstacle) { //add new obstacle if not in the list of obstacles already.
+            z = cur_o_length;
+            cur_map.obstacle[z] = new_obstacle.x;
+            z++;
+            cur_map.obstacle[z] = new_obstacle.y;
+            cur_o_length+=2;
+        }
+           
+    }
+    
+//    for (i = 0; i < o_length; i++) {
+//        cur_map.obstacle[i] = ex_map.obstacle[i];
+//        i++;
+//        cur_map.obstacle[i] = ex_map.obstacle[i];
+//        obsticleListLen++;
+//        cur_o_length+=2;
+//    }
+    
+    i = 0;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    i++;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    i++;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    i++;
+    cur_map.boundary[i] = ex_map.boundary[i];
+    
+    i = 0;
+    cur_map.startpos[i] = ex_map.startpos[i];
+    i++;
+    cur_map.startpos[i] = ex_map.startpos[i];
+    
+    i = 0;
+    cur_map.flagpos[i] = ex_map.flagpos[i];
+    i++;
+    cur_map.flagpos[i] = ex_map.flagpos[i];
+    
+    cur_map.centerSize = ex_map.centerSize;
+    cur_map.defenseSize = ex_map.defenseSize;
 }
 /************** end of Map functions*************/
 
@@ -465,6 +540,9 @@ void resetMapDataGlobalVariables() {
     flag_length = 0;
     boundary_length = 0;
     startPos_length = 0;
+    
+    ex_map.defenseSize = 0;
+    ex_map.centerSize = 0;
 }
 
 void resetAStartGlobalVariables() {
@@ -499,6 +577,54 @@ coordinate getNextPoint() {
         traceBackListLen--;
     }
     return co;
+}
+
+void resetCurMapDataGlobalVariables() {
+    emptyIntArray(cur_map.boundary, MAP_VAL_MAX_SIZE);
+    emptyIntArray(cur_map.flagpos, MAP_VAL_MAX_SIZE);
+    emptyIntArray(cur_map.obstacle, MAP_VAL_MAX_SIZE);
+    emptyIntArray(cur_map.startpos, MAP_VAL_MAX_SIZE);
+    
+    cur_o_length = 0;
+    cur_flag_length = 0;
+    cur_boundary_length = 0;
+    cur_startPos_length = 0;
+    
+    cur_map.defenseSize = 0;
+    cur_map.centerSize = 0;
+}
+
+void transformNewMapData() {
+
+    int i;
+    for (i = 0; i < cur_o_length; i++) {
+        obsticle_list[obsticleListLen].x = cur_map.obstacle[i];
+        i++;
+        obsticle_list[obsticleListLen].y = cur_map.obstacle[i];
+        obsticleListLen++;
+    }
+    
+    i = 0;
+    MIN_X = cur_map.boundary[i];
+    i++;
+    MIN_Y = cur_map.boundary[i];
+    i++;
+    MAX_X = cur_map.boundary[i];
+    i++;
+    MAX_Y = cur_map.boundary[i];
+    
+    i = 0;
+    startPosition.sx = cur_map.startpos[i];
+    i++;
+    startPosition.sy = cur_map.startpos[i];
+    
+    i = 0;
+    goalPosition.gx = cur_map.flagpos[i];
+    i++;
+    goalPosition.gy = cur_map.flagpos[i];
+    
+    defenseLength = cur_map.defenseSize;
+    centerLength = cur_map.centerSize;
 }
 
 void getNextMovement(coordinate orig, coordinate next) {

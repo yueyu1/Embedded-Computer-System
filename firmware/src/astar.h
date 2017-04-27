@@ -138,6 +138,9 @@ extern "C" {
 
     start startPosition;
     goal goalPosition;
+    
+    int defenseLength;
+    int centerLength;
 
     int openListLen;
     int closeListLen;

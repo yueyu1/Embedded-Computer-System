@@ -144,6 +144,9 @@ void TAPESENSOR_Tasks ( void )
     int secondCtr = 0;
     bool mapReady = false;
     bool firstMap = true;
+    
+    bool pickUpFlag = true;
+    bool armMotionDone = false;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
     /* Check the application's current state. */
     while (1){
@@ -160,6 +163,13 @@ void TAPESENSOR_Tasks ( void )
                 }
                 else if (recvTapeVal == FINISHED_ORIENTATION) {
                     tapesensorData.state = TAPESENSOR_STATE_FOLLOW_PATH;
+                }
+                else if (recvTapeVal == FLAG_ZONE) {
+                    tapesensorData.state = TAPESENSOR_STATE_FLAG_ZONE;
+                    pickUpFlag = true;
+                }
+                else if (recvTapeVal == ARM_DONE) {
+                    armMotionDone = true;
                 }
 //                makeMove();
 //                resetMapDataGlobalVariables();
@@ -207,8 +217,11 @@ void TAPESENSOR_Tasks ( void )
                     if (firstMap) {
                         sendTimerValtoPathMovement(ORIENT_DONE);
                         resetPathMovementGlobalVariables();
+                        goalPosition.gy = defenseLength;
+                        explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
                         makeMove();
                         resetMapDataGlobalVariables();
+                        resetCurMapDataGlobalVariables();
                         transformMapData();
                         resetAStartGlobalVariables();
                         mapReady = false;
@@ -219,6 +232,32 @@ void TAPESENSOR_Tasks ( void )
                         mapReady = false;
                     }
                 }
+                break;
+            }
+            
+            case TAPESENSOR_STATE_FLAG_ZONE:
+            {
+                if (pickUpFlag) {
+                    sendTimerValtoPathMovement(ORIENT_DONE);
+                    sendTimerValtoPathMovement(MOVE_FORWARD);
+                    //                sendTimerValtoPathMovement(COMPLETE_STOP);
+                    sendTimerValtoPathMovement(ARM_FORWARD);
+//                    sendTimerValtoPathMovement(ARM_FORWARD);
+                    //                sendTimerValtoPathMovement(COMPLETE_STOP);
+//                    if (armMotionDone) {
+//                        sendTimerValtoPathMovement(MOVE_REVERSE);
+//                        sendTimerValtoPathMovement(MOVE_REVERSE);
+//                    }
+                    sendTimerValtoPathMovement(WAIT);
+                    sendTimerValtoPathMovement(WAIT);
+                    sendTimerValtoPathMovement(MOVE_REVERSE);
+                    sendTimerValtoPathMovement(MOVE_REVERSE);
+                    //                sendTimerValtoPathMovement(COMPLETE_STOP);
+                    sendTimerValtoPathMovement(ARM_REVERSE);
+                    
+                    pickUpFlag = false;
+                }
+                
                 break;
             }
             

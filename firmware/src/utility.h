@@ -43,6 +43,8 @@ void constructNextMovementJson(char *buf, message exMsg);
 /* Map functions*/
 void storeMapData(char* field, int n);
 void transformMapData();
+void transformNewMapData();
+void updateMap();
 
 /* Movement functions */
 coordinate getNextPoint();
@@ -53,6 +55,7 @@ void makeMove();
 /* Reset functions*/
 void resetAStartGlobalVariables();
 void resetMapDataGlobalVariables();
+void resetCurMapDataGlobalVariables();
 void resetPathMovementGlobalVariables();
 
 #ifdef	__cplusplus

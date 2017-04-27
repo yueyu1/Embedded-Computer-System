@@ -181,10 +181,12 @@ void PATHMOVEMENT_Tasks ( void )
                     moveIndex++;
                 }
                 else if(move == ARM_FORWARD){
+//                    armValue = ARM_DOWN;
                     moves[moveIndex] = ARM_FORWARD;
                     moveIndex++;
                 }
                 else if(move == ARM_REVERSE){
+//                    armValue = ARM_UP;
                     moves[moveIndex] = ARM_REVERSE;
                     moveIndex++;
                 }
@@ -193,6 +195,10 @@ void PATHMOVEMENT_Tasks ( void )
                 }
                 else if(move == ORIENT_DONE) {
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                }
+                else if(move == WAIT) {
+                    moves[moveIndex] = WAIT;
+                    moveIndex++;
                 }
                 
                 
@@ -247,6 +253,9 @@ void PATHMOVEMENT_Tasks ( void )
                         }
                         else if (moves[currentMove] == ARM_REVERSE) {
                             pathmovementData.state = PATHMOVEMENT_STATE_ARM_REVERSE;
+                        }
+                        else if (moves[currentMove] == WAIT) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_WAIT;
                         }
                         currentMove++;
                     }
@@ -313,10 +322,12 @@ void PATHMOVEMENT_Tasks ( void )
             {
                 
                 armValue = ARM_DOWN;
-                if(turnPeriods >= 30000) {
-                    turnPeriods = 0;
-                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
-                }
+                pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+//                if(turnPeriods >= 30000) {
+//                    turnPeriods = 0;
+//                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+////                    sendTapeSensorQ(ARM_DONE);
+//                }
                 
                 break;
             }
@@ -324,6 +335,17 @@ void PATHMOVEMENT_Tasks ( void )
             case PATHMOVEMENT_STATE_ARM_REVERSE:
             {
                 armValue = ARM_UP;
+                pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+//                if(turnPeriods >= 20000) {
+//                    turnPeriods = 0;
+//                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+//                }
+                
+                break;
+            }
+            
+            case PATHMOVEMENT_STATE_WAIT:
+            {
                 if(turnPeriods >= 20000) {
                     turnPeriods = 0;
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;

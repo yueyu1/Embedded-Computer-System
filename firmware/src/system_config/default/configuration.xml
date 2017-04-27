@@ -388,7 +388,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>AE409D10C7B7713C282CC60DBD377A46</Checksum>
+        <Checksum>B871F31376567DD556BDDC3D3CF57621</Checksum>
       </Template>
       <Template>
         <Name>app.h</Name>
