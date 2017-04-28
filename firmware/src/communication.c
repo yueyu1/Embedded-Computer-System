@@ -36,14 +36,14 @@ static COMMUNICATION_DATA appData;
 
 void initVariable() {
     startPosition.sx = 0;
-    startPosition.sy = 14;
-    goalPosition.gx = 20;
-    goalPosition.gy = 7;
+    startPosition.sy = 0;
+    goalPosition.gx = 5;
+    goalPosition.gy = 5;
     
     MIN_X = 0;
     MIN_Y = 0;
-    MAX_X = 29;
-    MAX_Y = 29;
+    MAX_X = 5;
+    MAX_Y = 5;
 }
 
 void COMMUNICATION_Initialize ( void )
@@ -52,6 +52,9 @@ void COMMUNICATION_Initialize ( void )
     resetAStartGlobalVariables();
     resetMapDataGlobalVariables();
     resetCurMapDataGlobalVariables();
+    initVariable();
+    explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
+    resetAStartGlobalVariables();
     
     // initialize "Team 6" message
     appData.teamString = "Team 6";
@@ -94,7 +97,7 @@ void COMMUNICATION_Tasks ( void )
     appData.delimitCounter = 0;
     
     // The motor should stop initially
-    sendTimerValtoPathMovement(STOP);
+//    sendTimerValtoPathMovement(MOVE_FORWARD);
     //sendTimerValtoPathMovement(MOVE_FORWARD);
     
 //    initVariable();

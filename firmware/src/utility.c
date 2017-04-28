@@ -559,6 +559,11 @@ void resetPathMovementGlobalVariables() {
     CURRPOINT.x = startPosition.sx;
     CURRPOINT.y = startPosition.sy;
 }
+
+void resetStartPosition() {
+    startPosition.sx = CURRPOINT.x;
+    startPosition.sy = CURRPOINT.y;
+}
 /************** end of Reset functions*************/
 
 
@@ -598,10 +603,16 @@ void transformNewMapData() {
 
     int i;
     for (i = 0; i < cur_o_length; i++) {
-        obsticle_list[obsticleListLen].x = cur_map.obstacle[i];
+        coordinate new_obstacle;
+        new_obstacle.x = cur_map.obstacle[i];
         i++;
-        obsticle_list[obsticleListLen].y = cur_map.obstacle[i];
-        obsticleListLen++;
+        new_obstacle.y = cur_map.obstacle[i];
+        if(!pointEqual(new_obstacle, CURRPOINT)) {
+            obsticle_list[obsticleListLen].x = new_obstacle.x;
+            obsticle_list[obsticleListLen].y = new_obstacle.y;
+            obsticleListLen++;
+        }
+        
     }
     
     i = 0;
@@ -742,6 +753,49 @@ void makeMove() {
         }
         emptyCharArray(movement, 10);
     }
+}
+
+int getCurrentPosition() {
+    bool currentPositionKnown = false;
+    int i;
+    int max_x = 0;
+    int y;
+    for (i = 0; i < cur_o_length; i++) {
+        coordinate cur_obstacle;
+        cur_obstacle.x = cur_map.obstacle[i];
+        i++;
+        cur_obstacle.y = cur_map.obstacle[i];
+
+        if (!currentPositionKnown) {
+            if (cur_obstacle.y == defenseLength) { //facing center_zone
+                CURRPOINT.x = cur_obstacle.x;
+                CURRPOINT.y = cur_obstacle.y;
+                ORIENTATION = 3;
+                currentPositionKnown = true;
+            } else if (cur_obstacle.x == 0) { //facing away from zone
+                CURRPOINT.x = cur_obstacle.x;
+                CURRPOINT.y = cur_obstacle.y;
+                ORIENTATION = 2;
+                currentPositionKnown = true;
+            } else if (cur_obstacle.y == 0) { //facing edge of map
+                CURRPOINT.x = cur_obstacle.x;
+                CURRPOINT.y = cur_obstacle.y;
+                ORIENTATION = 1;
+                currentPositionKnown = true;
+            } else if (cur_obstacle.x == MAX_X) { // facing sensor zone
+                CURRPOINT.x = cur_obstacle.x;
+                CURRPOINT.y = cur_obstacle.y;
+                ORIENTATION = 0;
+                currentPositionKnown = true;
+            }
+        }
+
+    }
+    
+    if(currentPositionKnown) {
+        return 1;
+    }
+    else return 0;
 }
 
 //void makeMove() {

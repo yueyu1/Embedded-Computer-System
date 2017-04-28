@@ -145,6 +145,10 @@ void TAPESENSOR_Tasks ( void )
     bool mapReady = false;
     bool firstMap = true;
     
+    bool finishedOrientation = false;
+    bool currentPositionKnown = false;
+    int mapCtr = 0;
+    
     bool pickUpFlag = true;
     bool armMotionDone = false;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
@@ -162,7 +166,7 @@ void TAPESENSOR_Tasks ( void )
                     mapReady = true;
                 }
                 else if (recvTapeVal == FINISHED_ORIENTATION) {
-                    tapesensorData.state = TAPESENSOR_STATE_FOLLOW_PATH;
+                    finishedOrientation = true;
                 }
                 else if (recvTapeVal == FLAG_ZONE) {
                     tapesensorData.state = TAPESENSOR_STATE_FLAG_ZONE;
@@ -199,7 +203,30 @@ void TAPESENSOR_Tasks ( void )
 //                makeMove();
 //                resetMapDataGlobalVariables();
 //                resetAStartGlobalVariables();
+                if(finishedOrientation) {
+                    if(mapReady) {
+                        mapReady = false;
+                        mapCtr++;
+                        
+                    }
+                    if (mapCtr >= 2) {
+                        mapReady = false;
+                        mapCtr = 0;
+                        if(getCurrentPosition()){
+                            currentPositionKnown = true;
+                        }
+                    }
+                    else {
+                        resetAStartGlobalVariables();
+                        resetMapDataGlobalVariables();
+                        resetCurMapDataGlobalVariables();
+                        transformNewMapData();
+                    }
+                }
                 
+                if(currentPositionKnown) {
+                    tapesensorData.state = TAPESENSOR_STATE_FOLLOW_PATH;
+                }
                 break;
             }
 
@@ -213,25 +240,29 @@ void TAPESENSOR_Tasks ( void )
             
             case TAPESENSOR_STATE_FOLLOW_PATH:
             {
-                if (mapReady) {
+            //    if (mapReady) {
                     if (firstMap) {
                         sendTimerValtoPathMovement(ORIENT_DONE);
-                        resetPathMovementGlobalVariables();
-                        goalPosition.gy = defenseLength;
-                        explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
+//                        resetPathMovementGlobalVariables();
+//                        goalPosition.gy = defenseLength;
+                        resetAStartGlobalVariables(); //clear local obsticle list
+                        transformNewMapData(); //refill obsticle list without current position of rover
+                        resetStartPosition();
+                        explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy); //goal will be flag
                         makeMove();
                         resetMapDataGlobalVariables();
                         resetCurMapDataGlobalVariables();
-                        transformMapData();
+                        transformNewMapData();
+//                        transformMapData();
                         resetAStartGlobalVariables();
-                        mapReady = false;
-//                        firstMap = false;
+                     //   mapReady = false;
+                        firstMap = false;
                     }
                     else {
                         sendTimerValtoPathMovement(COMPLETE_STOP);
                         mapReady = false;
                     }
-                }
+              //  }
                 break;
             }
             
