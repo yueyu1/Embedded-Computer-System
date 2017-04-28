@@ -74,6 +74,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
+int pulseCtr = 0;
 
 void IntHandlerDrvI2CInstance0(void)
 {
@@ -102,10 +103,26 @@ void IntHandlerDrvTmrInstance0(void)
   
 void IntHandlerDrvTmrInstance1(void)
 {
-    if(SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_4)) {
+    if (SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_4)) {
         sendTimerValtoPathMovement(TIMER_VAL);
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_4);
+}
+
+void IntHandlerDrvTmrInstance2(void)
+{
+    if (SYS_INT_SourceStatusGet(INT_SOURCE_TIMER_3)) {
+        pulseCtr++;
+        if (pulseCtr == getArmValue()) { // 1 ms
+            armControl(1);
+
+        }
+        if (pulseCtr >= 300) { //20 ms
+            pulseCtr = 0;
+            armControl(0);
+        }
+    }
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_3);
 }
  void IntHandlerDrvUsartInstance0(void)
 {

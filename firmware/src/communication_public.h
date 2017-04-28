@@ -209,6 +209,7 @@ static int FINISHED;
     void sendMessage(char *to, char *from, int sequence, char* payload);
     void sendTapeSensorData(int direction);
     void sendColorSensorData(int appearVal);
+    void sendResponse(char* response);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus

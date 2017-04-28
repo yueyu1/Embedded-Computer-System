@@ -124,9 +124,9 @@ void PATHMOVEMENT_Initialize ( void )
     
     PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_4);
     DRV_TMR1_Start();
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_3);
+    DRV_TMR2_Start();
     
-    armControl(0);
-
     
     /* TODO: Initialize your application's state machine and other
      * parameters.
@@ -208,14 +208,6 @@ void PATHMOVEMENT_Tasks ( void )
             }
         }
         
-        if (pulseCtr == armValue) { // 1 ms
-            armControl(1);
-
-        }
-        if (pulseCtr >= 300) { //20 ms
-            pulseCtr = 0;
-            armControl(0);
-        }
         
         switch (pathmovementData.state) {
                 /* Application's initial state. */
@@ -365,19 +357,6 @@ void PATHMOVEMENT_Tasks ( void )
     }
     /* Check the application's current state. */
 //    
-}
-
-void armControl(int dir){
-    
-    if(dir==0){
-        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_9, 0);
-//        dbgSendMsgServer("ARM 0");
-    }
-    else {
-        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_9, 1);
-//        dbgSendMsgServer("ARM 1");
-    }
- 
 }
 
 void sendTimerValtoPathMovement(char timerVal) {

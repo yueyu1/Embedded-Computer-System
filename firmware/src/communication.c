@@ -223,6 +223,11 @@ void processMessage(message exMsg){
     }
 }
 
+void sendResponse(char* response) {
+    strcpy(appData.sendToUARTString, response);
+    appData.sendReceive = false;
+}
+
 void communicationSendToMsgQ(char data) {
     if(xQueueSend(appData.commQ, (void *) &data, portMAX_DELAY) != pdTRUE) {
         dbgSysHalt(DLOC_MSG_Q_FULL);

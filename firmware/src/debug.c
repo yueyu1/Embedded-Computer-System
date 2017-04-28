@@ -30,6 +30,8 @@
   @Remarks
     Refer to the debug.h interface header for function usage details.
  */
+
+int armValue = 280;
 void dbgOutputVal(unsigned char outVal) {
     // write bit 0 to RD12
     SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_12, outVal & 0x01);
@@ -126,6 +128,27 @@ void controlLED(int switchON){
         SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_8, 1);
     else
         SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_8, 0);
+}
+
+void armControl(int dir){
+    
+    if(dir==0){
+        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_9, 0);
+//        dbgSendMsgServer("ARM 0");
+    }
+    else {
+        SYS_PORTS_PinWrite (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_9, 1);
+//        dbgSendMsgServer("ARM 1");
+    }
+ 
+}
+
+void changeArmValue(int newArmValue){
+    armValue = newArmValue;
+}
+
+int getArmValue() {
+    return armValue;
 }
 /** 
   @Function
