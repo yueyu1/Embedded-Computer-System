@@ -753,6 +753,17 @@ void makeMove() {
         }
         emptyCharArray(movement, 10);
     }
+    
+    if(ORIENTATION == 0) {
+        moveRover("LEFT");
+    }
+    else if(ORIENTATION == 1) {
+        moveRover("TURNAROUND");
+    }
+    else if(ORIENTATION == 2) {
+        moveRover("RIGHT");
+    }
+    ORIENTATION = 3;
 }
 
 int getCurrentPosition() {
