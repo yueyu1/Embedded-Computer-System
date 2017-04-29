@@ -142,6 +142,18 @@ void armControl(int dir){
     }
  
 }
+int pulseCtr = 0;
+void executeFlag() {
+    pulseCtr++;
+    if (pulseCtr == getArmValue()) { // 1 ms
+        armControl(1);
+
+    }
+    if (pulseCtr >= 300) { //20 ms
+        pulseCtr = 0;
+        armControl(0);
+    }
+}
 
 void changeArmValue(int newArmValue){
     armValue = newArmValue;

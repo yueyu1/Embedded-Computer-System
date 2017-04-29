@@ -122,6 +122,7 @@ typedef enum
         PATHMOVEMENT_STATE_ORIENTATION,
         PATHMOVEMENT_STATE_WAIT,
         PATHMOVEMENT_STATE_FLAG,
+        PATHMOVEMENT_STATE_DROP_FLAG,
 
 	/* TODO: Define states used by the application state machine. */
 
