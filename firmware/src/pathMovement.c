@@ -153,6 +153,9 @@ void PATHMOVEMENT_Tasks ( void )
     int done = 0;
     int pulseCtr = 0;
     int armValue = ARM_UP;
+    
+    bool pickUpFlag = true;
+    bool dropFlag = true;
 
     while(1){        
         if(pathmovementData.moveQ != 0) {
@@ -160,9 +163,7 @@ void PATHMOVEMENT_Tasks ( void )
             if(xQueueReceive(pathmovementData.moveQ, &(move), portMAX_DELAY)) {
                 if(move == TIMER_VAL){
                     turnPeriods++;
-                    pulseCtr++;
-                    
-                    
+                    pulseCtr++;    
                 }
                 else if(move == MOVE_RIGHT){
                     moves[moveIndex] = MOVE_RIGHT;
@@ -228,9 +229,15 @@ void PATHMOVEMENT_Tasks ( void )
             {
 //                turnPeriods = 0;
                 motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+//                if (!pickUpFlag && dropFlag) {
+//                    pathmovementData.state = PATHMOVEMENT_STATE_DROP_FLAG;
+//                }
                 if (turnPeriods >= 500) {
                     turnPeriods = 0;
-                    if (moveIndex > currentMove) {
+                    if (!pickUpFlag && dropFlag) {
+                        pathmovementData.state = PATHMOVEMENT_STATE_DROP_FLAG;
+                    }
+                    else if (moveIndex > currentMove) {
 
                         if (moves[currentMove] == MOVE_LEFT) {
                             pathmovementData.state = PATHMOVEMENT_STATE_LEFT;
@@ -243,12 +250,6 @@ void PATHMOVEMENT_Tasks ( void )
                         } 
                         else if (moves[currentMove] == MOVE_REVERSE) {
                             pathmovementData.state = PATHMOVEMENT_STATE_REVERSE;
-                        }
-                        else if (moves[currentMove] == ARM_FORWARD) {
-                            pathmovementData.state = PATHMOVEMENT_STATE_ARM_FORWARD;
-                        }
-                        else if (moves[currentMove] == ARM_REVERSE) {
-                            pathmovementData.state = PATHMOVEMENT_STATE_ARM_REVERSE;
                         }
                         else if (moves[currentMove] == WAIT) {
                             pathmovementData.state = PATHMOVEMENT_STATE_WAIT;
@@ -316,32 +317,6 @@ void PATHMOVEMENT_Tasks ( void )
                 pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 break;
             }
-             
-            case PATHMOVEMENT_STATE_ARM_FORWARD:
-            {
-                
-                armValue = ARM_DOWN;
-                pathmovementData.state = PATHMOVEMENT_STATE_STOP;
-//                if(turnPeriods >= 30000) {
-//                    turnPeriods = 0;
-//                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
-////                    sendTapeSensorQ(ARM_DONE);
-//                }
-                
-                break;
-            }
-            
-            case PATHMOVEMENT_STATE_ARM_REVERSE:
-            {
-                armValue = ARM_UP;
-                pathmovementData.state = PATHMOVEMENT_STATE_STOP;
-//                if(turnPeriods >= 20000) {
-//                    turnPeriods = 0;
-//                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
-//                }
-                
-                break;
-            }
             
             case PATHMOVEMENT_STATE_WAIT:
             {
@@ -355,15 +330,18 @@ void PATHMOVEMENT_Tasks ( void )
             
             case PATHMOVEMENT_STATE_FLAG:
             {
-                if(turnPeriods <= 2){
+
+                if (pickUpFlag) {
                     changeArmValue(297);
+                    pickUpFlag = false;
+
+                }
+
+                else if (turnPeriods < 40000) { //pause
+                    // motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
                 }
                 
-                else if(turnPeriods < 40000) {
-                    motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
-                }
-                
-                else if(turnPeriods < 62000) {
+                else if (turnPeriods < 62000) { //take flag out
                     motorControlSendValToMsgQ(MOTOR_CONTROL_REVERSE);
                 }
                 
@@ -373,6 +351,28 @@ void PATHMOVEMENT_Tasks ( void )
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
                 
+                break;
+            }
+            
+            case PATHMOVEMENT_STATE_DROP_FLAG:
+            {
+             //   dropFlag = false;
+                if (dropFlag) {
+                    changeArmValue(280);
+//                    downValue = true;
+                    dropFlag = false;
+                }
+                
+                else if (turnPeriods < 40000) { //pause
+                   //  motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+                }
+                
+                else {
+                    turnPeriods = 0;
+                    motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                }
+                                
                 break;
             }
 
