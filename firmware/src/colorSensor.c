@@ -314,13 +314,19 @@ void COLORSENSOR_Tasks ( void )
     RGB_Init3();
     unsigned int recvVal;
     unsigned int secondCtr = 0;
+    bool gameStarted = false;
     controlLED(0);
     
     while (1) {
         if (colorsensorData.colorsensorQ != 0) {
             // receive message on the q.  blocks indefinitely.
             if (xQueueReceive(colorsensorData.colorsensorQ, &(recvVal), portMAX_DELAY)) {
-                secondCtr++;        
+                if(recvVal == START_GAME) {
+                    gameStarted = true;
+                }
+                else {
+                    secondCtr++;
+                }
             } 
             else {
                 dbgSysHalt(DLOC_MSG_Q_RX_FAIL);
@@ -365,25 +371,23 @@ void COLORSENSOR_Tasks ( void )
                     if (counter > 2) {
                         finishedCounting = true;
                         
-                        if (!finishedOrientation) {
-                            finishedOrientation = true;
-                            sendTapeSensorQ(FINISHED_ORIENTATION);
+                        if (!finishedOrientation && gameStarted) {
                             
-//                            if (!blueAppears1 && !blueAppears2) {
-//                                colorsensorData.state = COLORSENSOR_STATE_BOTH_NOT_HIT;
-//                            }
-//
-//                            if (blueAppears1 && !blueAppears2) {
-//                                colorsensorData.state = COLORSENSOR_STATE_LEFT_HIT;
-//                            }
-//
-//                            if (blueAppears2 && !blueAppears1) {
-//                                colorsensorData.state = COLORSENSOR_STATE_RIGHT_HIT;
-//                            }
-//
-//                            if (blueAppears1 && blueAppears2) {
-//                                colorsensorData.state = COLORSENSOR_STATE_BOTH_HIT;
-//                            }
+                            if (!blueAppears1 && !blueAppears2) {
+                                colorsensorData.state = COLORSENSOR_STATE_BOTH_NOT_HIT;
+                            }
+
+                            if (blueAppears1 && !blueAppears2) {
+                                colorsensorData.state = COLORSENSOR_STATE_LEFT_HIT;
+                            }
+
+                            if (blueAppears2 && !blueAppears1) {
+                                colorsensorData.state = COLORSENSOR_STATE_RIGHT_HIT;
+                            }
+
+                            if (blueAppears1 && blueAppears2) {
+                                colorsensorData.state = COLORSENSOR_STATE_BOTH_HIT;
+                            }
                         }
                     }
 

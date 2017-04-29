@@ -213,6 +213,10 @@ void processMessage(message exMsg){
             strcpy(exMsg.payload, "RespondFlag");
             sendTapeSensorQ(FLAG_ZONE);
         }
+        else if(strcmp(exMsg.payload, "STARTGAME") == 0) {
+            strcpy(exMsg.payload, "Flag rover started");
+            sendColorSensorQ(START_GAME);
+        }
 //        transformMapData();
         explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy);
 //        resetPathMovementGlobalVariables();
