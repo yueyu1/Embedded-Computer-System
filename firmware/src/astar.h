@@ -139,6 +139,8 @@ extern "C" {
     start startPosition;
     goal goalPosition;
     
+    coordinate flag;
+    
     int defenseLength;
     int centerLength;
 

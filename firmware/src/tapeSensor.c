@@ -149,7 +149,7 @@ void TAPESENSOR_Tasks ( void )
     bool currentPositionKnown = false;
     int mapCtr = 0;
     
-    bool pickUpFlag = true;
+    bool pickUpFlag = false;
     bool armMotionDone = false;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
     /* Check the application's current state. */
@@ -248,6 +248,8 @@ void TAPESENSOR_Tasks ( void )
                         resetAStartGlobalVariables(); //clear local obsticle list
                         transformNewMapData(); //refill obsticle list without current position of rover
                         resetStartPosition();
+                        changeGoalPosition();
+                        setFlag();
                         explorePath(startPosition.sx, startPosition.sy, goalPosition.gx, goalPosition.gy); //goal will be flag
                         makeMove();
                         resetMapDataGlobalVariables();
@@ -257,6 +259,9 @@ void TAPESENSOR_Tasks ( void )
                         resetAStartGlobalVariables();
                      //   mapReady = false;
                         firstMap = false;
+                    }
+                    if(inFlagZone()){
+                        tapesensorData.state = TAPESENSOR_STATE_FLAG_ZONE;
                     }
               //  }
                 break;

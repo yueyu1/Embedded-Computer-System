@@ -564,6 +564,10 @@ void resetStartPosition() {
     startPosition.sx = CURRPOINT.x;
     startPosition.sy = CURRPOINT.y;
 }
+
+void changeGoalPosition() {
+    goalPosition.gy = goalPosition.gy - 2;
+}
 /************** end of Reset functions*************/
 
 
@@ -804,6 +808,18 @@ int getCurrentPosition() {
     }
     
     if(currentPositionKnown) {
+        return 1;
+    }
+    else return 0;
+}
+
+void setFlag(){
+    flag.x = goalPosition.gx;
+    flag.y = goalPosition.gy;
+}
+
+int inFlagZone(){
+    if(pointEqual(CURRPOINT, flag)){
         return 1;
     }
     else return 0;
