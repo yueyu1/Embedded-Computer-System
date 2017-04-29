@@ -190,6 +190,10 @@ void PATHMOVEMENT_Tasks ( void )
                     moves[moveIndex] = ARM_REVERSE;
                     moveIndex++;
                 }
+                else if(move == PICK_UP_FLAG) {
+                    moves[moveIndex] = PICK_UP_FLAG;
+                    moveIndex++;                    
+                }
                 else if(move == COMPLETE_STOP){
                     pathmovementData.state = PATHMOVEMENT_STATE_COMPLETE_STOP;
                 }
@@ -248,6 +252,9 @@ void PATHMOVEMENT_Tasks ( void )
                         }
                         else if (moves[currentMove] == WAIT) {
                             pathmovementData.state = PATHMOVEMENT_STATE_WAIT;
+                        }
+                        else if (moves[currentMove] == PICK_UP_FLAG) {
+                            pathmovementData.state = PATHMOVEMENT_STATE_FLAG;
                         }
                         currentMove++;
                     }
@@ -340,6 +347,29 @@ void PATHMOVEMENT_Tasks ( void )
             {
                 if(turnPeriods >= 20000) {
                     turnPeriods = 0;
+                    pathmovementData.state = PATHMOVEMENT_STATE_STOP;
+                }
+                
+                break;
+            }
+            
+            case PATHMOVEMENT_STATE_FLAG:
+            {
+                if(turnPeriods <= 2){
+                    changeArmValue(297);
+                }
+                
+                else if(turnPeriods < 40000) {
+                    motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
+                }
+                
+                else if(turnPeriods < 62000) {
+                    motorControlSendValToMsgQ(MOTOR_CONTROL_REVERSE);
+                }
+                
+                else {
+                    turnPeriods = 0;
+                    motorControlSendValToMsgQ(MOTOR_CONTROL_HALT);
                     pathmovementData.state = PATHMOVEMENT_STATE_STOP;
                 }
                 

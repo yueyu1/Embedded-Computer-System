@@ -149,7 +149,7 @@ void TAPESENSOR_Tasks ( void )
     bool currentPositionKnown = false;
     int mapCtr = 0;
     
-    bool pickUpFlag = false;
+    bool pickUpFlag = true;
     bool armMotionDone = false;
     unsigned char sendFromTapeSensor[100] = "Sent from Tape Sensor";
     /* Check the application's current state. */
@@ -271,25 +271,15 @@ void TAPESENSOR_Tasks ( void )
             {
                 if (pickUpFlag) {
                     sendTimerValtoPathMovement(ORIENT_DONE);
-//                    sendTimerValtoPathMovement(MOVE_FORWARD);
-//                    //                sendTimerValtoPathMovement(COMPLETE_STOP);
-//                    sendTimerValtoPathMovement(ARM_FORWARD);
-//                    sendTimerValtoPathMovement(ARM_FORWARD);
-                    //                sendTimerValtoPathMovement(COMPLETE_STOP);
-//                    if (armMotionDone) {
-//                        sendTimerValtoPathMovement(MOVE_REVERSE);
-//                        sendTimerValtoPathMovement(MOVE_REVERSE);
-//                    }
+
+//                    changeArmValue(297);
 //                    sendTimerValtoPathMovement(WAIT);
 //                    sendTimerValtoPathMovement(WAIT);
-                    changeArmValue(297);
-                    sendTimerValtoPathMovement(WAIT);
-                    sendTimerValtoPathMovement(WAIT);
-                    sendTimerValtoPathMovement(MOVE_REVERSE);
-                    sendTimerValtoPathMovement(MOVE_REVERSE);
-                    sendTimerValtoPathMovement(MOVE_REVERSE);
-                    //                sendTimerValtoPathMovement(COMPLETE_STOP);
-//                    sendTimerValtoPathMovement(ARM_REVERSE);
+//                    sendTimerValtoPathMovement(MOVE_REVERSE);
+//                    sendTimerValtoPathMovement(MOVE_REVERSE);
+//                    sendTimerValtoPathMovement(MOVE_REVERSE);
+                    
+                    sendTimerValtoPathMovement(PICK_UP_FLAG);
                     
                     pickUpFlag = false;
                 }
