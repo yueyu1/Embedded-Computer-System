@@ -60,7 +60,7 @@ extern "C" {
 #define JSON_sequence * "sequence"
 #define JSON_payload * "payload"
     
-#define ROVERSIGN_THIS "TAGGER"
+#define ROVERSIGN_THIS "FLAG"
     
 //#define ADDRESS_WRITE 0x52
 //#define ADDRESS_READ 0x53

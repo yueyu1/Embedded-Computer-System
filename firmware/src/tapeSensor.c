@@ -258,10 +258,6 @@ void TAPESENSOR_Tasks ( void )
                      //   mapReady = false;
                         firstMap = false;
                     }
-                    else {
-                        sendTimerValtoPathMovement(COMPLETE_STOP);
-                        mapReady = false;
-                    }
               //  }
                 break;
             }
