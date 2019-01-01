@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset='utf-8'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles.css">
+		<title>Embedded Computer System</title>
+	</head>
+	<body>
+		<div class="topnav">
+		  <a class="active" href="#home">Home</a>
+		  <a href="#one">Overview</a>
+			<a href="#two">Roles</a>
+		  <a href="#three">Flag Rover Operation</a>
+		  <a href="#four">Task Structure</a>
+			<a href="#five">A* Algorithm</a>
+		</div>
+
+		<div id="container">
+			<img src="Images/cover.jpg" alt="Cover Image" style="width:100%">
+			<div class="centered">Embedded Computer System</div>
+		</div>
+
+		<div id="main">
+			<section id="one">
+				<article class="">
+					<h1>How It Works</h1>
+					<p>Four automated rovers running on multi-threaded C applications that would communicate through a single server and compete against an opposing team to capture the flag.</p>
+				</article>
+				<img src="Images/map.png" alt="Map Image" class="image">
+			</section>
+
+			<section id="two">
+				<article class="">
+					<h1>Roles</h1>
+					<p><strong>Flag Rover:</strong> Find optimal path to the flag and avoid obstacles using A* algorithm.</p>
+					<p><strong>Sensor Rover:</strong> Detect objects including boundries and obstacels, and send object position information to other Rovers.</p>
+					<p><strong>Tagger Rover:</strong> Tag enemy team's flag rover.</p>
+					<p><strong>Countermeasure Rover:</strong> Confuse and obstruct the other team's flag and tagger rover.</p>
+				</article>
+				<img src="Images/flag.png" alt="Task Diagram Image" class="image">
+			</section>
+
+			<section id="three">
+				<article class="">
+					<h1>Flag Rover Operation</h1>
+					<p>1. Fix initial orientation using color sensors at the front of the rover.</p>
+					<p>2. Receive destination, obstacle and boundries information from server.</p>
+					<p>3. Parse the JSON message and calculate optimal path using A* algorithm.</p>
+					<p>4. Convert the path into motor movements.</p>
+				</article>
+				<video controls>
+					<source src="Videos/flag.mp4" type="video/mp4">
+					Your browser does not support this video.
+				</video>
+			</section>
+
+			<section id="four">
+				<article class="">
+					<h1>Task Structure</h1>
+					<p>Using event-driven task structure and message queue communication method.</p>
+					<p>Message queues are created to store messages between server and rovers in JSON format. </p>
+					<p>Each task runs as a thread, and constantly checks if there is message on the queue. If there is a message, then it gets interrupted and process the message.</p>
+				</article>
+				<img src="Images/interrupt.png" alt="Interruption Image" class="image">
+			</section>
+
+			<section id="five">
+				<article class="">
+					<h1>A* Algorithm</h1>
+					<p>Divide map into grids with each grid has dimension depending on the size of the actual map.</p>
+					<p>Evaluate the exact cost g(n) and heuristic estimated cost h(n) for each neighbor node.</p>
+					<p>The node with the lowest overvall cost would become the potential candidate node of next node.</p>
+					<p>The memory limitation and precision of motor movement would impact the actual outcome.</p>
+				</article>
+				<img src="Images/a-star.png" alt="A-Star Image" class="image">
+			</section>
+		</div>
+	</body>
+</html>
